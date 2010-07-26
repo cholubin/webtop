@@ -1,0 +1,116 @@
+<%= stylesheet_link_tag '/css/paginate.css' %>
+<div id="feature_wrapper">
+		<p1>템플릿 관리 페이지 입니다.</p1>
+		<% if ! flash[:notice].nil? %>
+			<br>
+			<span class="error_message_small"><%= flash[:notice].to_s %></span>
+		<% end %>		
+<br><br>
+
+	</div>
+	
+	<% form_tag :action => :deleteSelection, :method => 'post' do %>			
+
+	<table  class="board_table">
+		<tr>
+			<td align="left">
+				총템플릿 수:&nbsp;<%= @total_count %>
+			</td>
+			<td align="right">
+				분류: <select name="_sort" onChange="location.href='/admin/temps?sort='+document.all._sort.value;">
+					<option value="all">전체</option>				
+					<%  if Category.all.length > 0 %>
+						<% Category.all.each do |s| %>
+							<option value="<%= s.name %>" <%= "selected" if params[:sort] == s.name %>><%= s.name %></option>				
+						<%end%>
+						<%end %>
+				</select>	
+			</td>			
+		</tr>
+	</table>
+	<table class="board_table">
+	    <thead class="board_thead">
+	        <tr>
+	            <th class="board_thead" width="60px">번호</th>
+	            <td class="board_thead" width="120px"><center>썸네일</center></td>
+				<td class="board_thead" width="80px"><center>템플릿명</center></td>
+	            <td class="board_thead" width="80px"><center>카테고리</center></td>
+	            <td class="board_thead" width="65px"><center>서브카테고리</center></td>
+	            <td class="board_thead" width="65px"><center>등록일</center></td>	
+				<td class="board_thead" width="70px"><center>복제수/조회수</center></td>
+				<td class="board_thead" width="30px"><center>삭제</center></td>				
+	        </tr>
+	    </thead>
+	 
+	    <tbody class="board_tbody">
+			<% 	if params[:page].to_i == 0 or params[:page].to_i == 1
+					@temp_page = 0
+				else
+					@temp_page = params[:page].to_i - 1
+				end
+				@page_num = @total_count - (6 * @temp_page) %>
+				
+
+			<% @temps.each do |temp| %>
+
+			<% temp_image_path = temp.thumb_url  if temp.thumb_url%>			
+			
+	        <tr class="table_b","board_tbody">
+	            <th class="board_tbody" width="60px"><%= @page_num %></th>
+	            <td class="board_tbody" width="120px"><center><a href="/admin/temps/<%=temp.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>"><%= "<img src='" + temp_image_path + "'>" if temp.thumb_url %></a></center></td>
+				<td class="board_tbody" width="80px"><center><%= temp.name %></center></td>
+				<td class="board_tbody" width="80px"><center><%= temp.category %></center></td>
+				<td class="board_tbody" width="80px"><center><%= temp.subcategory %></center></td>								
+	            <td class="board_tbody" width="65px"><center><%= temp.created_at.strftime('%Y-%m-%d') %></center></td>
+	            <td class="board_tbody" width="70px"><center><%= temp.copy_cnt.to_s+"/"+temp.hit_cnt.to_s %></center></td>
+				<td class="board_tbody" width="30px"><center><input type="checkbox" name="chk[<%= temp.id %>]"></center></td>
+	        </tr>
+	        <% @page_num -= 1
+			end %>
+	        
+	    </tbody>
+	</table>
+	   
+
+	<div id="line_bottom1"></div>
+	<br>
+
+		<!-- dm-pager Pagination -->
+		<table width="730" >
+			<tr>
+				<td width="580" style="align:center">
+					<div class="pager">
+					<%
+					if params[:sort] != nil
+						sort = params[:sort]
+					else
+						sort = "all"
+					end
+
+					if sort == "all" or sort == nil or sort == "" %>
+						<%= Temp.all.search2(params[:search], params[:page]).pager.to_html "/admin/temps?sort=#{sort}&search=#{params[:search]}"	 %>
+					<% else %>
+						<%= Temp.all(:category => sort).search2(params[:search], params[:page]).pager.to_html "/admin/temps?sort=#{sort}&search=#{params[:search]}" %>
+					<% end  %>
+
+					</div>
+				</td>
+				<td width="150" align="right">
+						<%= image_submit_tag('/images/board/delete.jpg', { :onclick => 'return confirm(\'정말 삭제하시겠습니까?\');' }) %>				
+				</td>
+			</tr>
+			<% end %>
+			<tr height="10">
+				<td align="left" colspan="3">
+						<% form_tag request.path + "?page=#{params[:page]}", :method => 'get' do %>								
+						<% if params[:sort].nil?
+								sort_value = "all"
+							end %>
+						<input type="hidden" name="sort" value="<%= sort_value %>">
+					    <%= text_field_tag :search, params[:search] %><%= image_submit_tag("/images/board/search.jpg", :align => "absmiddle") %>	
+						<% end %>
+				</td>
+			</tr>
+					
+		</table>
+		

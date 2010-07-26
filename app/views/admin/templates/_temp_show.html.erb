@@ -1,0 +1,22 @@
+<p>
+  <%= image_tag @temp.thumb_url %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @temp.name %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%=h @temp.price %>
+</p>
+
+<p>
+  <b>Size:</b>
+  <%=h @temp.size %>
+</p>
+
+
+<%= link_to 'Edit', edit_admintemplate_path(@temp) %> |
+<%= link_to 'Back', admintemplates_path %>

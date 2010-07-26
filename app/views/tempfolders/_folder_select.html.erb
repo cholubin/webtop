@@ -1,0 +1,8 @@
+<select name="mytemplate[folder]">
+	<%  if @tempfolders != nil %>
+		<% @tempfolders.each do |s| %>
+			<option value="<%= s.name %>" ><%= s.name %></option>				
+		<%end%>
+	<% end %>
+</select>
+

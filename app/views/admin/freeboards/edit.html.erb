@@ -1,0 +1,12 @@
+<h1>Editing freeboard</h1>
+
+<% form_for(@freeboard) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @freeboard %> |
+<%= link_to 'Back', freeboards_path %>

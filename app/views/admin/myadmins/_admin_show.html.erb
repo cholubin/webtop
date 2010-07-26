@@ -1,0 +1,23 @@
+<p>
+  <b>ID:</b>
+  <%=h @myadmin.admin_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @myadmin.name %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%=h @myadmin.password %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%=h @myadmin.email %>
+</p>
+
+
+<%= link_to 'Edit', edit_myadmin_path(@myadmin) %> |
+<%= link_to 'Back', myadmin_path %>

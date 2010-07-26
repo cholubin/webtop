@@ -1,0 +1,82 @@
+<%= stylesheet_link_tag '/css/paginate.css' %>
+<div id="feature_wrapper">
+		<p1>웹탑프린트샵 공지사항입니다.</p1>
+		<% if ! flash[:notice].nil? %>
+			<br>
+			<span class="error_message_small"><%= flash[:notice].to_s %></span>
+		<% end %>
+<br><br>
+
+	</div>
+
+	<% form_tag '/admin/notices/deleteSelection', :method => 'post' do %>			
+		<table class="board_table">
+		    <thead class="board_thead">
+		        <tr>
+		            <th class="board_thead" width="60px">번호 </th>
+		            <td class="board_thead" width="520px"><center>제목</center></td>
+		            <td class="board_thead" width="80px"><center>등록일</center></td>
+		            <td class="board_thead" width="65px"><center>조회</center></td>
+		            <td class="board_thead" width="30px"><center>삭제</center></td>			
+		        </tr>
+		    </thead>
+
+		    <tbody class="board_tbody">
+				<% @notices_notices.each do |notice| %>
+				<tr>
+		            <td class="table_f" width="60px"><center><img src="/images/board/news_icon.gif"></center></td>
+		            <td class="table_f" width="520px"><a href="/admin/notices/<%=notice.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>"><%= notice.title %></a></td>
+		            <td class="table_g" width="80px"><center><%= notice.created_at.strftime('%Y-%m-%d') %></center></td>
+		            <td class="table_g" width="65px"><center><%= notice.hit_cnt %></center></td>
+					<td class="table_g" width="30px"><center><input type="checkbox" name="chk[<%= notice.id %>]"></center></td>
+		        </tr>
+				<%end %>
+				<% 	if params[:page].to_i == 0 or params[:page].to_i == 1
+						@temp_page = 0
+					else
+						@temp_page = params[:page].to_i - 1
+					end
+					@page_num = @total_count - (10 * @temp_page) %>
+
+
+				<%@notices_news.each do |news| %>			
+		        <tr class="table_b","board_tbody">
+		            <th class="board_tbody" width="60px"><%= @page_num %></th>
+		            <td class="board_tbody" width="520px"><a href="/admin/notices/<%=news.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>"><%= news.title %></a></td>
+		            <td class="board_tbody" width="80px"><center><%= news.created_at.strftime('%Y-%m-%d') %></center></td>
+		            <td class="board_tbody" width="65px"><center><%= news.hit_cnt %></center></td>
+					<td class="board_tbody" width="30px"><center><input type="checkbox" name="chk[<%= news.id %>]"></center></td>
+		        </tr>
+		        <% @page_num -= 1
+				end %>
+		    </tbody>
+		</table>
+
+		<div id="line_bottom1"></div>
+
+
+
+		<table width="730" >
+		<tr>
+			<td width="230">&nbsp;</td>
+			<td width="350" style="align:center">
+				<div class="pager">
+				<%=Notice.search(params[:search], params[:page]).pager.to_html "/admin/notices?search=#{params[:search]}" %>
+				</div>
+			</td>
+			<td width="150" align="right">
+				<a href="/admin/notices/new"><img src="/images/board/write.jpg"></a>					
+				<%= image_submit_tag('/images/board/delete.jpg', { :onclick => 'return confirm(\'정말 삭제하시겠습니까?\');' }) %>				
+			</td>
+		</tr>
+		<% end %>
+
+			<tr height="10" align="center">
+				<td align="right" >
+						<% form_tag request.path + "?page=#{params[:page]}", :method => 'get' do %>			
+					    <%= text_field_tag :search, params[:search] %><%= image_submit_tag("/images/board/search.jpg", :align => "absmiddle") %>	
+						<% end %>			
+				</td>
+			</tr>
+			
+		</table>

@@ -1,0 +1,183 @@
+<style>
+#layer1{border:0px solid green;position:absolute; left:500px; top:200px;width:100;height:100px; z-index:999999}
+</style>
+
+<div id="layer1" style="display:none"><%= image_tag("/images/template/loading.gif", :width => '100') %></div>
+
+<script language="javascript">
+function folder_view() {
+	var t = document.getElementById('folder');
+	
+	if (t.style.display == "none") {
+		t.style.display = "block";			
+	}else{
+		t.style.display = "none";					
+	}
+
+}
+
+function show_progress() {
+	var width = 100;
+	var height = 100;
+	
+	var left = (screen.width - width)/2;
+ 	var top = (screen.height - height)/2;
+	
+	document.getElementById("layer1").style.left = left;
+	document.getElementById("layer1").style.top = top;
+	
+	document.getElementById("layer1").style.display = "block";		
+
+}
+
+function hide_progress() {
+	document.getElementById("layer1").style.display = "none";		
+}
+
+</script>
+
+<link href="/css/paginate.css" media="screen" rel="stylesheet" type="text/css" />
+<% if params[:cate] != nil; cate = params[:cate] else; cate = "" end
+   if params[:folder] != nil; folder = params[:folder] else; folder = "" end
+   if params[:page] != nil; page = params[:page] else; page = "" end
+   if params[:search] != nil; search = params[:search] else; search = "" end
+%>
+<% 	
+   	if cate == nil or cate == "" or cate == "all"
+		cate = "all"
+		title_text = "전체"
+	else
+		title_text = Category.get(cate.to_i).name
+	end
+%>
+<div id="admincontents_wrapper" style="margin:0 0 -30 0">
+<h2>마이템플릿 리스트</h2>
+</div>
+<div align="right" style="padding:0 24 5 0">
+	<font color="white">폴더별 </font> 
+	<span id="folder_select">
+	<select name="_folder" onChange="location.href='/mytemplates?page=<%= page %>&search=<%= params[:search] %>&cate=<%= params[:cate] %>&folder='+document.all._folder.value;">
+		<option value="all" <%= "selected" if params[:folder] == "all" %>>전체</option>				
+		<%@tempfolders.each do |s| %>	
+		<option value="<%= s.id %>" <%= "selected" if params[:folder] == s.id.to_s %>><%= s.name %></option>				
+		<% end %>
+	</select>
+	</span>
+	<font color="white">메인분류 </font><select name="_cate" onChange="location.href='/mytemplates?search=<%= params[:search] %>&cate='+document.all._cate.value;">
+		<%  if @categories.length > 0 %>
+				<option value="all" <%= "selected" if cate == "all" %>>전체</option>						
+			<% @categories.each do |s| %>
+				<option value="<%= s.id %>" <%= "selected" if cate == s.id.to_s %>><%= s.name %></option>				
+			<%end%>
+		<%	else%>
+				<option value="">"먼저 메인분류를 추가하세요!"</option>					
+			<%end %>
+	</select>
+</div>
+<table class="clipart_table">
+    <thead class="clipart_thead">
+        <tr>
+            <td class="clipart_thead" width="400px">마이 템플릿 리스트 (<%= title_text %>)</td>
+			<td class="clipart_thead" width="400px" align="right"><a href="Javascript:folder_view();"><%= image_tag("/images/folder/folder_manage.jpg", :border=>'0', :align => 'absmiddle') %></a></td>
+        </tr>
+		<tr>
+			<td colspan="2">
+				<%= render :partial => "/mytemplates/folder" %>
+			</td>
+		</tr>
+    </thead>
+</table>
+<%
+@temp = 1 
+@mytemplates.each do |my| %>
+
+<% if @temp%4 == 1%>
+
+<span><img src="images/template/line.jpg"></span>
+<table>
+	<tr>
+<%end%>		
+		<td>
+			<!-- <템플릿 정보 반복 구간입니다.> -->
+			<table class="template_table">
+				<tr>
+				<td width>&nbsp;</td></tr>
+				<tr>
+				<td class="templatelist" width="180">
+					<% temp_image_path = my.thumb_url  if my.thumb_url
+						doc_name = my.id.to_s%>
+					<a title="<%= my.description %>" href="/mytemplates/<%=my.id%>?cate=<%= cate %>&search=<%=params[:search]%>&page=<%=params[:page]%>"><%= "<img border='0' src='" + my.thumb_url+"?"+ Time.now.to_f.to_s + "'>" if my.thumb_url %></a>
+				</td>				 			
+				<td width="14">&nbsp;</td></tr>
+				<tr>
+				<td>&nbsp;</td></tr>
+				<tr> 
+				<td class="templatelist"><a href="/mytemplates/<%=my.id%>?cate=<%= cate %>&search=<%=params[:search]%>&page=<%=params[:page]%>"><%= my.name %></a></td></tr>
+				<tr> 
+				<td class="templatelist"><a href="#"><%= my.category%><%="/"+my.subcategory if my.subcategory != nil%></a></td></tr>
+				<tr>
+				<td class="templatelist">
+					<img src="/images/template/edit_instant_s.jpg" border="0" title="즉시편집" style="cursor:hand;" onClick="popup('<%= doc_name %>');">
+					<%#= image_tag("/images/template/edit_instant_s.jpg", :border=>0, :title => "즉시편집", :onClick => "pop('/mlayout?doc_name='+doc_name)")%>
+		
+					<%= link_to image_tag("/images/template/delete_s.jpg", :border=>0, :title => "삭제"), mytemplate_path(my.id), :confirm => '정말 삭제하시겠습니까?',  :method => :delete %>		
+				</td></tr>
+				<tr>
+				<td>&nbsp;</td></tr>
+			</table>
+			<!-- <템플릿 정보 반복 구간입니다.> -->
+		</td>
+
+<% if @temp%4 == 0 or @temp == @mytemplates.length%>		
+	</tr>
+</table>
+<%end%>
+<!-- <템플릿 정보창 한줄 반복 구간입니다. -->	
+<% @temp += 1
+end%>
+
+
+<table class="clipart_table2">
+    <thead>
+        <tr>
+            <td class="clipart_thead_bottom" width="400px">&nbsp;</td>
+			<td class="clipart_thead_bottom" width="400px" align="right"><a href="Javascript:folder_view();"><%= image_tag("/images/folder/folder_manage.jpg", :border=>'0', :align => 'absmiddle') %></a></td>
+        </tr>
+		<tr>
+			<td colspan="2">
+				<%= render :partial => "/mytemplates/folder" %>
+			</td>
+		</tr>
+    </thead>
+</table>
+
+<!-- dm-pager Pagination -->
+<table width="780" >
+	<% form_tag request.path + "?page=#{params[:page]}", :method => 'get' do %>			
+	<input type="hidden" name="cate" value="<%= cate %>">
+		<tr>
+			<td width="350">
+				<div class="pager">
+					<%=@mytemplates.pager.to_html "/Mytemplates?search=#{params[:search]}" %>
+					</div></td>
+			<td width="230"></td>
+			<td width="150"></td>
+		</tr>
+	
+		<tr height="10">
+			<td colspan="3" align="right">
+				    <%= text_field_tag :search, params[:search] %><%= image_submit_tag("/images/board/search.jpg", :border=>'0', :align => "absmiddle") %>	
+			</td>
+		</tr>
+	<% end %>			
+</table>
+
+<script language="javascript">
+ function popup(doc_name) {
+       // var url = '/mlayout?doc_name='+doc_name;
+	   var url = "/MClientBox/index.html?spread_list=YES&user_path=/user_files/<%= current_user.userid %>&doc_path=/article_templates/"+ doc_name+".mlayoutP"
+	   width = screen.width;
+	   height = screen.height;
+      window.open(url ,'webtop_print','width='+width+', height='+height);
+}
+</script>

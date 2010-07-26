@@ -1,0 +1,167 @@
+<!-- <script src="http://cdn.jquerytools.org/1.1.2/full/jquery.tools.min.js"></script>-->
+<script type='text/javascript' src='/js/jquery.featureList-1.0.0.js'></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$.featureList(
+			$("#tabs li a"),
+			$("#output li"), {
+				start_item	:	0
+			}
+		);
+	});
+</script>
+
+<div id="feature_wrapper">
+		<div id="feature_list">
+			<ul id="tabs">
+				<li>
+					<a href="javascript:;">
+						<span class="featuretitle">"웹탑 프린트샵 템플릿" 이용해보세요!</span>
+						<span>1. 빠르고 간편하게 원하는 문구 편집!<br>
+						2. 주문부터 배송까지 원스톱 서비스!<br>
+						3. 가까운 거리의 문구 및 대리점에서 발송!<br></span>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<span class="featuretitle">"강력한 템플릿 서버!</span>
+						<span>M-server의 웹편집기능이 부여된<br>
+						B2B, B2C 템플릿 스토어 입니다.<br></span>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<span class="featuretitle">원하는 템플릿은 무엇이든!</span>
+						<span>원하는 디자인을 선택하셔서, 즉시 텍스트정보를 수정하여 완성품을 확인하고 받아보실 수 있습니다.</span>
+					</a>
+				</li>
+			</ul>
+			<ul id="output">
+				<li>
+					<a href="#"><img class="outputimg" src="/images/banner_img/sample1.jpg" alt="outputimg" /></a>
+				</li>
+				<li>
+					<a href="#"><img class="outputimg" src="/images/banner_img/sample2.jpg" alt="outputimg" /></a>
+				</li>
+				<li>
+					<a href="#"><img class="outputimg" src="/images/banner_img/sample3.jpg" alt="outputimg" /></a>
+				</li>
+			</ul>
+		</div>
+
+</div>
+<br>
+
+<%= stylesheet_link_tag '/css/slideimg.css' %>
+
+
+<!-- Best Template section -->
+<% if @mytemplates_namecard_best != nil and @mytemplates_namecard_best.length > 0 %>
+<div>
+
+	<!-- 명함 베스트 ==============================================-->
+	<div class="bestbg">
+		<a class="prevPage browse left"></a>
+
+		<div class="scrollable" id="namecard">
+			<div class="items">
+			<%@mytemplates_namecard_best.each do |best|  %>
+				<img class="link_img" rel="/mytemplates/<%=best.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>" src="<%=best.thumb_url%>" />
+				<%end%>
+			</div>
+		</div>
+		<a class="nextPage browse right"></a>
+	</div>
+	<!-- 명함 베스트 ==============================================-->
+
+	<!-- 현수막 베스트 ==============================================-->
+
+	<div class="bestbg">
+		<a class="prevPage browse left"></a>
+
+		<div class="scrollable" id="banner">
+			<div class="items">
+			<%@mytemplates_banner_best.each do |best|  %>
+				<img class="link_img" rel="/mytemplates/<%=best.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>" src="<%=best.thumb_url%>" />
+				<%end%>
+			</div>
+		</div>
+		<a class="nextPage browse right"></a>
+	</div>
+	<!-- 현수막 베스트 ==============================================-->
+		
+	<!-- javascript coding -->
+	<script>
+	// What is $(document).ready ? See: http://flowplayer.org/tools/using.html#document_ready
+	$(document).ready(function() {
+
+		// heeeeeeeeeeere we go.
+		$("#namecard").scrollable({hoverClass: 'hover'}).circular().autoscroll({
+			steps: 2,
+			interval: 3000		
+		});	
+	
+		$("#banner").scrollable({hoverClass: 'hover'}).circular().autoscroll({
+			steps: 2,
+			interval: 3000		
+		});	
+	
+		$(".link_img").click(function(){ 
+		   var gotoHref = $(this).attr('rel'); 
+		   window.location = gotoHref; 
+		});
+		
+	});
+	</script>
+		
+</div>
+<%end %>
+<!-- Best Template section end -->
+<!-- 공지사항/뉴스 섹션 ================================================================= -->
+<table class="table_index" width="780px">
+	<tr>
+			<td width="350px">
+				<div class="lastbox22">
+					<div class="title_460px22">
+						<h7>NOTICE & NEWS</h7> <span class="main_img"><a href="/freeboards"><img src="images/index/more.gif" alt="more" /></a></a>
+					</div>
+					<div id="index_tabwrapper">
+						<table class="index_table">
+						
+						<% @notices.each do |notice| %>
+						<!-- 반복구간 ================================================-->
+						<tr>
+							<td class="index_td1"><%= notice.created_at.strftime('%m-%d') %></td>
+							<td class="index_td2"><a title="<%= notice.title %>" href="/notices/<%= notice.id %>"><%= entitle_main(notice) %></a></td>
+						</tr>
+						<!-- 반복구간 ================================================-->							
+						<%end%>
+					</table>
+					</div>
+				</div>
+			</td>
+			
+			<td width="350px">
+				<div class="lastbox22">
+					<div class="title_460px22">
+						<h7>Freeboards&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h7> <a href="/freeboards"><img src="images/index/more.gif" alt="more" /></a>
+					</div>
+					<div id="index_tabwrapper">
+						<table class="index_table">
+							<% @freeboards.each do |freeboard| %>
+							<!-- 반복구간 ================================================-->
+							<tr>
+								<td class="index_td1"><%= freeboard.created_at.strftime('%m-%d') %></td>
+								<td class="index_td2"><a title="<%= freeboard.title %>" href="/freeboards/<%= freeboard.id %>"><%= entitle_main(freeboard) %></a></td>
+							</tr>
+							<!-- 반복구간 ================================================-->							
+							<%end%>
+					</table>
+					</div>
+				</div>
+			</td>
+	</tr>
+</table>	
+<!-- 공지사항/뉴스 섹션 ================================================================= -->

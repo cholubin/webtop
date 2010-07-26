@@ -1,0 +1,30 @@
+	<%if !signed_in? %>
+		<div id="login_section" class="register">
+			<a href="/login?uri=<%= get_current_url %>">로그인</a> &nbsp; l &nbsp; <a href="/users/new">회원가입</a> &nbsp; <!-- l &nbsp; 로그아웃  -->
+		</div>
+	<%else%>
+		<div id="login_section" class="register">
+			<%= current_user.name + " 고객님 " %><a href="/logout">로그아웃</a> &nbsp; l &nbsp; <a href="/users/<%= current_user.id %>/edit">마이페이지</a> &nbsp; <!-- l &nbsp; 로그아웃  -->
+		</div>
+	<%end%>
+
+<div id="search_box">
+<% form_tag '/temps' , :method => 'get' do %>	
+<table>
+	<tr height="5">
+		<td align="right">
+			<select name="search[category]">
+				<%  if Category.all.length > 0 %>
+					<% Category.all.each do |s| %>
+						<option value="<%= s.id %>"><%= s.name %></option>				
+					<%end%>
+					<%end %>
+			</select>	
+		</td>
+		<td align="right">
+		<%= text_field_tag :search, params[:search] %><%= image_submit_tag("/images/board/search.jpg", :align => "absmiddle") %>
+		</td>
+	</tr>
+	<% end %>	
+</table>
+</div>

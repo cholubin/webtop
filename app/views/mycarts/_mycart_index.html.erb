@@ -1,0 +1,65 @@
+		<div id="feature_wrapper">
+			<h2>장바구니</h2>
+			<p2>
+				<img src="/images/contact/check.jpg"/>
+				제품을 주문하시려면 상품선택 후, '주문하기'버튼을 누르세요.<br>
+				<img src="/images/contact/check.jpg"/>
+				쇼핑하시던 페이지로 돌아가시려면 '계속쇼핑'버튼을 누르세요. 
+			</p2>
+			<br><br>
+			</div>
+
+		<table class="cart_table">
+		    <thead class="cart_thead">
+		        <tr>
+		            <td class="cart_thead" width="135px">이미지</td>
+					<td class="cart_thead" width="460px">상품 내용</td>
+		            <td class="cart_thead" width="100px"><center>가격</center></td>
+					<td class="cart_thead" width="55px"><center>상품삭제</center></td>
+		        </tr>
+		    </thead>
+			<% @mycarts.each do |mycart| 
+				item = Mytemplate.first(:id => mycart.item_id)
+				item_info = item.name + "/ " + item.category + "/ " + item.subcategory + "/ " + item.size %>
+		    <tbody class="cart_tbody">
+		        <tr class="cart_tbody">
+		            <td class="cart_tbody" width="135">
+						<% temp_IMAGE_PATH = IMAGE_LOCATION + "t_" + item.image_filename  if item.image_filename%>
+						<a href="/mytemplates/<%=item.id%>%>"><%= "<img src='" + temp_IMAGE_PATH + "'>" if item.image_filename %></a>
+		            </td>
+		            <td class="cart_tbody" width="460px"><%= item_info %> 
+			        <br>여기에는 옵션내용들이 들어가야 합니다.</td>
+		            <td class="cart_tbody" width="100px"><center>가격이 들어갑니다.</center></td>
+					<td class="cart_tbody" width="55px">
+						<center><%= link_to image_tag("/images/cart/delete.jpg", :border=>0), mycart, :confirm => '정말 삭제하시겠습니까?', :method => :delete %></center></td>
+						
+							
+		        </tr>
+		    </tbody>
+		
+			<%end%>
+		
+			 <tfoot class="cart_tfoot">
+			        <tr>
+			            <th class="cart_tfoot" colspan="2" align="right">총액</th>
+			            <td class="cart_tfoot" width="100px"><center>총액이 들어갑니다.</center></td>
+						<td class="cart_tfoot" width="55px"></td>
+			        </tr>
+			    </thead>
+		</table>
+		<div id="line_bottom2"></div>
+		<table width="780">
+			<tr>
+				<td colspan="3" height="15">
+				 </tr>
+			<tr>
+				<td width="656">&nbsp;</td>
+				<td width="62" align="right"><a href="#"><img src="/images/cart/continue.gif"></a></a></td>
+				<td width="62" align="right"><a href="order_list.html"><img src="/images/cart/order.jpg"></a></a></td>
+
+				</tr>
+		</table>
+		
+
+</div>
+

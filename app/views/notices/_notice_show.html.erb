@@ -1,0 +1,41 @@
+<div id="feature_wrapper">
+	<h2>공지사항</h2>
+		<p1>	웹탑프린트샵 공지사항입니다.
+		</p1>
+<br><br>
+
+	</div>
+<!-- <copy> -->
+	<table class="board_table">
+	    <thead class="board_thead">
+	        <tr>
+	            <th class="board_thead_view" width="660px"><%= @notice.title %></th>
+	            <td class="board_thead" width="70px"><%= @notice.created_at.strftime('%Y-%m-%d') %></td>
+
+	        </tr>
+	    </thead>
+	 
+	    <tbody class="board_tbody">
+	        <tr>
+	            <td colspan="2" class="table_c" width="730px">
+					<div class="notice_contents">
+					<%= simple_format(@notice.content) %></div>
+				</td>
+				
+	            
+
+	        </tr>
+	       
+	    </tbody>
+	</table>
+	<div id="line_bottom1"></div>
+			
+	<table width="732">
+		<tr>
+			<td colspan="3" height="15"></tr>
+		<tr>
+			<td width="670">&nbsp;</td>
+			<td width="62" align="right"><a href="/notices?search=<%=params[:search]%>&page=<%=params[:page]%>"><img src="/images/board/list.jpg"></a></a></td>
+
+			</tr>
+	</table>

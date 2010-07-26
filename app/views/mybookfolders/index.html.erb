@@ -1,0 +1,18 @@
+<h1>Listing mybookfolders</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @mybookfolders.each do |mybookfolder| %>
+  <tr>
+    <td><%= link_to 'Show', mybookfolder %></td>
+    <td><%= link_to 'Edit', edit_mybookfolder_path(mybookfolder) %></td>
+    <td><%= link_to 'Destroy', mybookfolder, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New mybookfolder', new_mybookfolder_path %>

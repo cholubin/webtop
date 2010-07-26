@@ -1,0 +1,138 @@
+@charset "utf-8";
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+ {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	vertical-align: baseline;
+	background: transparent;
+}
+
+body {
+	background-color: #000000;
+	font-size: 11px;
+	font-family: applegothic, 돋움, 돋움체;
+	line-height: 20px;
+}
+
+#admin_section {
+	width: 900px;
+	height: 1000px;
+	margin: 0 auto;
+	padding: 0px;
+}
+
+#admin_top {
+	width: 900px;
+	height: 100px;
+	margin: 0 auto;
+	padding: 0px;
+}
+
+#admin_login {
+	float: right;
+	width: 572px;
+	height:50px;
+	background-color: black;
+	boder-weight: 1px;
+	boder-color: white;
+}s
+
+.adminlogin_table{
+	color:white;
+    border-collapse: collapse;
+	width:300px;
+    font:normal 12px sans-serif;
+	line-height:40px;
+    margin: 0;padding: 0;
+}
+
+#admin_loginpage{
+	margin-top:60px;
+}
+
+.field_4 {
+	font-size: 11px;
+	width:185px;
+	background-color: white;
+	border: solid 1px #717171;
+	margin-left: 1px;
+	padding: 2px;
+	float: left;
+}
+
+#admin_contents {
+	width: 900px;
+	height: 1000px;
+	padding-top: 15px;
+	padding-left: 80px;
+	float: right;
+	background-color: #333333;
+}
+
+#admincontents_wrapper {
+	width: 900px;
+	background-color: #2d2c2c;
+	vertical-align:middle;
+	line-height: 16px;
+	color: white;
+}
+
+#admincontents_wrapper {
+	width: 904px;
+	background-color: #333333;
+	margin: 0 auto; /*Center container on page*/
+	overflow: hidden;
+	padding: 0px;
+}
+
+#admin {
+	width: 900px;
+	height: 1000px;
+	margin: 0 auto;
+	padding: 0px;
+}
+
+#admin_menu {
+	width: 900px;
+	height: 36px;
+	clear: both;
+	background-color: #000000;
+}
+
+.admin_table {
+	color:white;
+    border-collapse: collapse;
+	width:774px;
+    font:normal 12px sans-serif;
+    margin: 0;padding: 0;
+}
+
+#line_bottom3{
+		margin: 0px;
+		width: 776px;
+		height: 3px;
+		background-color: #92b64f;
+}
+#line_bottom6{
+		margin: 0px;
+		width: 328px;
+		height: 1px;
+		background-color: #4d4d4d;
+}
+
+#line_bottom7{
+		margin: 0px;
+		width: 572px;
+		height: 1px;
+		background-color: #4d4d4d;
+}

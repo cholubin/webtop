@@ -1,0 +1,28 @@
+<h1>Editing mycart</h1>
+
+<% form_for(@mycart) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :option %><br />
+    <%= f.text_field :option %>
+  </p>
+  <p>
+    <%= f.label :item %><br />
+    <%= f.text_field :item %>
+  </p>
+  <p>
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </p>
+  <p>
+    <%= f.label :qt %><br />
+    <%= f.text_field :qt %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @mycart %> |
+<%= link_to 'Back', mycarts_path %>

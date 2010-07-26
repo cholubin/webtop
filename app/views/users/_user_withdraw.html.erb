@@ -1,0 +1,61 @@
+<div id="feature_wrapper">
+	<h2>회원탈퇴</h2>
+		<p1><img src="/images/mypage/check.jpg"> 이용하시면서 불편하셨던 사항을 체크해 주세요 (중복체크가능)</p1>
+		
+<br><br>
+	</div>
+<!-- <copy> -->
+	<div id="line_bottom1"></div>
+
+		<!-- <템플릿 정보창 한줄 반복 구간입니다. -->
+				<table>
+					<tr>
+						<td>
+							<!-- <템플릿 정보 반복 구간입니다.> -->
+							<table class="register_table">
+								<tr>
+								<td class="register_td" width="30"><input type="checkbox" name="reason" value="다른 쇼핑몰에 비해 가격이 비쌈"></td>
+								<td class="register_td" colspan="4" width="700">다른 쇼핑몰에 비해 가격이 비쌈</td>
+								</tr>
+								<tr>
+								<td class="register_td" width="30"><input type="checkbox" name="reason" value="상품찾기가 어려움"></td>
+								<td class="register_td" colspan="4" width="700">상품찾기가 어려움</td>
+								</tr>
+								<tr>
+								<td class="register_td" width="30"><input type="checkbox" name="reason" value="배송이 늦음"></td>
+								<td class="register_td" colspan="4" width="700">배송이 늦음</td>
+								</tr>
+								<tr>
+								<td class="register_td" width="30"><input type="checkbox" name="reason" value="이벤트/회원서비스가 다양하지 않음"></td>
+								<td class="register_td" colspan="4" width="700">이벤트/회원서비스가 다양하지 않음</td>
+								</tr>
+								<tr>
+								<td class="register_td" width="30"><input type="checkbox" name="reason" value="자주 이용하지 않음"></td>
+								<td class="register_td" colspan="4" width="700">자주 이용하지 않음</td>
+								</tr>
+								<tr>
+								<td class="register_td" width="30"><input type="checkbox" name="reason" value="기타"></td>
+								<td class="register_td" colspan="4" width="700">기타 &nbsp; &nbsp; &nbsp; &nbsp;
+									<input style="width:613px" type="text" value="" onfocus="this.value=''" size=""/></td>
+								</tr>
+							</table>
+							<!-- <템플릿 정보 반복 구간입니다.> -->
+						</td>
+					</tr>
+				</table>
+		<!-- <템플릿 정보창 한줄 반복 구간입니다. -->
+
+
+	<div id="line_bottom1"></div>
+	
+		<table width="732">
+			<tr>
+				<td colspan="2" height="15">
+				 </tr>
+			<tr>
+				<td width="670" align="right"><a href="index.html"><img src="/images/mypage/cancle.jpg"></a></td>
+				<td width="62" align="right">
+					<%= link_to image_tag("/images/mypage/confirm.jpg", :border=>0), '/users/'+current_user.id.to_s, :confirm => '정말 탈퇴하시겠습니까?', :method => :delete %>					
+				</td>
+				</tr>
+		</table>

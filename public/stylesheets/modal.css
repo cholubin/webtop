@@ -1,0 +1,71 @@
+/* http://www.queness.com/post/77/simple-jquery-modal-window-tutorial*/
+/* Z-index of #mask must lower than #boxes .window */  
+#mask {  
+  position:absolute;  
+  z-index:9000;  
+  background-color:#000;  
+  display:none;  
+}  
+    
+#boxes .window {  
+  position:absolute; 
+
+/*  width:550px;  */
+  width:850px;    
+  height:200px;  
+  display:none;  
+  z-index:9999;  
+  padding:20px;  
+}  
+  
+  
+/* Customize your modal window here, you can add background image too */  
+#boxes #dialog {  
+  width:375px;   
+  height:203px;  
+}  
+a img, a:hover img{
+border:none;
+text-decoration:none;
+z-index: 2;
+position: relative;
+outline: none;
+}
+
+.meta{
+display:block;
+position:relative;
+top:3px;
+font-size:11px;
+line-height:14px;
+}
+
+.pp_details .pp_nav a.pp_arrow_previous, .pp_details .pp_nav a.pp_arrow_next {
+margin-top:8px;
+}
+
+.pp_details .pp_nav {
+margin:-3px 0 0;
+}
+
+.lightbox_video, .lightbox_image{
+position: absolute;
+z-index: 1;
+top:0;
+left:0;
+}
+
+
+#top .ie6_lightbox, #footerwrap .ie6_lightbox{
+position: relative;
+border:none;
+}
+             
+
+.lightbox_video{
+background:transparent url(/images/video.png) no-repeat center center;
+}
+
+.lightbox_image{
+background:transparent url(/images/magnify.png) no-repeat center center;
+}

@@ -1,0 +1,192 @@
+<%= stylesheet_link_tag '/css/paginate.css' %>
+
+<style>
+#layer1{border:0px solid green;position:absolute; left:500px; top:200px;width:100;height:100px; z-index:1;}
+</style>
+
+<div id="layer1" style="display:none;"><%= image_tag("/images/template/loading.gif", :width => '100') %></div>
+<!-- image_tag("/icons/icon.gif", :height => '32', :width => '32')  -->
+
+<script type="text/javascript" language="javascript">
+
+
+	function show_progress() {
+		var width = 100;
+		var height = 100;
+		
+		var left = (screen.width - width)/2;
+	 	var top = (screen.height - height)/2;
+		
+		document.getElementById("layer1").style.left = left;
+		document.getElementById("layer1").style.top = top;
+		
+		document.getElementById("layer1").style.display = "block";		
+	}
+	
+	function hide_progress() {
+		document.getElementById("layer1").style.display = "none";		
+	}
+
+</script>
+
+<% if params[:category_name] == nil  or params[:category_name] != "현수막" %>	
+	<%= stylesheet_link_tag '/css/slideimg.css' %>
+<%elsif params[:category_name] == "현수막"   %>
+	<%= stylesheet_link_tag '/css/slideimg_banner.css' %>
+<%end %>
+
+<!-- Best Template section start -->
+<% if @temps_best != nil and @temps_best.length > 0 %>
+<div >
+<!-- "previous page" action -->
+	<div class="bestbg">
+	<a class="prevPage browse left"></a>
+
+	<!-- root element for scrollable -->
+<div class="scrollable" id=chained>
+	
+		<!-- root element for the items -->
+		<div class="items">
+		<%@temps_best.each do |best|  %>
+			<img  class="link_img" rel="/temps/<%=best.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>" src="<%=best.thumb_url%>" />
+		<%end  %>
+	
+		</div>
+	
+	</div>
+	<!-- "next page" action -->
+	<a class="nextPage browse right"></a>
+	</div>
+
+	<!-- javascript coding -->
+	<script>
+	// What is $(document).ready ? See: http://flowplayer.org/tools/using.html#document_ready
+	$(document).ready(function() {
+
+	// heeeeeeeeeeere we go.
+	$("#chained").scrollable({hoverClass: 'hover'}).circular().navigator().autoscroll({
+		steps: 2,
+		interval: 3000		
+	});	
+	
+	$(".link_img").click(function(){ 
+	   var gotoHref = $(this).attr('rel'); 
+	   window.location = gotoHref; 
+	});
+	});
+	
+
+	
+	</script>
+	
+
+		
+</div>
+
+
+
+<div style="height:20;clear:both">
+</div>
+<%end %>		
+<!-- Best Template section end -->
+<%
+@temp = 1 
+@temps.each do |my| %>
+
+<% if @temp%4 == 1%>
+
+
+<span><img src="images/template/line.jpg"></span>
+<table>
+	<tr>
+<%end%>		
+		<td>
+			<!-- <템플릿 정보 반복 구간입니다.> -->
+			<table class="template_table">
+				<tr>
+				<td width>&nbsp;</td></tr>
+				<tr>
+				<td class="templatelist" width="180">
+					<% temp_image_path = my.thumb_url  if my.thumb_url
+					puts_message temp_image_path
+					%>
+					<a href="/temps/<%=my.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>"><%= "<img src='" + temp_image_path + "'>" if my.thumb_url %></a>
+				</td>				 			
+				<td width="14">&nbsp;</td></tr>
+				<tr>
+				<td>&nbsp;</td></tr>
+				<tr> 
+				<td class="templatelist"><a href="/temps/<%=my.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>"><%= my.name %></a></td></tr>
+				<tr> 
+				<td class="templatelist"><a href="#"><%= my.category%>/<%= my.subcategory if my.subcategory != nil %></a></td></tr>
+				<tr>
+					<td class="templatelist">
+						<% if signed_in? %>
+						<%= image_tag '/images/template/copy_mytemplate_s.jpg',:title=>'템플릿 복사', 
+						:onmouseover => "this.style.cursor='hand';",
+						:onclick => "if (window.confirm('나의 템플릿으로 복사하시겠습니까?')){show_progress();}else{return false;};" + remote_function(:url => { :controller => 'mytemplates', :action => 'copyto_my_template' },
+						:with => "'temp_id=#{my.id.to_s}'")
+						%><span id="copy_template"></span>		
+
+						<!-- 팝업기능으로 즉시편집은 일단 보류시켜놓음. -->
+							<%#= link_to image_tag("/images/template/edit_instant_s.jpg", :border=>0, :title => "즉시편집"), '/mytemplates?temp_id='+my.id.to_s+'&edit=y', :confirm => '나의 템플릿으로 복사와 함께 바로 편집하시겠습니까?',  :method => :post %>						
+						<%else %>
+							<%= link_to image_tag("/images/template/edit_instant_s.jpg", :border=>0, :title => "즉시편집"), '/login', :confirm => '로그인을 하셔야 이용 가능한 서비스 입니다.'%>						
+							<%= link_to image_tag("/images/template/copy_mytemplate_s.jpg", :border=>0, :title => "템플릿 복사"), '/login', :confirm => '로그인을 하셔야 이용 가능한 서비스 입니다.'%>													
+						<%end %>
+					</td>
+				</tr>
+				<tr>
+				<td>&nbsp;</td></tr>
+			</table>
+			<!-- <템플릿 정보 반복 구간입니다.> -->
+		</td>
+
+<% if @temp%4 == 0 or @temp == @temps.length%>		
+	</tr>
+</table>
+<%end%>
+<!-- <템플릿 정보창 한줄 반복 구간입니다. -->	
+<% @temp += 1
+end%>
+
+<!-- dm-pager Pagination -->
+<% form_tag request.path + "?page=#{params[:page]}", :method => 'get' do %>			
+<table width= "730">
+	<tr>
+		<td width="350">
+			<div class="pager">
+				<%
+				if params[:category_name] != nil
+					@category_name = params[:category_name]
+				end
+				if params[:subcategory_name] != nil
+			    	@subcategory_name = params[:subcategory_name]
+				end
+
+			    if @category_name != nil and @subcategory_name != nil%>
+			      <%= Temp.all(:category => @category_name, :subcategory => @subcategory_name).search(params[:search], params[:page]).pager.to_html "/temps?category_name=#{@category_name}&subcategory_name=#{@subcategory_name}&search=#{params[:search]}" %>
+			    <% elsif @category_name != nil %>
+			      <%= Temp.all(:category => @category_name).search(params[:search], params[:page]).pager.to_html "/temps?category_name=#{@category_name}&search=#{params[:search]}" %>      
+			    <% elsif  @subcategory_name != nil %>
+			      <%= Temp.all(:subcategory => @subcategory_name).search(params[:search], params[:page]).pager.to_html "/temps?subcategory_name=#{@subcategory_name}&search=#{params[:search]}" %>      
+			    <%else %>
+			      <%= Temp.all.search(params[:search], params[:page]).pager.to_html "/temps?search=#{params[:search]}" %>      
+			    <% end %>				
+
+			</div></td>
+		<td width="230">
+
+		</td>
+		<td width="150"></td>
+	</tr>
+	
+	<tr height="10">
+		<td align="center" colspan="3">
+			    <%= text_field_tag :search, params[:search] %><%= image_submit_tag("/images/board/search.jpg", :align => "absmiddle") %>	
+		</td>
+	</tr>
+<% end %>			
+</table>
+
+

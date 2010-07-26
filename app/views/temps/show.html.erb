@@ -1,0 +1,13 @@
+<p>
+  <b>Title:</b>
+  <%=h @temp.title %>
+</p>
+
+<p>
+  <b>File:</b>
+  <%=h @temp.file_filename %>
+</p>
+
+
+<%= link_to 'Edit', edit_temp_path(@temp) %> |
+<%= link_to 'Back', temps_path %>

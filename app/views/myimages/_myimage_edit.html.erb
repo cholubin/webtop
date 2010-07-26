@@ -1,0 +1,124 @@
+<style>
+#layer1{border:0px solid green;position:absolute; left:500px; top:200px;width:100;height:100px; z-index:999999}
+</style>
+
+<div id="layer1" style="display:none"><%= image_tag("/images/template/loading.gif", :width => '100') %></div>
+
+
+<%= javascript_include_tag :defaults %>	
+<%= javascript_include_tag "basic_tools" %>	
+
+
+<script language="javascript">
+function folder_view() {
+	var t = document.getElementById('folder');
+	
+	if (t.style.display == "none") {
+		t.style.display = "block";			
+	}else{
+		t.style.display = "none";					
+	}
+
+}
+
+function show_progress() {
+	var width = 100;
+	var height = 100;
+	
+	var left = (screen.width - width)/2;
+ 	var top = (screen.height - height)/2;
+	
+	document.getElementById("layer1").style.left = left;
+	document.getElementById("layer1").style.top = top;
+	
+	document.getElementById("layer1").style.display = "block";		
+
+}
+
+function hide_progress() {
+	document.getElementById("layer1").style.display = "none";		
+}
+
+</script>
+<div id="admin_wrapper">
+	<h2>클립아트 수정</h2>
+</div>
+<table class="clipart_table">
+    <thead class="clipart_thead">
+        <tr>
+            <td class="clipart_thead" width="800px">
+				 자신이 업로드한 이미지나 문서들을 수정합니다.
+			</td>
+        </tr>
+    </thead>
+</table>
+<div><img src="/images/mytemplates/line.jpg"></div>
+
+
+	<span class="error_message"><%= if !flash[:notice].nil?; flash[:notice] end%></span>				
+	<% form_for @myimage, :html => {:multipart => true}, :url => { :action => "update" } do |f| %>
+		<input type="hidden" name="search" value="<%= params[:search] %>">
+		<input type="hidden" name="ext" value="<%= params[:ext] %>">
+				
+		<table class="adminlogin_table">
+			<tr height="35">
+				<td width="80"><p2>폴더선택</p2></td>
+				<td width="200">
+					<span id="folder_select">
+					<select name="myimage[folder]">
+						<%  if @folders != nil 
+							@folders.each do |s| %>
+								<option value="<%= s.name %>" <%= "selected" if @myimage.folder == s.name %>><%= s.name %></option>				
+							<%end
+							end %>
+					</select></span>
+				<font color="white" style="font-size:12px"><a href="Javascript:folder_view();"><%= image_tag("/images/folder/folder_manage.jpg", :align => 'absmiddle') %></a></font></td>
+				
+			</tr>
+
+			<tr>
+				<td colspan="2">
+					<%= render :partial => "/myimages/folder" %>
+				</td>
+			</tr>
+						
+			<tr height="40">
+				<td width="80"><p2>이미지명</p2></td>
+				<td width="200"><%= f.text_field :name , :value => @myimage.name %></td>
+			</tr>
+			<tr height="40">
+				<td width="80"><p2>파일타입</p2></td>
+				<td width="200"><p2><%=  @myimage.type.upcase%></p2></td>
+			</tr>			
+			<tr height="55">
+				<td width="80"><p2>파일 업로드</p2></td>
+				<td width="200"><%= f.file_field :image_file %><br>
+					<font color="white" style="font-size:11px">업로드된 파일: <%= @myimage.image_filename %></font>
+				 </td>
+			</tr>
+			
+			<tr>
+				<td width="80"><p2>메모</p2></td>
+				<td width="200"><%= f.text_area :description,:rows => '5', :value => @myimage.description  %></td>
+			</tr>
+			
+		</table>
+		<div id="line_bottom2"></div>		
+		<table class="adminlogin_table">
+			<tr>
+				<td width="200" align="left">
+					<% if params[:ext] != nil; ext = params[:ext] else; ext = "" end
+					   if params[:folder] != nil; folder = params[:folder] else; folder = "" end
+					   if params[:page] != nil; page = params[:page] else; page = "" end%>
+					<%= link_to image_tag("/images/board/list.jpg", :border=>0), myimages_path + "?folder="+folder+"&ext="+ext+"&page=" + page %>				
+				</td>
+				
+			<td width="190" align="right">
+				<%= image_submit_tag("/images/mytemplates/upload.jpg") %>
+			</td>
+			</tr>
+		</table>		
+	<% end %>
+		</div>
+		</div>
+	</div>

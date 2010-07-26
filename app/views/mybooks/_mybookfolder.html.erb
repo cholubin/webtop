@@ -1,0 +1,85 @@
+<table width="400" style="background-color:#002841;border:10px" cellpadding="0" cellspacing="0">
+<tr><td colspan="4" height="4px" style="background-color:#147478"></td></tr>	
+	<tr height="30">
+		<td height="10" width="140" style="background-color:#003e5d">
+			&nbsp;<%= image_tag "/images/folder/folder_1.jpg", :width=>'20', :align => 'absmiddle' %>&nbsp;<font color="white" style="font-size:14px"><%= "mybook" %> </font>															
+		</td>
+		<td colspan="2" width="260" style="background-color:#003e5d">
+			<font color="white" style="font-size:14px">* 기본폴더</font>
+		</td>
+		<td align="right" colspan="2" style="background-color:#003e5d" width="25" >
+				<a href="javascript:folder_view();"><img title="창닫기" align="absmiddle" alt="Folder_2" src="/images/folder/w_delete.jpg"></a>
+		</td>				
+	</tr>
+<tr><td colspan="3" height="1px" style="background-color:#00415f"></td></tr>	
+<%  i = 1
+	@folders.all(:folder_name.not => "mybook", :order => [:name]).each do |s| 
+	%>
+	<tr>
+		<td colspan="3">
+			<table width="400">
+				<tr>
+					<td width="140">
+						&nbsp;<%= image_tag "/images/folder/folder_2.jpg", :width=>'20', :align => 'absmiddle' %>&nbsp;<font color="#cbe35a" style="font-size:14px"><%= s.name %> </font>									
+						<input type="hidden" name="folder_id_<%= i %>" id="folder_id_<%= i %>" value="<%= s.id.to_s %>">
+					</td>
+					<td width="30" align="right">
+						<% if s.name != "basic" %>
+							<%= image_tag '/images/folder/delete.jpg', :align => 'absmiddle', 
+							:onmouseover => "this.style.cursor='hand';",
+							:onclick => "if (window.confirm('정말 삭제하시겠습니까? 폴더가 삭제되면 해당폴더 내부의 모든 PDF파일들도 함께 삭제됩니다!')){show_progress();}else{return false;};" + remote_function(:url => { :controller => 'mybooks', :action => :destroy_folder },
+							:with => "'folder_id=' + document.getElementById('folder_id_"+i.to_s+"').value+'&folder_name=' + document.getElementById('folder_name_"+i.to_s+"').value")
+							%>
+						<%end %>												
+					</td>
+					<td width="230">
+						<% if s.name != "basic" %>											
+						<input type="txt" name="folder_name" id="folder_name_<%= i %>" value="<%= s.name %>">
+						<%= image_tag '/images/folder/modify.jpg', :align => 'absmiddle', 
+						:onmouseover => "this.style.cursor='hand';",
+						:onclick => "if (window.confirm('폴더명을 변경하시겠습니까? 해당폴더 내부의 모든 PDF파일들도 변경된 폴더로 이동됩니다!')){show_progress();}else{return false;};" + remote_function(:url => { :controller => 'mybooks', :action => :update_folder },
+						:with => "'folder_id=' + document.getElementById('folder_id_"+s.id.to_s+"').value+'&folder_name=' + document.getElementById('folder_name_"+s.folder_name.to_s+"').value")
+						%>
+						<%end %>
+						
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+<%	i += 1
+	end%>							
+<tr><td colspan="3" height="1px" style="background-color:#00415f"></td></tr>	
+	<tr>
+		<td colspan="3" height="35">
+			<font color="white" style="font-size:13px">&nbsp;새폴더:</font><input type="text" name="new_folder_name" id="new_folder_name">
+
+			<%= image_tag '/images/folder/create.jpg', :align => 'absmiddle', 
+			:onmouseover => "this.style.cursor='hand';",
+			:onclick => "if (document.getElementById('new_folder_name').value=='') {
+							alert('폴더명을 입력하세요!');
+							document.getElementById('new_folder_name').focus();
+							return false; 
+							}
+						else{
+							show_progress(); 
+						}" + remote_function(:url => { :controller => 'mybooks', :action => :create_folder },
+			:with => "'folder_name=' + document.getElementById('new_folder_name').value")
+			%>								
+		</td>
+	</tr>
+<tr><td colspan="4" height="4px" style="background-color:#147478"></td></tr>	
+</table>
+
+<script>
+	hide_progress();
+	<% if @already_done == true %>
+		alert("이미 동일한 폴더명이 존재합니다! 폴더명을 바꿔서 재시도해주세요!");
+	<% end %>
+	<% if @pdf_cnt != nil
+	if @pdf_cnt > 0 %>	
+	location.replace('/mybooks');
+	<% end 
+	end%>
+</script>
+

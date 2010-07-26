@@ -1,0 +1,7 @@
+<h3><span <%= "class=\"on\"" if @board=="myimage" %>>나의 작업영역</span></h3>
+<p>	
+	<a href="/mytemplates" <%= "class=on" if @board=="mytemplate" %>>&nbsp;&nbsp;-&nbsp;마이 템플릿</a> <br> 	
+	<a href="/myimages" <%= "class=on" if @board=="myimage" %>>&nbsp;&nbsp;-&nbsp;마이 클립아트</a> <br> 
+	<a href="/mypdfs" <%= "class=on" if @board=="mypdf" %>>&nbsp;&nbsp;-&nbsp;마이 PDF</a> <br> 		
+	<a href="/mybooks" <%= "class=on" if @board=="mybook" %>>&nbsp;&nbsp;-&nbsp;마이 Books</a> <br> 			
+</p>

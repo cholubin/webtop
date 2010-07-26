@@ -1,0 +1,41 @@
+<h1>New mytemplate</h1>
+
+<font >
+<% form_for @temp, :html => {:multipart => true} do |f| %>
+  <%= f.error_messages %>
+  <p>
+	<%= javascript_include_tag :defaults %>	
+	<%= collection_select :temp, :category, @categories, :name, :name, 
+							{:selected => '1'}, 
+							{:onchange => "#{remote_function(:url  => {:action => "update_subcategories"}, :with => "'category_id='+value")}"} %>
+	<span id="subcategories">
+		<%= render :partial => 'admin/templates/subcategories', :object => Subcategory.all(:category_id => Category.first.id) %>
+	</span>	
+  <p/>	
+  <p>
+    <%= f.label "베스트" %>
+	<%= f.check_box :is_best %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </p>
+  <p>
+    <%= f.label :size %><br />
+    <%= f.text_field :size %>
+  </p>
+ <p>
+    <%= f.label :'템플릿 업로드' %><br />
+    <%= f.file_field :file %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', admintemplates_path %>
+</font>

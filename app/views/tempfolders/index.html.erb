@@ -1,0 +1,18 @@
+<h1>Listing tempfolders</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @tempfolders.each do |tempfolder| %>
+  <tr>
+    <td><%= link_to 'Show', tempfolder %></td>
+    <td><%= link_to 'Edit', edit_tempfolder_path(tempfolder) %></td>
+    <td><%= link_to 'Destroy', tempfolder, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New tempfolder', new_tempfolder_path %>

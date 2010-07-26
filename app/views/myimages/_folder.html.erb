@@ -1,0 +1,17 @@
+<style>
+#folder{border:0px solid green;position:absolute; left:600px; top:250px;width:300;height:100px; z-index:1;}
+</style>
+
+<div id="folder" style="DISPLAY:none;">
+<%= render :partial => "/folders/folder" %>
+</div>
+
+<script src="/js/jquery.easydrag.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	// add drag and drop functionality to #box1
+	$("#folder").easydrag(true);
+});
+</script>
+
+

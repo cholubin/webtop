@@ -1,0 +1,7 @@
+<ul id="navhigh">
+	<li><a <%= "Class=\"on\"" if @menu == "user" %> href="/admin/users">사용자 관리</a></li>	
+	<li><a <%= "Class=\"on\"" if @menu == "category" %> href="/admin/categories">카테고리 관리</a></li>	
+	<li><a <%= "Class=\"on\"" if @menu == "template" %> href="/admin/temps">템플릿 관리</a></li>
+	<li><a <%= "Class=\"on\"" if @menu == "board" %> href="/admin/notices">게시판 관리</a></li>
+	<li><a <%= "Class=\"on\"" if @menu == "admin" %> href="/admin/myadmins">관리자 관리</a></li>	
+</ul>

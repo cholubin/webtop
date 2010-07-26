@@ -1,0 +1,8 @@
+<select name="mybook[folder]">
+	<%  if @folders != nil %>
+		<% @folders.each do |s| %>
+			<option value="<%= s.name %>" ><%= s.name %></option>				
+		<%end%>
+	<% end %>
+</select>
+

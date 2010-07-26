@@ -1,0 +1,5 @@
+<ul id="nav">
+	<li><a <%= "Class=\"on\"" if @board == "user" %> href="/admin/users">사용자 리스트</a></li>
+	<li><a <%= "Class=\"on\"" if @board == "mytemplate" %> href="/admin/mytemplates">사용자 템플릿</a></li>	
+	<li><a <%= "Class=\"on\"" if @board == "myimage" %> href="/admin/myimages">사용자 이미지</a></li>		
+</ul>

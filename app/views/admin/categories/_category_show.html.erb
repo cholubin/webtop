@@ -1,0 +1,17 @@
+<p>
+  <b>Main Category:</b><br>
+  <%=h @category.name %>
+</p>
+<!-- <p>
+  <b>priority:</b>
+  <%=h @category.priority %>
+</p> -->
+<p>
+	<b>Sub Category</b><br>
+<% @subcategories.each do |subcategory| %>
+<%= subcategory.priority %>: <%= subcategory.name %><br>
+<%end%>
+</p>
+
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>

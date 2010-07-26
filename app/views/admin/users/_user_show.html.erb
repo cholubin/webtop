@@ -1,0 +1,26 @@
+<p>
+  <b>ID:</b>
+  <%=h @user.userid %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @user.name %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%=h @user.password %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%=h @user.email %>
+</p>
+
+
+<%= link_to '수정', edit_admin_user_path(@user.id.to_s) %> |
+<%= link_to '목록', admin_users_path %>
+<p2>
+	<a href="/admin/mytemplates?userid=<%= @user.id %>"><%= @user.name %>님의 마이템플릿 리스트</a>
+</p2>

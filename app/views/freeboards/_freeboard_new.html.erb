@@ -1,0 +1,43 @@
+		<% form_for(@freeboard) do |f| %>
+<div id="feature_wrapper">
+	<h2>자유게시판</h2>
+		<p1>	웹탑프린트샵 자유게시판입니다.</p1>
+		<span class="error_message"><%= "<br><br>"+flash[:notice] %></span>
+<br><br>
+
+	</div>
+<!-- <copy> -->
+	<table class="board_table">
+ 	
+	    <thead class="board_thead">
+	        <tr>
+				<td class="board_thead" width="60px"><center> 제목 </center></td>
+	            <td width="700">
+		<input style="width:613px" name="freeboard[title]" maxlength="100" type="text" value="포스트 제목을 입력하세요 (100글자 이내)" onfocus="if(this.value == '포스트 제목을 입력하세요 (100글자 이내)') this.value=''" size="" onblur="if(this.value == '') this.value='포스트 제목을 입력하세요 (100글자 이내)';"/>
+					</td>
+				
+	        </tr>
+			
+	    </thead>
+	 
+	    <tbody class="board_tbody">
+			
+	        <tr>
+	            <td colspan="2" class="table_c">
+					<center>
+					<textarea name="freeboard[content]"  rows="22" cols="85"><%= @content if @content != nil %></textarea>
+					</center>
+				</td>
+	        </tr>
+	    </tbody>
+	
+	</table>
+	
+	<div id="line_bottom1"></div>
+	<br>	
+		<div id="button_wrapper">
+			<%= image_submit_tag("/images/board/submit.jpg") %>
+		</div>		
+
+	<% end %>	
+

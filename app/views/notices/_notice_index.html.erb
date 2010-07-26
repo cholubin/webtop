@@ -1,0 +1,70 @@
+<%= stylesheet_link_tag '/css/paginate.css' %>
+<div id="feature_wrapper">
+	<h2>공지사항</h2>
+		<p1>	웹탑프린트샵 공지사항입니다.
+		</p1>
+<br><br>
+
+	</div>
+<!-- <copy> -->
+		<table class="board_table">
+		    <thead class="board_thead">
+		        <tr>
+		            <th class="board_thead" width="60px">번호 </th>
+		            <td class="board_thead" width="545px"><center>제목</center></td>
+		            <td class="board_thead" width="80px"><center>등록일</center></td>
+		            <td class="board_thead" width="65px"><center>조회</center></td>
+		        </tr>
+		    </thead>
+
+		    <tbody class="board_tbody">
+				<% @notices_notice.each do |notice| %>
+				<tr>
+		            <td class="table_f" width="60px"><center><img src="images/board/news_icon.gif"></center></td>
+		            <td class="table_f" width="545px"><a href="/notices/<%=notice.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>"><%= notice.title %></a></td>
+		            <td class="table_g" width="80px"><center><%= notice.created_at.strftime('%Y-%m-%d') %></center></td>
+		            <td class="table_g" width="65px"><center><%= notice.hit_cnt %></center></td>
+		        </tr>
+				<%end %>
+				<% 	if params[:page].to_i == 0 or params[:page].to_i == 1
+						@temp_page = 0
+					else
+						@temp_page = params[:page].to_i - 1
+					end
+					@page_num = @total_count - (10 * @temp_page) %>
+
+
+				<% @notices_news.each do |news| %>			
+		        <tr class="table_b","board_tbody">
+		            <th class="board_tbody" width="60px"><%= @page_num %></th>
+		            <td class="board_tbody" width="545px"><a href="/notices/<%=news.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>"><%= news.title %></a></td>
+		            <td class="board_tbody" width="80px"><center><%= news.created_at.strftime('%Y-%m-%d') %></center></td>
+		            <td class="board_tbody" width="65px"><center><%= news.hit_cnt %></center></td>
+
+		        </tr>
+		        <% @page_num -= 1
+				end %>
+		    </tbody>
+		</table>
+
+		<div id="line_bottom1"></div>
+
+
+
+		<table width="730" >
+		<% form_tag request.path + "?page=#{params[:page]}", :method => 'get' do %>			
+			<tr>
+				<td>
+					<div class="pager">
+					<%=Notice.search(params[:search], params[:page]).pager.to_html "/notices?search=#{params[:search]}" %>
+					</div>
+				</td>
+			</tr>
+			
+			<tr height="10">
+				<td align="right" >
+					    <%= text_field_tag :search, params[:search] %><%= image_submit_tag("/images/board/search.jpg", :align => "absmiddle") %>	
+				</td>
+			</tr>
+		<% end %>			
+		</table>

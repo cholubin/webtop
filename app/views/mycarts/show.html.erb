@@ -1,0 +1,23 @@
+<p>
+  <b>Option:</b>
+  <%=h @mycart.option %>
+</p>
+
+<p>
+  <b>Item:</b>
+  <%=h @mycart.item %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%=h @mycart.price %>
+</p>
+
+<p>
+  <b>Qt:</b>
+  <%=h @mycart.qt %>
+</p>
+
+
+<%= link_to 'Edit', edit_mycart_path(@mycart) %> |
+<%= link_to 'Back', mycarts_path %>

@@ -1,0 +1,18 @@
+<h1>Listing mybooks</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @mybooks.each do |mybook| %>
+  <tr>
+    <td><%= link_to 'Show', mybook %></td>
+    <td><%= link_to 'Edit', edit_mybook_path(mybook) %></td>
+    <td><%= link_to 'Destroy', mybook, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New mybook', new_mybook_path %>

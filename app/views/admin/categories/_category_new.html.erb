@@ -1,0 +1,42 @@
+<h1>신규 분류 추가</h1>
+
+<% form_for :categories, :url => { :action => "create" } do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :'신규 메인분류' %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :'우선순위' %><br />
+    <%= f.text_field :priority %>
+  </p>
+
+<br><br>
+
+<h1>서브 분류 추가</h1>
+<p>		
+	메인분류:<select name="categories[main_category]">
+		<%  if @select_main_category.length > 0 %>
+			<% @select_main_category.each do |s| %>
+				<option value="<%= s.id %>"><%= s.name %></option>				
+			<%end%>
+		<%	else%>
+				<option value="">"먼저 메인분류를 추가하세요!"</option>					
+			<%end %>
+	</select>
+</p>
+<p>
+  <%= f.label :'서브분류' %><br />
+  <%= f.text_field :sub_name %>
+</p>
+<p>
+  <%= f.label :'우선순위' %><br />
+  <%= f.text_field :sub_priority %>
+</p>
+
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', categories_path %>

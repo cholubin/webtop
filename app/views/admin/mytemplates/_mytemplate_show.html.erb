@@ -1,0 +1,129 @@
+<p5><a href="#"><%= @mytemplate.category %></a>
+	<a class="on" href="#">&nbsp;&nbsp;>&nbsp;<%= @mytemplate.subcategory %></a>  
+
+</p5>
+
+<div id="line_top3"></div>
+<div id="line_top2"></div>
+
+<% 	if @mytemplate.preview_url
+	puts_message @mytemplate.preview_url
+		temp_image_path = @mytemplate.preview_url
+	else
+		temp_image_path = @mytemplate.thumb_url		
+	end
+%>
+
+<%if @mytemplate.category == "명함"%>
+
+<table>
+		<tr width="450" height="260">
+            <td width="400" class="imgmargin"><%= "<img width='342' src='" + temp_image_path + "'>" %></td>
+			<td width="280px">
+				<table width="250">
+					<tr>
+						<td width="250" height="35" class="table_t4" colspan="2" ><%= @mytemplate.name %></td>
+		
+					</tr>
+
+					<tr class="table_t5">
+						<td width="70" class="table_t5">등록일</td>
+						<td  width="180" class="table_t5"><%= @mytemplate.created_at.strftime('%Y-%m-%d') %></td>
+					</tr>
+	
+					<tr>
+						<td width="70" class="table_t5">가격</td>
+						<td width="180" class="table_t5_bold"><%= Temp.get(@mytemplate.temp_id).price %></td>
+					</tr>
+					
+					<tr>
+						<td colspan="2" width="250" class="table_t5_underline"></td>
+					</tr>
+	
+					<tr>
+						<td width="70" class="table_t5">사이즈</td>
+						<td width="180" class="table_t5"><%= Temp.get(@mytemplate.temp_id).size %></td>
+					</tr>
+	
+					<tr>
+						<td width="70" class="table_t5">태그</td>
+						<td width="180" class="table_t5"><%= Temp.get(@mytemplate.temp_id).tags %></td>
+					</tr>
+					<tr>
+						<td colspan="2" width="250" class="table_t5_underline"></td>
+					</tr>
+				</table>
+			</td>
+        </tr>
+
+</table>
+
+
+
+<%elsif @mytemplate.category == "현수막"%>
+<table>
+		<tr width="730" height="220">
+            <td class="imgmargin_banner" colspan="2">
+				<center><%= "<img width='700' src='" + temp_image_path + "'>" %></center>
+			</td>
+        </tr>
+       
+
+		 <tr width="730" >  
+            <td width="430px">&nbsp;</td>
+
+			<td width="300" >
+					<table width="250">
+						<tr>
+							<td width="250" height="35" class="table_t4" colspan="2" ><%= @mytemplate.name %></td>
+
+						</tr>
+
+						<tr class="table_t5">
+							<td width="70" class="table_t5">등록일</td>
+							<td  width="180" class="table_t5"><%= @mytemplate.created_at.strftime('%Y-%m-%d') %></td>
+						</tr>
+
+						<tr>
+							<td width="70" class="table_t5">가격</td>
+							<td width="180" class="table_t5_bold"><%= Temp.get(@mytemplate.temp_id).price %></td>
+						</tr>
+
+						<tr>
+							<td colspan="2" width="250" class="table_t5_underline"></td>
+						</tr>
+
+						<tr>
+							<td width="70" class="table_t5">사이즈</td>
+							<td width="180" class="table_t5"><%= Temp.get(@mytemplate.temp_id).size %></td>
+						</tr>
+
+						<tr>
+							<td width="70" class="table_t5">태그</td>
+							<td width="180" class="table_t5"><%= Temp.get(@mytemplate.temp_id).tags %></td>
+						</tr>
+						<tr>
+							<td colspan="2" width="250" class="table_t5_underline"></td>
+						</tr>
+					
+					
+					</table>
+			</td>
+			<tr>
+
+		
+		</tr>
+
+</table>
+
+<%end%>
+<div id="line_bottom5"></div>	
+<table>
+	<tr>
+		<td width="727" align="right">
+			<a href="/admin/mytemplates?search=<%=params[:search]%>&page=<%=params[:page]%>">
+				<img src="/images/board/list.jpg">
+			</a>			
+		</td>
+	</tr>
+</table>

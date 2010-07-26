@@ -1,0 +1,106 @@
+<div id="feature_wrapper">
+	<h2>회원가입</h2>
+		<p1>웹탑프린트샵 회원가입 페이지입니다.</p1><br>
+		<% if ! flash[:notice].nil? %>
+			<span class="error_message_small"><%= flash[:notice].to_s %></span>
+		<% end %>
+	</div>
+<!-- <copy> --><br>
+	<div id="line_bottom1"></div>
+	<% form_for(@user) do |f| %>
+	  <!-- <%= f.error_messages %> -->
+			<table>
+				<tr>
+					<td>
+						<table class="register_table">
+							<tr>
+								<td class="register_td" width="150"><img src="/images/register/check.jpg">희망 아이디</td>
+								<td class="register_td"  width="100">
+									<input class="field_1" maxlength="20" name="user[userid]" id="userid" type="text">
+								</td>
+								<td class="register_td" align="left" width="370">
+									<!-- <img src="/images/register/overlap_check.jpg" style="vertical-align: middle;" onClick="#{remote_function(:url  => {:action => "id_check"},:with => "'user_id='+value")}"> -->
+									<%= javascript_include_tag :defaults %>	
+									<%= javascript_include_tag "basic_tools" %>	
+									<%= image_tag '/images/register/overlap_check.jpg', :align => 'absmiddle', 
+									:onmouseover => "this.style.cursor='hand';",
+									:onclick => "if ($(userid).value=='') {
+													alert('아이디를 입력하세요!');
+													$(userid).focus();
+													return false; 
+													}
+												else{ 
+													if (input_check($(userid).value) == false){
+														alert('아이디는 영문만 가능합니다!');
+														$(userid).value = '';
+														$(userid).focus();
+														return false;
+													}
+														
+													}" + remote_function(:url => { :controller => 'users', :action => :id_check },
+									:with => "'user_id=' + $(userid).value")
+									%>
+									&nbsp;&nbsp;<span id="id_check" class="error_message_small">아이디 중복확인 해주세요!</span>
+									
+
+									
+								</td>
+							</tr>
+							<tr>
+							<td class="register_td" width="150"><img src="/images/register/check.jpg">이름</td>
+							<td class="register_td"  width="570" colspan="2">
+								<input class="field_1" maxlength="10" name="user[name]" type="text"></td>
+							</tr>							
+							<tr>
+							<td class="register_td" ><img src="/images/register/check.jpg">비밀번호</td>
+							<td class="register_td"  width="570"  colspan="2"><input class="field_1" type="password" value="" name="user[password]"/></td>
+							</tr>
+							<tr>
+							<td class="register_td" ><img src="/images/register/check.jpg">비밀번호 재확인</td>
+							<td class="register_td"  width="570"  colspan="2">
+								<input class="field_1" type="password" value="" name="user[re-password]"/></td>
+							</tr>
+							
+							<tr>
+							<td class="register_td" ><img src="/images/register/check.jpg">이메일 주소</td>
+							<td class="register_td" width="570"  colspan="2">
+								<input class="field_1" type="text" value="" name="user[email]"/></td>
+							</tr>
+							
+							<!-- <tr>
+							<td ><img src="/images/register/check.jpg">이메일 주소</td>
+							<td width="100">
+								<input class="field_1" type="text" value="" name="name"/></td>
+							<td width="20"> @</td>
+							<td width="100">
+								<input class="field_1" type="text" value="" name="name"/></td>
+						    <td width="350">
+									<select>
+										<option value="0" > 선택</option>
+										<option value="1" > gmail.com </option>
+										<option value="2" > hotmail.com </option>
+										<option value="3" > yahoo.com </option>
+										<option value="4" > naver.com </option>
+										<option value="5" > hanmail.net </option>
+										<option value="5" > 직접입력 </option>
+						        	</select>
+								</td>
+							</tr> -->
+						
+						</table>
+						<!-- <템플릿 정보 반복 구간입니다.> -->
+					</td>
+				</tr>
+			</table>
+		<!-- <템플릿 정보창 한줄 반복 구간입니다. -->
+
+	
+	<div id="line_bottom1"></div>
+	<br>			
+
+	
+	<div id="button_wrapper">
+			<%= image_submit_tag("/images/board/submit.jpg") %>
+	</div>
+	<% end %>
+			

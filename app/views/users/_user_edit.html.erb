@@ -1,0 +1,76 @@
+
+<div id="feature_wrapper">
+	<h2>회원정보수정</h2>
+		<p1> 비밀번호나 이메일 주소 등 기본사항에 변동사항이 있다면 꼭 마이페이지 회원정보수정에서 수정하세요.</p1>
+		<br><br>
+		<div class="error_message"><%= flash[:notice] %></div>
+	</div>
+<!-- <copy> -->
+	<div id="line_bottom1"></div>
+
+		<!-- <템플릿 정보창 한줄 반복 구간입니다. -->
+				<table>
+				<% form_for(@user) do |f| %>
+				<%= f.error_messages %>
+					<tr>
+						<td>
+							<!-- <템플릿 정보 반복 구간입니다.> -->
+							<table class="register_table">
+								<tr>
+								<td class="register_td" width="160"><img src="/images/mypage/check_empty.gif">아이디</td>
+								<td class="register_td" width="570">&nbsp;<%= current_user.userid %></td>
+								</tr>
+								<tr>
+								<td class="register_td" width="160"><img src="/images/mypage/check_empty.gif">이름</td>
+								<td class="register_td" width="570">&nbsp;<%= current_user.name %></td>
+								</tr>								
+								<tr>
+								<td class="register_td" width="160"><img src="/images/mypage/check.jpg">현재 비밀번호</td>
+								<td class="register_td" width="570">
+								<input class="field_1" type="password" value="" name="user[current_password]"/></td>
+								</tr>
+								<tr>
+								<td class="register_td" width="160"><img src="/images/mypage/check.jpg">수정 비밀번호</td>
+								<td class="register_td" width="570"><input class="field_1" type="password" value="" name="user[new_password]"/></td>
+								</tr>
+
+								<tr>
+								<td width="160"><img src="/images/mypage/check.jpg">이메일 수정 </td>
+								<td width="100">
+									<input class="field_1" type="text" value="<%= @user.email %>" name="user[email]"/></td>
+								<!-- <td width="20"> @</td>
+								<td width="100">
+									<input class="field_1" type="text" value="" name="name"/></td>
+							    <td width="350">
+										<select>
+											<option value="0" > 선택</option>
+											<option value="1" > gmail.com </option>
+											<option value="2" > hotmail.com </option>
+											<option value="3" > yahoo.com </option>
+											<option value="4" > naver.com </option>
+											<option value="5" > hanmail.net </option>
+							        	</select>
+									</td> -->
+								</tr>
+
+							</table>
+							<!-- <템플릿 정보 반복 구간입니다.> -->
+						</td>
+					</tr>
+				
+				</table>
+		<!-- <템플릿 정보창 한줄 반복 구간입니다. -->
+
+
+	<div id="line_bottom1"></div>
+	
+		<table width="732">
+			<tr>
+				<td colspan="2" height="15">
+				 </tr>
+			<tr>
+				<td width="670" align="right"><a href="/"><img src="/images/mypage/cancle.jpg"></a></td>
+				<td width="62" align="right"><%= image_submit_tag("/images/mypage/confirm.jpg") %><a href="mypage_change02.html"></td>
+				</tr>
+		</table>
+		<%end%>

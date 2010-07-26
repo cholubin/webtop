@@ -1,0 +1,15 @@
+<font color="white">
+  <b>Title:</b>
+<p>
+  공지여부: <input type="checkbox" <%= "checked" if @notice.is_notice == true %>>
+</p>
+<p>
+  <%=h @notice.title %>
+</p>
+<p>
+  <%=h @notice.content %>
+</p>
+
+<%= link_to 'Edit', edit_notice_path(@notice) %> |
+<%= link_to 'Back', notices_path %>
+</font>

@@ -1,0 +1,64 @@
+<table>
+	<tr>
+		<td align="center">
+			<div id="sortables">
+					<%= puts_message @mybookpdfs.count.to_s %>
+					<% @mybookpdfs.each do |m| %>
+					<div style="margin: auto; width: 350px;" id="<%= m.id %>">						
+						<%= image_tag m.thumb_url %>
+						<input type="checkbox" name="chk" value="<%= m.id %>">
+					</div>
+					<% end  %>
+			</div>
+		</td>
+	</tr>
+</table>
+
+
+	 
+<script type="text/javascript">
+   //function to execute when doc ready
+   $(function() {
+      //make specified element sortable
+      $("#sortables").sortable({axis: 'y' });
+
+   });
+
+
+	function result(){
+	  var result = new Array();
+	  result = $('#sortables').sortable('toArray');
+	  return result;
+	}
+	
+	function result2(){
+	  var result = new Array();
+
+	$("input[name=chk]:checkbox:checked").each(
+	     function (){
+	       result += this.value + ',';    // 명령어
+	 });
+	return result
+
+	}	
+
+	$(function()
+	{
+		$('#pane').jScrollPane();
+	});
+	
+ </script>
+
+
+<script>
+	hide_progress();
+	<% if @mode == "update_sort" %>
+		alert("순서가 저장되었습니다!");
+	<% else %>
+		<% if @chk_cnt > 0 %>
+			alert("삭제가 완료되었습니다!");
+		<% else %>
+			alert("삭제할 파일을 선택해주세요!");		
+		<% end %>
+	<% end  %>
+</script>

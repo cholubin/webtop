@@ -1,0 +1,18 @@
+
+-path="/MClientBox/index.html?spread_list=YES&user_path=/user_files/"+@userid+"&doc_path=/article_templates/"+@doc_name
+-puts_message path
+%iframe{:id => "frame", :src => "= path", :width => "100%", :height => "100%"}
+  %p Your browser does not support iframes.
+
+%script{:type => "text/javascript"}
+  function resizeIframe() {
+  var height = document.documentElement.clientHeight;
+  height -= document.getElementById('frame').offsetTop;
+
+  // not sure how to get this dynamically
+  height -= 20; /* whatever you set your body bottom margin/padding to be */
+
+  document.getElementById('frame').style.height = height +"px";
+
+  };
+  document.getElementById('frame').onload = resizeIframe;

@@ -1,0 +1,17 @@
+<h1>Editing temp</h1>
+
+<% form_for(@temp) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @temp %> |
+<%= link_to 'Back', temps_path %>

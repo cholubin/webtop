@@ -1,0 +1,18 @@
+<p>
+  <b>Name:</b>
+  <%=h @mytemplate.name %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%=h @mytemplate.price %>
+</p>
+
+<p>
+  <b>Size:</b>
+  <%=h @mytemplate.size %>
+</p>
+
+
+<%= link_to 'Edit', edit_mytemplate_path(@mytemplate) %> |
+<%= link_to 'Back', mytemplates_path %>

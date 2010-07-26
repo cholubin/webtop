@@ -1,0 +1,20 @@
+<h1>Listing notices</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @notices.each do |notice| %>
+  <tr>
+    <td><%=h notice.title %></td>
+	
+    <td><%= link_to 'Show', notice %></td>
+    <td><%= link_to 'Edit', edit_notice_path(notice) %></td>
+    <td><%= link_to 'Destroy', notice, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New notice', new_notice_path %>

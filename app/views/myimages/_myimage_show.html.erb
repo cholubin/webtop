@@ -1,0 +1,40 @@
+<div id="admincontents_wrapper">
+<h2>클립아트 상세페이지</h2>
+<p2>자신이 직접 등록한 클립아트의 내용입니다. <br></p2>
+<br>
+</div>
+
+<table class="clipart_table">
+    <thead class="clipart_thead">
+        <tr>
+            <td class="clipart_thead" width="800px"><%=h @myimage.name %></td>
+        </tr>
+    </thead>
+</table>
+
+<p>
+
+  
+</p>
+<%
+ext_name = File.extname(@myimage.image_filename)
+
+  %>
+<a href="<%= @myimage.url %>" target="new"><%= image_tag("#{@myimage.preview_url}", :width => '400') %></a>
+
+
+<% if @myimage.description != nil && @myimage.description.length > 1 %>
+<p>
+  <b>설명:</b><br>
+  <%=h @myimage.description %>
+</p>
+<% end %>
+<p></p>
+<div>
+<img src="/images/mytemplates/line.jpg">
+</div>
+
+<p>
+<%= link_to image_tag("/images/board/modify.jpg", :border=>0), edit_myimage_path(@myimage.id.to_s) + "?ext="+params[:ext]+"&page=" + params[:page] %>
+<%= link_to image_tag("/images/board/list.jpg", :border=>0), myimages_path + "?ext="+params[:ext]+"&page=" + params[:page] %>
+</p>

@@ -1,0 +1,22 @@
+<h1>Editing category</h1>
+
+<% form_for @category, :url => { :action => "update" } do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label '카테고리명' %><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label '우선순위' %><br />
+    <%= f.text_field :priority %>
+  </p>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @category %> |
+<%= link_to 'Back', admin_category_path %>

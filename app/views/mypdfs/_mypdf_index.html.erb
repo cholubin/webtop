@@ -1,0 +1,131 @@
+<%= stylesheet_link_tag '/css/paginate.css' %>
+	<div id="admincontents_wrapper">
+		<h2>PDF 리스트</h2>
+		<p2>편집기에서 직접 생성하신 PDF파일의 리스트 입니다. <br></p2>
+		<br>
+	</div>
+	
+	<% form_tag :action => :copySelection, :method => 'post' do %>	
+	<table class="clipart_table">
+	    <thead class="clipart_thead">
+	        <tr>
+	            <td class="clipart_thead" width="400px">나의 PDF 리스트</td>
+	            <td class="clipart_thead" width="400px" align="right">
+	            	<span id="folder_select">
+						선택한 파일들을 <select name="_book">
+						<%@mybooks.each do |s| %>	
+						<option value="<%= s.id %>"> <%= s.folder_name %></option>				
+						<% end %>
+					</select>에 &nbsp;<%= image_submit_tag("/images/mypdf/copy.jpg", :onclick => 'return confirm(\'해당폴더로 복사하시겠습니까?\');' , :align => "absmiddle" ) %>
+					</span>
+	            </td>	
+	        </tr>
+	    </thead>
+	</table>
+<div id="partial_page">	
+<% temp = 1 %>	
+<% @mypdfs.each do |mypdf| %>
+<% if temp%4 == 1%>
+	<div>
+	<img src="/images/mytemplates/line.jpg">
+	</div>
+		<table>
+			<tr>
+<% end %>					
+				<td>
+					<!-- <템플릿 정보 반복 구간입니다.> -->
+					<table class="template_table">
+						<tr><td><input type="checkbox" name="chk[]" value="<%= mypdf.id %>"></td></tr>
+						<tr>
+							<td class="templatelist" width="180" height="120" valign="top">
+								<a title="<%= mypdf.description if !mypdf.description.nil? %>" href="<%= mypdf.pdf_url %>" target="new"><%= image_tag mypdf.thumb_url %></a>
+							</td>
+							<td width="14">&nbsp;</td>
+						</tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td class="templatelist">
+								<a title="<%= mypdf.name %>" href="/mypdf/<%= mypdf.id.to_s %>"><%= if mypdf.name.length > 15; mypdf.name[0,15] else;  mypdf.name end %></a>
+							</td>
+						</tr>
+						<tr> 
+							<td class="templatelist"><a href="#">등록일: <%= mypdf.created_at.strftime('%Y-%m-%d') %></a></td></tr>
+						<tr>
+						<td class="templatelist">							
+							<%= link_to image_tag("/images/template/delete_s.jpg", :border=>0, :title => "삭제"), mypdf_path(mypdf.id.to_s), :confirm => '정말 삭제하시겠습니까?',  :method => :delete %>
+							<%= link_to image_tag("/images/template/registration2_s.jpg", :border=>0, :title => "클립아트로 등록하여 편집시 이미지처럼 사용할 수 있습니다."), '/mypdfs?mypdf_id='+mypdf.id.to_s, :confirm => '마이클립아트에 등록하시겠습니까?', :method => :post %>
+						</td></tr>
+
+						<tr>
+						<td>&nbsp;</td></tr>
+					</table>
+					<!-- <템플릿 정보 반복 구간입니다.> -->
+				</td>
+<% if temp%4 == 0 or temp == @mypdfs.length%>
+			</tr>
+		</table>
+<% end  %>
+
+<% temp += 1
+end%>
+</div>
+
+<table class="clipart_table2">
+    <thead>
+        <tr>
+            <td class="clipart_thead_bottom" width="400px">&nbsp;</td>
+			<td class="clipart_thead_bottom" width="400px" align="right">
+				<%= image_tag '/images/mybook/delete_s.jpg', :align => 'absmiddle', 
+				:onmouseover => "this.style.cursor='hand';",
+				:onclick => "if (window.confirm('선택하신 PDF파일을 정말 삭제하시겠습니까?')){}else{return false;};" + remote_function(:url => { :controller => 'mypdfs', :action => :deleteSelection },
+				:with => "'pdf_id=' + result()")
+				%>
+			</td>
+        </tr>
+    </thead>
+</table>
+
+			<table width="776">
+				<tr height="20">
+					<td width="546" align="left">
+						<div class="pager">
+							<% if @mypdfs.count > 0 %>
+							<%= @mypdfs.pager.to_html "/mypdfs?search=#{params[:search]}" %>
+							<% end %>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<% end %>
+
+			<table width="776">
+				<tr>
+					<td align="right">
+						<% form_tag request.path + "?page=#{params[:page]}", :method => 'get' do %>			
+					    <%= text_field_tag :search, params[:search] %><%= image_submit_tag("/images/board/search.jpg", :align => "absmiddle") %>	
+						<% end %>			
+					</td>
+				</tr>
+			</table>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	function result(){
+		var result = new Array();
+		$.each($("input[@name='chk[]']:checked"), function() {
+		  result.push($(this).val());
+		  // or you can do something to the actual checked checkboxes by working directly with  'this'
+		  // something like $(this).hide() (only something useful, probably) :P
+		});
+		return result
+
+	}
+	
+		
+ </script>
+
+

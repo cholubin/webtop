@@ -1,0 +1,12 @@
+<h1>Editing tempfolder</h1>
+
+<% form_for(@tempfolder) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @tempfolder %> |
+<%= link_to 'Back', tempfolders_path %>

@@ -1,0 +1,63 @@
+ul{border:0; margin-left:0; padding:0;}
+
+
+.pager ul a {
+	display: block;
+	text-decoration: none;	
+}
+
+.pager li{
+	border:0; margin:0; padding:0;
+	font-size: 90%;
+	border:solid 0px #DDDDDD;
+	list-style:none;
+	float:left;
+	text-decoration: none;
+
+}
+
+.pager .more {
+	border:solid 0px #DDDDDD;
+	text-decoration: none;	
+
+}
+.pager .jump {
+	font-size: 100%;
+	padding-right: 3px;
+	font-weight:bold;
+	border:solid 0px #FFFFFF;
+}
+
+.pager .jump a,
+.pager li a {
+	text-decoration: none;	
+	padding: 0px 2px;
+	color:#0063e3;
+}
+
+.pager .jump li{
+	padding: 0px 0px;
+}
+
+.pager .jump li a{
+	padding: 0px 2px;
+}
+
+.pager li a{
+	color:#666666;
+	padding: 0px 6px;
+}
+
+.pager .active a{
+	color:#ff0084;	
+	font-size: 90%;	
+}
+
+.pager .active {
+	font-size: 110%;
+	font-weight:bold;
+	border:solid 0px #FFFFFF;
+}
+
+
+

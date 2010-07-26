@@ -1,0 +1,11 @@
+#이미 추가된 파일명을 삭제시에는 git rm --cached filename 를 이용한다.
+.DS_Store
+public/images/.DS_Store
+public/uploads/*
+public/templates/*
+public/MClientBox/*
+public/user_files/*
+test/*
+log/*
+db/*
+config/environment.rb

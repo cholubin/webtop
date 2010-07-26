@@ -1,0 +1,15 @@
+	<%= image_tag @myimage.url %>
+<p>
+
+  <b>이미지명:</b><br>
+  <%=h @myimage.name %>
+
+  <b>아이디:</b><br>
+  <%=h User.get(@myimage.user_id.to_s).userid %>
+
+  <b>이름:</b>
+  <%=h User.get(@myimage.user_id.to_s).name %>
+
+</p>
+
+<%= link_to '전체목록', admin_myimages_path %>

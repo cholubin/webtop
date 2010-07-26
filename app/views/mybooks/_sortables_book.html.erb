@@ -1,0 +1,5 @@
+<% @mybooks.each do |m| %>
+<div id="<%= m.id %>">
+<%= image_tag "/images/folder/folder.jpg", :width=>'20', :align => 'absmiddle' %>&nbsp;<a href="/mybooks?book_id=<%= m.id %>"><font color="white"><%= m.folder_name %></font></a><br>
+</div>
+<% end  %>

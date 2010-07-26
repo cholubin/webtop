@@ -1,0 +1,24 @@
+<h1>Listing temps</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>썸네일</th>
+    <th>File</th>
+  </tr>
+
+<% @temps.each do |temp| %>
+  <tr>
+    <td><%=h temp.title %></td>	
+    <td><%=image_tag temp.thumb_url.to_s %></td>
+    <td><%=h temp.file_filename %></td>
+    <td><%= link_to 'Show', temp_path(temp.id) %></td>
+    <td><%= link_to 'Edit', edit_temp_path(temp.id) %></td>
+    <td><%= link_to 'Destroy', temp_path(temp.id), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New temp', new_temp_path %>

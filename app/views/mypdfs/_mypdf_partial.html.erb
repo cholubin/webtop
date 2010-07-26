@@ -1,0 +1,44 @@
+<% temp = 1 %>	
+<% @mypdfs.each do |mypdf| %>
+<% if temp%4 == 1%>
+	<div>
+	<img src="/images/mytemplates/line.jpg">
+	</div>
+		<table>
+			<tr>
+<% end %>					
+				<td>
+					<!-- <템플릿 정보 반복 구간입니다.> -->
+					<table class="template_table">
+						<tr><td><input type="checkbox" name="chk[]" value="<%= mypdf.id %>"></td></tr>
+						<tr>
+							<td class="templatelist" width="180" height="120" valign="top">
+								<a title="<%= mypdf.description if !mypdf.description.nil? %>" href="<%= mypdf.pdf_url %>" target="new"><%= image_tag mypdf.thumb_url %></a>
+							</td>
+							<td width="14">&nbsp;</td>
+						</tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td class="templatelist">
+								<a title="<%= mypdf.name %>" href="/mypdf/<%= mypdf.id.to_s %>"><%= if mypdf.name.length > 15; mypdf.name[0,15] else;  mypdf.name end %></a>
+							</td>
+						</tr>
+						<tr> 
+							<td class="templatelist"><a href="#">등록일: <%= mypdf.created_at.strftime('%Y-%m-%d') %></a></td></tr>
+						<tr>
+						<td class="templatelist">							
+							<%= link_to image_tag("/images/template/delete_s.jpg", :border=>0, :title => "삭제"), mypdf_path(mypdf.id.to_s), :confirm => '정말 삭제하시겠습니까?',  :method => :delete %>
+							<%= link_to image_tag("/images/template/registration2_s.jpg", :border=>0, :title => "클립아트로 등록하여 편집시 이미지처럼 사용할 수 있습니다."), '/mypdfs?mypdf_id='+mypdf.id.to_s, :confirm => '마이클립아트에 등록하시겠습니까?', :method => :post %>
+						</td></tr>
+
+						<tr>
+						<td>&nbsp;</td></tr>
+					</table>
+					<!-- <템플릿 정보 반복 구간입니다.> -->
+				</td>
+<% if temp%4 == 0 or temp == @mypdfs.length%>
+			</tr>
+		</table>
+<% end  %>
+
+<% temp += 1
+end%>

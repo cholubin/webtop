@@ -1,0 +1,11 @@
+<p>
+  <b>Title:</b>
+  <%=h @faq.question %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%=h @faq.answer %>
+</p>
+<%= link_to 'Edit', edit_admin_faq_path(@faq.id.to_s) %> |
+<%= link_to 'Back', admin_faqs_path %>

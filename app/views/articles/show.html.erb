@@ -1,0 +1,34 @@
+<p>
+  <b>Title:</b>
+  <%=h @article.title %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%=h @article.body %>
+</p>
+
+<p>
+  <b>Image:</b>
+  <%=h @article.image_filename %>
+
+  
+  <% temp_IMAGE_PATH = IMAGE_LOCATION + "t_" + @article.image_filename  if @article.image_filename%>
+  <%= "<img src='" + temp_IMAGE_PATH + "'>" if @article.image_filename %>
+</p>
+
+<p>
+  <b>인코딩된 이름:</b>
+  <%=h @article.image_filename_encoded %>
+
+</p>
+<p>
+  <b>원래 파일명:</b>
+  <%=h @article.image_filename %>
+
+</p>
+
+
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Back', articles_path %>
+

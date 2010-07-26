@@ -1,0 +1,27 @@
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    %meta{'http-equiv' => 'Content-Type', :content => 'text/html', :charset => 'UTF-8'}/
+    %meta{'http-equiv' => 'X-UA-Compatible', :content => 'IE=EmulateIE7'}/
+    %title 
+      = h(yield(:title) || "Webtop Printshop")
+    
+    = stylesheet_link_tag 'base', 'sequence', 'scaffold', :cache => "base"    
+    = stylesheet_link_tag '/css/main_for_m.css'
+    = stylesheet_link_tag '/css/style_for_m.css'
+
+    = javascript_include_tag '/js/jquery_1.4.2/jquery-1.4.2.js'
+    /[if IE 6]   
+    /  = javascript_include_tag 'dd_belated_png.js' 
+  %body
+    #container
+      #header
+        /= render :partial => "/shared/login_for_m", :object =>  @menu
+        /= render :partial => "/shared/menu"
+
+      #wrapper
+
+        
+        = yield
+        /= render :partial =>  '/shared/footer'
+        / #sidebar
+        /   = render :partial =>  'layouts/sidebar'

@@ -1,0 +1,50 @@
+<div id="wrapper_bg">
+	<div id="wrapper">
+		<%= render :partial => "/shared/logo" %>	
+	<div id="login_search_section">
+		<%= render :partial => "/shared/login" %>	
+	</div>
+
+		<!-- 메뉴 =================================================================================-->
+		<div id="menu_section">
+			<%= render :partial => "/shared/menu", :object => @menu%>
+		</div>
+		<!-- 메뉴 =================================================================================-->
+	
+		<!-- 본문영역 =================================================================================-->
+		<div id="content_section">
+			<h2>회원정보수정 </h2>
+			<img src="/images/mypage/modify_complate.jpg">
+
+				<table width="732">
+					<tr>
+						<td colspan="2" height="15">
+						 </tr>
+					<tr>
+						<td width="366" align="right">&nbsp;</td>
+						<td width="366" align="left"><a href="/"><img src="/images/register/home.jpg"></a></td>
+						</tr>
+				</table>
+		</div>
+		<!-- 본문영역 =================================================================================-->
+			
+			
+		<!-- 사이드바  ==============================================================================-->
+		<div id="mainNav_section">
+			<%if @section == "edit" %> 			
+				<%= render :partial => "modify_leftsidebar" %>
+			<%else%>
+				<h3>회원가입</h3>
+			<%end%>
+		</div>		
+		<!-- 사이드바  ==============================================================================-->	
+	
+	<!-- 풋터  ==============================================================================-->		
+	<div id="footer_section">
+		<%= render :partial => "/shared/footer" %>
+	</div>
+	<!-- 풋터  ==============================================================================-->			
+</div>
+</div>	
+
+

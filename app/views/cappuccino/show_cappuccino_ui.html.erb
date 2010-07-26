@@ -1,0 +1,50 @@
+<%
+path = "/MClientBox/index.html?spread_list=YES&user_path=/user_files/"+@userid+"&doc_path=/article_templates/"+ @doc_name
+
+%>
+
+<script language='javascript'>
+ 
+function resize_iframe(){
+	try{	
+		// var window_width = screen.width;		
+		// var window_height = screen.height;
+
+		var window_height = document.body.offsetHeight;
+		var window_width = document.body.offsetWidth;
+		
+		if ($.browser.msie) {  
+			// var menu_height = 68;	
+			// var menu_width = 18;	
+
+			// var height = window_height - menu_height;
+			// var width = window_width - menu_width;
+
+			var height = window_height;
+			var width = window_width;
+
+		}else{
+			var menu_width = 40;				
+			var menu_height = 10;	
+
+			var height = window_height - menu_height;
+			var width = window_width - menu_width;
+		}
+	
+		$("#wt_iframe").css("height",height);
+		$("#wt_iframe").css("width",width);		
+		// obj.style.height = = height + "px";
+	}catch(e){
+		alert(e);
+	}
+
+}
+
+$(window).resize(function(){
+	resize_iframe(); 
+});
+
+</script>
+
+
+<iframe id="wt_iframe" src = "<%=path%>" width = "100%" height="100%" onLoad="resize_iframe();">

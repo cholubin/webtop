@@ -1,0 +1,30 @@
+<h1>Editing subcategory</h1>
+
+<% form_for(@subcategory) do |f| %>
+  <%= f.error_messages %>
+<h1>서브 분류 수정</h1>
+<p>		
+	메인분류:<select name="subcategories[main_category]">
+		<%  if @select_main_category.length > 0 %>
+			<% @select_main_category.each do |s| %>
+				<option value="<%= s.id %>" <%= "selected" if s.id == @subcategory.category_id %>><%= s.name %></option>				
+			<%end%>
+		<%	else%>
+				<option value="">"먼저 메인분류를 추가하세요!"</option>					
+			<%end %>
+	</select>
+</p>
+<p>
+  <%= f.label :'서브분류' %><br />
+  <%= f.text_field :name %>
+</p>
+<p>
+  <%= f.label :'우선순위' %><br />
+  <%= f.text_field :priority %>
+</p>
+  <p>
+    <%= f.submit 'Udate' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', subcategories_path %>

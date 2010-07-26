@@ -1,0 +1,13 @@
+<script language="javascript">
+ function popup(doc_name) {
+
+       var url = "/mlayout?doc_name="+doc_name;
+	alert(url);
+	   width = screen.width;
+	   height = screen.height;
+      window.open(url ,'','width='+width+', height='+height);
+}
+
+popup('<%= @doc_name %>');
+
+</script>

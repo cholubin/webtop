@@ -1,0 +1,80 @@
+<%= stylesheet_link_tag '/css/paginate.css' %>
+<div id="feature_wrapper">
+		<p1>관리자 리스트 페이지입니다.</p1><br>
+		<% if ! flash[:notice].nil? %>
+			<br>
+			<span class="error_message_small"><%= flash[:notice].to_s %></span>
+		<% end %>		
+</div>
+	<br>
+	<% form_tag :action => :deleteSelection, :method => 'post' do %>			
+	
+	<table class="board_table">
+	    <thead class="board_thead">
+	        <tr>
+	            <th class="board_thead" width="60px">번호 </th>
+	            <td class="board_thead" width="100px"><center>아이디</center></td>
+				<td class="board_thead" width="80px"><center>이름</center></td>
+	            <td class="board_thead" width="80px"><center>비밀번호</center></td>
+	            <td class="board_thead" width="80px"><center>이메일</center></td>
+	            <td class="board_thead" width="65px"><center>등록일</center></td>
+				<td class="board_thead" width="30px"><center>삭제</center></td>
+	        </tr>
+	    </thead>
+	 
+	    <tbody class="board_tbody">
+			<% 	if params[:page].to_i == 0 or params[:page].to_i == 1
+					@temp_page = 0
+				else
+					@temp_page = params[:page].to_i - 1
+				end
+				@page_num = @total_count - (10 * @temp_page) %>
+				
+
+			<% @myadmins.each do |myadmin| %>
+	        <tr class="table_b","board_tbody" onClick="location.href='/admin/myadmins/<%= myadmin.id.to_s %>'" style="cursor:hand;">
+	            <th class="board_tbody" width="60px"><%= @page_num %></th>
+	            <td class="board_tbody" width="100px"><center><%= myadmin.admin_id %></center></td>
+				<td class="board_tbody" width="80px"><center><%= myadmin.name %></center></td>
+				<td class="board_tbody" width="80px"><center><%= myadmin.password %></center></td>
+	            <td class="board_tbody" width="80px"><center><%= myadmin.email %></center></td>
+	            <td class="board_tbody" width="80px"><center><%= myadmin.created_at.strftime('%Y-%m-%d') %></center></td>	
+				<td class="board_tbody" width="30px"><center><input type="checkbox" name="chk[<%= myadmin.id %>]"></center></td>
+	        </tr>
+	        <% @page_num -= 1
+			end %>
+	        
+	    </tbody>
+	</table>
+	   
+
+	<div id="line_bottom1"></div>
+	<br>
+
+		<!-- dm-pager Pagination -->
+		<table width="730" >
+			<tr>
+				<td width="230">&nbsp;</td>
+				<td width="350" style="align:center">
+					<div class="pager">
+					<%=Myadmin.search(params[:search], params[:page]).pager.to_html "/mymyadmins?search=#{params[:search]}" %>
+					</div>
+				</td>
+				<td width="150" align="right">
+					<% if @total_count > 0 %>
+						<%= image_submit_tag('/images/board/delete.jpg', { :onclick => 'return confirm(\'정말 삭제하시겠습니까?\');' }) %>				
+					<% end %>
+				</td>
+			</tr>
+			<% end %>
+			<tr height="10">
+				<td align="center" colspan="3">
+						<% form_tag request.path + "?page=#{params[:page]}", :method => 'get' do %>								
+					    <%= text_field_tag :search, params[:search] %><%= image_submit_tag("/images/board/search.jpg", :align => "absmiddle") %>	
+						<% end %>
+				</td>
+			</tr>
+					
+		</table>
+		
+

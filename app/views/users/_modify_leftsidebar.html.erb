@@ -1,0 +1,12 @@
+<h3><sapn <%= "class=\"on\"" if @board =="user" %> >회원정보</span></h3>
+<p>	<a <%= "class=\"on\"" if @section =="edit" %> href="/users/<%= current_user.id %>/edit">&nbsp;&nbsp;-&nbsp;회원정보수정</a> <br> 
+	<a <%= "class=\"on\"" if @section=="withdraw" %> href="/pages/withdraw">&nbsp;&nbsp;-&nbsp;회원탈퇴</a> <br> 
+</p>
+
+<h3><span <%= "class=\"on\"" if @board=="mycart" %>>구매정보</span></h3>
+<p>	
+	<a href="/mycarts" <%= "class=on" if @board=="mycart" %>>&nbsp;&nbsp;-&nbsp;장바구니</a> <br> 
+	<a href="#">&nbsp;&nbsp;-&nbsp;구매완료 주문</a> <br> 
+	<a href="#">&nbsp;&nbsp;-&nbsp;관심탬플릿</a> <br> 
+	<a href="#">&nbsp;&nbsp;-&nbsp;내 게시글</a> <br> 
+</p>

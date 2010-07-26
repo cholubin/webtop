@@ -1,0 +1,60 @@
+	<script language="javascript">
+		function menu(num) {
+			var t = document.all.submenu;
+			var s = document.all.menu_title;
+
+			if (t[num].style.display == "") {
+				t[num].style.display = "none";
+				s[num].style.fontWeight = "";
+			} else {
+				for(i=0; i < t.length; i++) {
+					t[i].style.display = "none";
+					s[i].style.fontWeight = "";
+				}
+
+				t[num].style.display = "";
+				s[num].style.fontWeight = "bold";
+			}
+		}
+	</script>
+	
+
+		<div id="feature_wrapper">
+			<h2>FAQ 자주 묻는 질문</h2>
+
+			<TABLE id="board_1">
+			    <TR>
+			    	<TD class="table_d"><a href="#">  전체 </TD>
+					<TD class="table_d"><a href="#"> 회원가입</TD>
+					<TD class="table_d"><a href="#"> 템플릿관련</TD>
+			    </TR>
+		    </TABLE>
+
+				  <div id="line_top"></div>
+		          <% 	@i = 0
+						@faqs.each do |faq| %>		               
+	               <!-- 여기가 반복구간이에요 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::		 -->
+				    <div id="menu_title">
+						<a href="javascript:menu(<%= @i %>);"> <img src="/images/board/help-icon.jpg">&nbsp;<%= faq.question %></a>
+					</div>
+					<Div id="submenu" style="DISPLAY:none">
+						<%= faq.answer %>
+					
+					</Div>
+					  <div id="line_under"></div>
+				<!-- 여기가 반복구간이에요 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::		 -->
+				<% @i+=1
+				   end %>
+
+				    
+					  <div id="line_under"></div>
+				
+				
+					<div id="line_bottom"></div>
+		                  
+
+		               
+		</div>
+		
+
+

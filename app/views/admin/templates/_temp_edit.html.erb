@@ -1,0 +1,12 @@
+<h1>Editing admintemplate</h1>
+
+<% form_for(@temp) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @admintemplate %> |
+<%= link_to 'Back', admintemplates_path %>

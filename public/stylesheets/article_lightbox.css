@@ -1,0 +1,98 @@
+
+.lightbox_video{
+background:transparent url(/images/video.png) no-repeat center center;
+}
+
+.lightbox_image{
+background:transparent url(/images/magnify.png) no-repeat center center;
+}             
+
+
+.wrapper a{
+text-decoration:none;
+}
+
+.wrapper a:hover{
+text-decoration:none;
+}
+
+a img, a:hover img{
+border:none;
+text-decoration:none;
+z-index: 2;
+position: relative;
+outline: none;
+border:1px solid #021a40
+}
+
+
+.floatleft{
+float:left;
+}
+
+.floatright{
+float:right;
+}
+
+.clearboth{
+clear:both;
+}
+
+.alignleft{
+float:left;
+margin:0px 15px 15px 0pt;
+}
+
+.alignright{
+float:right;
+margin:0px 0pt 15px 15px;
+}
+
+.aligncenter{
+clear:both;
+display:block;
+margin:10px auto;
+padding: 10px 0;
+}
+
+#top .extra_margin_right{
+margin-right:50px;
+}
+
+#top .no_margin_right{
+margin-right:0;
+}
+
+#top .wp-smiley{
+border:none;
+padding:0;
+}
+
+.meta{
+display:block;
+position:relative;
+top:3px;
+font-size:11px;
+line-height:14px;
+}
+
+.pp_details .pp_nav a.pp_arrow_previous, .pp_details .pp_nav a.pp_arrow_next {
+margin-top:8px;
+}
+
+.pp_details .pp_nav {
+margin:-3px 0 0;
+}
+
+.lightbox_video, .lightbox_image{
+position: absolute;
+z-index: 1;
+top:0;
+left:0;
+}
+
+
+#top .ie6_lightbox, #footerwrap .ie6_lightbox{
+position: relative;
+border:none;
+}

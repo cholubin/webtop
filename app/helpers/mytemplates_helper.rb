@@ -1,0 +1,2 @@
+module MytemplatesHelper
+end

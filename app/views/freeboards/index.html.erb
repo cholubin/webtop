@@ -1,0 +1,20 @@
+<h1>Listing freeboards</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @freeboards.each do |freeboard| %>
+  <tr>
+    <td><%=h freeboard.title %></td>
+	
+    <td><%= link_to 'Show', freeboard %></td>
+    <td><%= link_to 'Edit', edit_freeboard_path(freeboard) %></td>
+    <td><%= link_to 'Destroy', freeboard, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New freeboard', new_freeboard_path %>

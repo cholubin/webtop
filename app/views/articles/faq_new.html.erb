@@ -1,0 +1,29 @@
+<h1>New article</h1>
+
+
+<% form_for @article, :html => {:multipart => true} do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </p>
+ <p>
+    <%= f.label :'이미지 업로드' %><br />
+    <%= f.file_field :image_file %>
+  </p>
+
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', articles_path %>
+
+
+
+ 

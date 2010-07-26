@@ -1,0 +1,300 @@
+
+/*Small reset*/
+/*body, ul, ol, h1,h2,h3,h4,h5,h6,form,li,p{
+margin:0;
+padding:0;
+}
+    */
+/*Structured layout mainpage*/
+
+
+/*body{
+font-size:13px;
+font-family: Arial, Helevtica, Verdana, san-serif;
+line-height:23px;
+position:relative;
+}   */            
+
+.portfolio_entry{         
+    width: 100%;  
+    position:relative;
+    display:table;
+    
+      
+    margin: 0 auto;
+    background-color: #FFF;
+/*    padding: 20px 40px;*/
+
+  /*  border: solid 1px black; */
+    margin-top: 5px;  
+      margin-bottom: 25px; 
+    /*drop shadow*/
+    /* offset left, top, thickness, color with alpha */
+      -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+      -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+      /* IE */
+      filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=5, OffY=5, Color='gray');
+      /* slightly different syntax for IE8 */
+      -ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=5, OffY=5, Color='gray')";  
+  
+}
+
+
+.portfolio_image_entry{         
+    width: 100%;  
+    position:relative;
+    display:table;
+    
+      
+    margin: 0 auto;
+    background-color: #FFF;
+    /*padding: 20px 40px; */
+    padding: 20px 40px; 
+  /*  border: solid 1px black; */
+    margin-top: 20px;  
+      margin-bottom: 25px; 
+    /*drop shadow*/
+    /* offset left, top, thickness, color with alpha */
+      -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+      -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+      /* IE */
+      filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=5, OffY=5, Color='gray');
+      /* slightly different syntax for IE8 */
+      -ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=5, OffY=5, Color='gray')";  
+  
+}
+
+#whitebox .header {
+
+/*  background: #B7CEEC; */
+/*  background: #C2DFFF;  */
+  background: #AFDCEC; /*light blue*/
+  color: #FFF;       
+  padding: 10px 15px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+#whitebox .header h2{
+  margin: 15px 0px;   
+
+
+}
+
+.box{
+position:relative;  
+padding-left: 20px; 
+padding-right: 20px; 
+margin-right:10px;
+float:left;
+overflow: hidden;
+/*padding-bottom: 50px;   */
+
+
+}
+ 
+/*this line determines number of images in a row*/
+#whitebox .box3{
+margin:0;
+}
+/*width is critical to show the determined number of images in a row*/ 
+#whitebox .box_small{
+/*width:280px; */
+width:200px;
+}
+
+#whitebox .box_mini{
+width:160px;
+margin-right:20px;
+}
+
+
+.box_small h3{
+padding:15px 0 4px 0;
+}
+
+.lightbox_video{
+background:transparent url(/images/video.png) no-repeat center center;
+}
+
+.lightbox_image{
+background:transparent url(/images/magnify.png) no-repeat center center;
+}
+
+/*pagination*/
+
+#top .pagination {
+clear:both;
+padding:0 0 60px 0;
+position:relative;
+z-index:3;
+}
+
+#top .pagination span, #top .pagination a{
+display:block;
+float:left;
+font-size:11px;
+line-height:13px;
+margin: 2px 2px 2px 0;
+padding:3px 6px;
+text-decoration:none;
+width:auto;
+}
+
+
+#top .pagination .current{
+font-size:11px;
+padding:3px 6px;
+}
+
+
+#whitebox .box .boxsmall a img{ 
+
+  border:1px solid #021a40;
+}
+
+
+
+
+
+
+/*generic*/
+.rounded{
+-moz-border-radius: 4px;
+-webkit-border-radius:4px;
+border-radius:4px;
+}
+
+.more-link{
+display:block;
+line-height:16px;
+padding:9px 0 0;
+width:72px;
+}
+
+input, select, textarea{
+font-size:13px;
+font-family: Arial, Helevtica, Verdana, san-serif;
+position:relative;
+outline: none;
+}
+
+blockquote {
+font-size:12px;
+font-style:italic;
+margin:0 0 20px;
+padding:10px 20px 10px 41px;
+}
+
+.wrapper a{
+text-decoration:none;
+}
+
+.wrapper a:hover{
+text-decoration:none;
+}
+
+a img, a:hover img{
+border:none;
+text-decoration:none;
+z-index: 2;
+position: relative;
+outline: none;
+border:1px solid #021a40
+}
+
+/*#main img{
+float:left;
+margin-bottom: 5px;
+display: inline;
+}
+    */
+p{ padding: 0 0 1em 0}
+
+
+
+
+
+blockquote p{
+padding:11px 0px;
+}
+
+blockquote{
+margin:0 0 22px 5px;
+padding:0 15px;
+}
+
+.floatleft{
+float:left;
+}
+
+.floatright{
+float:right;
+}
+
+.clearboth{
+clear:both;
+}
+
+.alignleft{
+float:left;
+margin:0px 15px 15px 0pt;
+}
+
+.alignright{
+float:right;
+margin:0px 0pt 15px 15px;
+}
+
+.aligncenter{
+clear:both;
+display:block;
+margin:10px auto;
+padding: 10px 0;
+}
+
+#top .extra_margin_right{
+margin-right:50px;
+}
+
+#top .no_margin_right{
+margin-right:0;
+}
+
+#top .wp-smiley{
+border:none;
+padding:0;
+}
+
+.meta{
+display:block;
+position:relative;
+top:3px;
+font-size:11px;
+line-height:14px;
+}
+
+.pp_details .pp_nav a.pp_arrow_previous, .pp_details .pp_nav a.pp_arrow_next {
+margin-top:8px;
+}
+
+.pp_details .pp_nav {
+margin:-3px 0 0;
+}
+
+.lightbox_video, .lightbox_image{
+position: absolute;
+z-index: 1;
+top:0;
+left:0;
+}
+
+
+#top .ie6_lightbox, #footerwrap .ie6_lightbox{
+position: relative;
+border:none;
+}
+
+

@@ -1,0 +1,35 @@
+#step {
+	margin: 10px 0 20px;
+/*  padding: 0;*/
+padding: 20px 20px;
+}
+#step li {
+	padding: 3px 0 6px 110px;
+	margin: 0 0 20px;
+	list-style: none;
+}
+#step h3 {
+	font: bold 200%/100% Arial, Helvetica, sans-serif;
+	margin: 0 0 5px;
+	color: #666;
+}
+#step .item1 {
+  background: url(/images/home/step1.png) no-repeat;
+}
+#step .item2 {
+  background: url(/images/home/step2.png) no-repeat;
+}
+#step .item3 {
+  background: url(/images/home/step3.png) no-repeat;
+}                
+
+
+/*#commentlist li {
+  position: relative;
+}
+
+#commentlist .commentnumber {
+  position: absolute;
+  right: 0;
+  top: 8px;
+}         */

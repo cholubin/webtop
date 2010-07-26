@@ -1,0 +1,51 @@
+<div id="feature_wrapper">
+	<h2>자유게시판</h2>
+		<p1>	웹탑프린트샵 자유게시판입니다.
+		</p1>
+<br><br>
+
+	</div>
+<!-- <copy> -->
+	<table class="board_table">
+	    <thead class="board_thead">
+	        <tr>
+	            <th class="board_thead_view" width="590px"><%= @freeboard.title %></th>
+				<td class="board_thead" width="70px"><%= User.first(:id => @freeboard.user_id).name %></td>
+	            <td class="board_thead" width="70px"><%= @freeboard.created_at.strftime('%Y-%m-%d') %></td>
+				</tr>
+	    </thead>
+	 
+	    <tbody class="board_tbody">
+	        <tr>
+	            <td colspan="3" class="table_c">
+					<div class="notice_contents">
+						<%= simple_format(@freeboard.content) %>
+					</div>
+				</td>
+				
+	            
+
+	        </tr>
+	       
+	    </tbody>
+	</table>
+	<div id="line_bottom1"></div>
+	<table width="732">
+		<tr>
+			<td colspan="3" height="15">
+			 </tr>
+		<tr>
+			<td width="370">&nbsp;</td>
+			<td width="362" align="right">
+				<a href="/freeboards?search=<%=params[:search]%>&page=<%=params[:page]%>">
+				<img src="/images/board/list.jpg"></a>
+				<% if signed_in? && current_user.id == @freeboard.user_id %>
+					<%= link_to image_tag("/images/board/modify.jpg", :border=>0), edit_freeboard_path(@freeboard.id) %>
+					<%= link_to image_tag("/images/board/delete.jpg", :border=>0), freeboard_path, :confirm => '정말 삭제하시겠습니까?', :method => :delete %>
+				<% else  %>
+					
+				<% end  %>
+			</td>
+
+			</tr>
+	</table>

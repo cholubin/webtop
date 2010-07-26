@@ -1,0 +1,503 @@
+
+/* ---------- Navigation ---------- */
+
+
+#search_box {
+	color: white;
+/*	position: relative;*/
+	float: right;
+	padding-right: 10px;	
+}
+
+.field {
+	font-size: 13px;
+	background-color: #333333;
+	border: solid 1px #717171;
+	color: white;
+	padding: 2px;
+/*	margin-top: 2px;*/
+	float: left;
+}
+
+.field_1 {
+	font-size: 11px;
+	background-color: white;
+	border: solid 1px #717171;
+	padding: 2px;
+	float: left;
+}
+
+.field_2 {
+	font-size: 11px;
+	width:442px;
+	background-color: white;
+	border: solid 1px #717171;
+	margin-left: 1px;
+	padding: 2px;
+	float: left;
+}
+
+.field_3 {
+	font-size: 13px;
+	width:621px;
+	background-color: white;
+	border: solid 1px #717171;
+	padding: 2px;
+	float: left;
+}
+
+.field_5 {
+	font-size: 11px;
+	width:250px;
+	background-color: white;
+	border: solid 1px #717171;
+	margin-left: 1px;
+	padding: 2px;
+	float: left;
+}
+
+
+a.search:hover {
+	background-color: #4e4e4e;
+}
+.search {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	display: block;
+	float: left;
+	height: 20px;
+	padding: 2px 8px 0px 8px;
+	margin-left: 7px;
+	margin-top: 2px;
+	color:white;
+    text-decoration:none;
+	background-color: #5d7a37;
+}
+
+a.send:hover {
+	background-color: #4e4e4e;
+}
+
+
+a.search_1:hover {
+	background-color: #4e4e4e;
+}
+.search_1 {
+		font-family: Arial, Helvetica, sans-serif;
+	/*	font-weight: bold;*/
+		font-size: 11px;
+		display: block;
+		float: right;
+		height: 16px;
+		padding: 6px 8px 1px 8px;
+		color:white;
+	    text-decoration:none;
+	/*	text-transform: uppercase;*/
+		background-color: #5d7a37;
+	}
+	
+	
+a.search_2:hover {
+	background-color: #4e4e4e;
+}
+.search_2 {
+		font-family: Arial, Helvetica, sans-serif;
+	/*	font-weight: bold;*/
+		font-size: 11px;
+		display: block;
+		float: right;
+		height: 16px;
+		padding: 3px 8px 4px 8px;
+		margin-left:-250px;
+		margin-right: 252px;
+		color:white;
+	    text-decoration:none;
+	/*	text-transform: uppercase;*/
+		background-color: #5d7a37;
+	}
+	
+a.search3:hover {
+	background-color: #4e4e4e;
+}
+.search3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	display: block;
+	float: left;
+	height: 20px;
+	padding: 2px 8px 3px 9px;
+	margin-left: 400px;
+	color:white;
+    text-decoration:none;
+	background-color: #5d7a37;
+}
+
+
+
+
+.send {
+	font-family: Arial, Helvetica, sans-serif;
+/*	font-weight: bold;*/
+	font-size: 11px;
+	display: block;
+	float: left;
+	height: 20px;
+	padding: 4px 8px 0px 8px;
+	margin-left: 7px;
+	color:white;
+    text-decoration:none;
+/*	text-transform: uppercase;*/
+	background-color: #5d7a37;
+}
+
+#top_bar {
+	background-color: #000000;
+	height: 36px;
+}
+#nav_container {
+	width: 815px;
+	margin: 0 auto;
+    z-index: 99;
+}
+#nav {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 12px;
+
+/*	text-valign: middle;*/
+	color: #9f9f9f;
+	z-index: 9999;
+	float: left;
+	position: relative;	
+	 margin:0;
+     padding:0;
+     list-style-type:none;
+     list-style-position:outside;
+     position:relative;
+     line-height:0.6em;
+ 
+}
+
+#nav a:link, #nav a:active, #nav a:visited{
+    display:block;
+    padding: 14px 25px;
+    color:#a5a5a5;
+    text-decoration:none;
+	text-transform: uppercase;
+}
+#nav a:hover {
+    color: white;
+}
+#nav .on{
+	background: url(/images/index/hover.jpg) no-repeat center;
+	height: 13px;
+	z-index: 1;
+	color:#fff !important;
+	float: left;
+	position: relative;
+
+}
+
+
+
+#nav li{
+    float:left;
+    position:relative;
+}
+#nav ul {
+    position:absolute;
+    top:2.9em;
+    display:none;	
+	z-index: 1;
+}
+#nav li ul a {
+    width:8em;
+    float:left;
+	background-color: black;
+	background-image: none !important;
+}
+#nav li ul a:hover {
+	background-color: #292929;
+}
+#nav ul ul{
+	top:auto;
+}	
+#nav li ul ul {
+    left:11.3em;
+    margin:0px 0 0 10px;
+}
+#nav li:hover ul ul, #nav li:hover ul ul ul, #nav li:hover ul ul ul ul{
+    display:none;
+}
+#nav li:hover ul, #nav li li:hover ul, #nav li li li:hover ul, #nav li li li li:hover ul{
+    display:block;
+}
+
+/* ---------- Featured ---------- */
+
+.featuretitle {
+	font-size: 13px;
+	padding: 3px 0 5px 0;
+	text-transform: uppercase;
+	font-weight: bold;
+	display: block;
+}
+
+#feature_wrapper {
+	width: 910px;
+	vertical-align:middle;
+	line-height: 16px;
+	color: white;
+
+}
+
+#feature_wrapper1 {
+	width: 910px;
+	padding-left: 680px;
+	line-height: 16px;
+}
+
+#feature_wrapper2 {
+	width: 910px;
+	padding-left: 252px;
+	margin-bottom:10px;
+	line-height: 16px;
+}
+
+#feature_list {
+	width: 750px;
+	height: 272px;
+	position: relative;
+	background-color: #404040 ;
+}
+#feature_list ul {
+	position: absolute;
+	top: 0;
+	list-style: none;	
+	padding: 0;
+	margin: 0;
+}
+#tabs {
+	right: 0;
+	z-index: 2;
+	width: 303px;
+}
+#tabs li {
+	font-size: 12px;
+	font-family: Arial;
+	height: 90px;
+}
+#tabs li a {
+	color: #999999;
+	text-decoration: none;	
+	display: block;
+	padding: 10px 20px 10px 35px;
+	height: 90px;
+	outline: none;
+}
+#tabs li a:hover {
+	color: #fff;
+}
+#tabs li a.current {
+	background: url(/images/index/feature-tab-current.png) top left no-repeat;
+	color: #393939 ;
+}
+#tabs li a.current:hover {
+	text-decoration: none;
+	cursor: default;
+}
+#output {
+	left: 0;
+	width: 633px;
+	height: 252px;
+	position: relative;
+}
+#output li {
+	position: absolute;
+	width: 651px;
+	height: 272px;
+}
+.outputimg {
+
+	border: #868686 solid 1px;
+	border-right: none;
+}
+
+
+h7 {
+	color: white;
+	font-size: 13px;
+	line-height: 20px;
+	text-transform: uppercase;
+}
+
+p7 {
+	font-size: 12px;
+	line-height: 20px;
+	margin: 5px 0px;
+}
+
+p7 a{
+	font-size: 12px;
+	line-height: 20px;
+	color: white;
+	text-decoration: none;
+	}
+
+.title_460px22 img {
+	vertical-align: middle;
+	margin-left: 150px;	
+	
+}
+
+
+.lastbox22 {
+	margin-top: 15px;
+	margin-right: 0px;
+	height: 145;
+}
+
+.firstbox22 {
+	width: 243px;
+	height: 120;
+	padding-top: 15px;
+	margin-right: 0px;
+}
+
+
+.title_460px22 {
+	background: url(/images/index/bar_bg1px.jpg) top left repeat-x ;
+	text-align: left;
+	height: 25px;
+	padding: 5px 0px 0px 20px;
+/*	border-top: #c8c8c8 solid 1px;
+	border-left: #c8c8c8 solid 1px;
+	border-right: #c8c8c8 solid 1px;*/
+	
+}
+
+.title_460px22 {
+	width: 350px;
+}
+
+.content460px22 {
+	width: 328px;
+	height: 52px;
+	padding: 20px;
+	background-color: #333333;
+/*	overflow: hidden;*/
+	border: #535353 solid 1px;
+}
+
+/* tutorial start - by fooleaf */
+
+#tutorial_header {
+	background: url("/images/tutorial/header-bg.gif") no-repeat;
+	text-indent: -5000px;
+	width: 719px;
+	height: 220px;
+	margin-bottom: 10px;
+}
+
+#tutorial_mplayer { width: 740px; height: 570px; margin: 0 auto; }
+#tutorial_mplayer #player { margin: 1px; width: 717px; height: 568px; }
+
+#tutorial_list { width:740px; margin: 0 auto; }
+#tutorial_list ul {	background: url("/images/tutorial/tutorial-list-bg.gif"); height: auto; padding: 0; margin: 8px 0 40px; overflow: hidden }
+#tutorial_list li {
+	color: white;
+	float: left;
+	width: 229px;
+	margin: 0px 16px 0 0;
+	padding: 0px;
+	letter-spacing: -1px
+}
+#tutorial_list h4 { margin: 10px 0; padding: 0; }
+#tutorial_list h4 a:link {
+	display: block;
+	color:#a4c631;
+	text-decoration: none;
+	width: 201px;
+	height: 22px;
+	margin: 0;
+	padding: 0 0 0 30px;
+	line-height: 22px;
+	vertical-align: middle;
+	background: url("/images/tutorial/playicon-out.gif") 4px 0 no-repeat;
+}
+
+#tutorial_list h4 a:hover { background: url("/images/tutorial/playicon-over.gif") 4px 0 no-repeat; }
+#tutorial_footer { clear: both; text-indent: -5000px; width: 733px;height: 73px; background: url("/images/tutorial/footer-bg.gif") no-repeat; }
+
+/* tutorial end - by fooleaf */
+
+/* content box 스타일 정의 start */
+
+div.content_box_first {
+	width: 770px;
+	position: relative;
+	border-top: 3px solid #a4c631;
+	background: url("/images/about/content_line.png") left bottom repeat-x;
+	padding: 8px 0 30px;
+	margin: 0 0 10px;
+}
+
+.content_box {
+	background: url("/images/about/content_line.png") left bottom repeat-x;
+	width: 770px;
+}
+
+.content_box_last {
+	width: 770px;
+
+}
+
+/* content box 스타일 정의 end */
+
+/* aboutpage 스타일 정의 start */
+
+img#about_webtop_icon {
+	position: absolute;
+	top: 23px;
+	left: 450px;
+}
+
+div#workprocess {
+	height: 340px;
+	background: url("/images/about/webtop-process.png") 80px 50px no-repeat;
+
+}
+
+div#workprocess ol {
+	position: relative;
+	top: 174px;
+	width: 770px;
+	overflow: hidden;
+	margin: 0 30px;
+	padding: 0;
+}
+
+div#workprocess ol li {
+	color: white;
+	width: 229px;
+	margin: 8px;
+	padding: 0px;
+	float: left;
+}
+
+div#workprocess ol li h3 {
+	margin: 0;
+	padding: 0;
+	color: white;
+	text-align: center;
+}
+
+#about_tutorial_button {
+	height: 93px;
+	display: block;
+	margin: 0 auto;
+	border: 0;
+	text-align: center;
+}
+
+/* aboutpage 스타일 정의 end */

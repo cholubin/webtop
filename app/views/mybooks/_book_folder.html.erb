@@ -1,0 +1,51 @@
+<% if @mybooks.count < 1 
+	@mybook = Mybook.new
+	@mybook.name = "mybook"
+	@mybook.user_id = current_user.id
+	@mybook.folder_name = @mybook.name
+	if @mybook.save
+		@mybookfolder = Mybookfolder.new
+		@mybookfolder.name = @mybook.folder_name
+		@mybookfolder.user_id = @mybook.user_id
+		
+		if @mybookfolder.save
+			dir = "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/mybook/#{@mybookfolder.name}"
+		    FileUtils.mkdir_p dir if not File.exist?(dir)
+		    FileUtils.chmod 0777, dir
+		end
+	end
+	
+	@mybooks = Mybook.all(:order => [:order])
+	end %>
+
+<div id="sortables_book">	
+
+	<% @mybooks.each do |m| %>
+	<div id="<%= m.id %>">
+	<%= image_tag "/images/folder/folder.jpg", :width=>'20', :align => 'absmiddle' %>&nbsp;<a href="/mybooks?book_id=<%= m.id %>"><font color="white"><%= m.folder_name %></font></a><br>
+	</div>
+	<% end  %>
+	
+</div>
+
+<script type="text/javascript">
+   //function to execute when doc ready
+   $(function() {
+      //make specified element sortable
+	  $("#sortables_book").sortable({
+	   update: function(event, ui) { 
+		<%= remote_function(:url  => {:action => "book_order_update"},:with => "'book_id='+result_book()") %>
+		}
+	});
+	
+	$("#sortables_book").sortable({axis: 'y' });
+	
+   });
+
+
+	function result_book(){
+	  var result = new Array();
+	  result = $('#sortables_book').sortable('toArray');
+	  return result;
+	}
+ </script>

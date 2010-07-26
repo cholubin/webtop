@@ -1,0 +1,52 @@
+<div id="feature_wrapper">
+	<h2>회원 로그인</h2>
+		<p1>	웹탑프린트샵 회원 로그인 페이지입니다.
+		</p1>
+<br><br>
+	</div>
+<!-- <copy> -->
+	<%= "<span class='error_message'>#{flash.now[:error]}</span>" %>
+	<div id="line_bottom1"></div>
+	<% form_for(:session, :url => sessions_path) do |f| %>
+	<input type="hidden" name="session[uri]" value="<%= params[:uri] %>">
+	  
+		<!-- <템플릿 정보창 한줄 반복 구간입니다. -->
+			<table>
+				<tr>
+					<td>
+						<!-- <템플릿 정보 반복 구간입니다.> -->
+						<table class="register_table">
+							<tr>
+							<td class="register_td" width="160"><img src="images/register/check.jpg">아이디</td>
+							<td class="register_td" colspan="4" width="570"><input class="field_1" type="text" value="" name="session[userid]" id="id"/></td>
+							</tr>
+							<tr>
+							<td class="register_td" width="160"><img src="images/register/check.jpg">비밀번호</td>
+							<td class="register_td" colspan="4" width="570"><input class="field_1" type="password" value="" name="session[password]"/></td>
+							</tr>
+
+						
+						</table>
+						<!-- <템플릿 정보 반복 구간입니다.> -->
+					</td>
+				</tr>
+			</table>
+		<!-- <템플릿 정보창 한줄 반복 구간입니다. -->
+
+	
+	<div id="line_bottom1"></div>
+	<br>			
+
+	
+		<div id="button_wrapper" style="padding-right:10">
+				<%= image_submit_tag("/images/login/login.jpg") %>
+			</div>
+			
+<%end %>
+
+
+<script>
+	window.onload = function(){ 
+		document.all.id.focus();
+	} 
+</script>

@@ -1,0 +1,59 @@
+<div id="wrapper_bg">
+	<!-- <top 메뉴입니다.> -->
+<div id="top_section">
+	
+</div>
+<div id="main_section">
+
+	<% form_for(:adminsession, :url => adminsessions_path) do |f| %>	
+	<table border="0" cellpadding="0" cellspacing="0" width="100%" height="20%">
+	<tr height="20%">
+		<td align="center">
+			<table border="0" cellpadding="0" cellspacing="0" width="500">
+			<tr height="31">
+				<td valign="top"><img src="/images/admin/logo_admin.jpg"></td>
+			</tr>
+			<tr>
+				<td bgcolor="black" align="center">
+					<table border="0" cellpadding="0" cellspacing="0" width="498" bgcolor="black">
+					<tr height="224">
+						<td width="135" valign="top"><img src="/images/admin/admin_login.jpg"></td>
+						<td width="351" valign="top" background="/images/admin/admin_page.jpg" align="center">
+							<div id="admin_loginpage">
+							<table class="adminlogin_table">
+								<tr>
+									<td colspan="2"><%= "<span class='error_message'>#{flash.now[:error]}</span>" %></td>
+								</tr>
+								<tr>
+								<td width="100"><p2>아이디</p2></td>
+								<td width="200"><input class="field_4" type="text" value="" name="adminsession[admin_id]" id="admin_id"/></td>
+								</tr>
+								<tr>
+								<td width="100"><p2>비밀번호</p2></td>
+								<td width="200"><input class="field_4" type="password" value="" name="adminsession[password]"/></td>
+								</tr>
+							</table>
+							<table class="adminlogin_table">
+								<tr>
+								<td width="226">&nbsp;</td>
+								<td width="74">
+									<%= image_submit_tag("/images/admin/login.jpg") %>	
+								</td>
+								</tr>
+							</table>
+							</div>
+							</table>
+			<tr><td bgcolor="#83b149" height="1"></td></tr>
+			</table>
+		</td>
+	</tr>
+	</table>
+<%end %>
+</div>
+</div>
+
+<script>
+	window.onload = function(){ 
+		document.all.admin_id.focus();
+	} 
+</script>

@@ -1,0 +1,23 @@
+<h1>Editing myimage</h1>
+
+<% form_for @admin_myimage, :url => { :action => "update" } do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+ <p>
+    <%= f.label :'이미지 업로드' %><br />
+    <%= f.file_field :file %>
+  </p>
+<p>
+	<%= f.label :'기존파일' %>:<%= @admin_myimage.image_filename %><br />
+</p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @admin_myimage %> |
+<%= link_to 'Back', admin_myimages_path %>

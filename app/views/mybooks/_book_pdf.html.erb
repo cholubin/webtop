@@ -1,0 +1,92 @@
+<%
+if params[:book_id] != nil
+	book_id = params[:book_id]
+else
+	book_id = Mybook.first(:user_id => current_user.id, :order => [:order]).id.to_s
+end
+ %>
+<div id="dp_top" style="<%= "display:none" if @mybookpdfs.count < 1 %>; padding:0 0 0 100">
+<table width="500">
+	<tr height="30" align="left">
+		<td align="left">
+	<%= image_tag '/images/mybook/save_order.jpg', :align => 'absmiddle', 
+	:onmouseover => "this.style.cursor='hand';",
+	:onclick => "if (window.confirm('현재 배치된 순서대로 설정을 저장하시겠습니까?')){show_progress();}else{return false;};" + remote_function(:url => { :controller => 'mybooks', :action => :save_order },
+	:with => "'pdf_id=' + result() +'&mybook_id=' + "+book_id)
+	%>&nbsp;
+	<%= image_tag '/images/mybook/delete_s.jpg', :align => 'absmiddle', 
+	:onmouseover => "this.style.cursor='hand';",
+	:onclick => "if (window.confirm('선택하신 PDF파일을 정말 삭제하시겠습니까?')){show_progress();}else{return false;};" + remote_function(:url => { :controller => 'mybooks', :action => :deleteSelection },
+	:with => "'pdf_id=' + result2() +'&mybook_id=' + "+book_id)
+	%>&nbsp;
+	<%= image_tag '/images/mybook/make_one.jpg', :align => 'absmiddle' %>
+	</td>
+	</tr>
+</table>
+</div>
+
+<div id="pain" class="scroll-pane">	
+<div id="dp_sub">
+<table>
+	<tr>
+		<td align="center">
+			<div id="sortables">
+
+					<% @mybookpdfs.each do |m| %>
+					<div style="margin: auto; width: 350px;" id="<%= m.id %>">						
+						<%= image_tag m.thumb_url %>
+						<input type="checkbox" name="chk" value="<%= m.id %>">
+					</div>
+					<% end  %>
+			</div>
+
+		</td>
+	</tr>
+</table>
+</div>
+</div>
+<!--	<script type="text/javascript" src="/js/jquery_1.4.2/jquery-1.4.2.js"></script> -->
+	<script type="text/javascript" src="/js/jquery_1.4.2/ui/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="/js/jquery_1.4.2/ui/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="/js/jquery_1.4.2/ui/jquery.ui.mouse.js"></script>
+	<script type="text/javascript" src="/js/jquery_1.4.2/ui/jquery.ui.sortable.js"></script>
+
+
+	<script type="text/javascript" src="/js/jScrollPane/jquery.mousewheel.js"></script>
+	<script type="text/javascript" src="/js/jScrollPane/jquery.em.js"></script>
+	<script type="text/javascript" src="/js/jScrollPane/jScrollPane.js"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="/js/jScrollPane/jScrollPane.css" />
+	<link rel="stylesheet" type="text/css" media="all" href="/js/jScrollPane/demoStyles.css" />
+			 
+<script type="text/javascript">
+   //function to execute when doc ready
+   $(function() {
+      //make specified element sortable
+      $("#sortables").sortable({axis: 'y' });
+
+   });
+
+
+	function result(){
+	  var result = new Array();
+	  result = $('#sortables').sortable('toArray');
+	  return result;
+	}
+	
+	function result2(){
+	  var result = new Array();
+
+	$("input[name=chk]:checkbox:checked").each(
+	     function (){
+	       result += this.value + ',';    // 명령어
+	 });
+	return result
+
+	}
+
+	$(function()
+	{
+		$('#pane').jScrollPane();
+	});
+ </script>
+

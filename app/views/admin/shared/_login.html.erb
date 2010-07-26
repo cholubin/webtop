@@ -1,0 +1,7 @@
+<%if !admin_signed_in? %>
+	<script>
+		location.replace('/admin/login')
+	</script>
+<%else%>
+	<a href="/admin/logout">로그아웃 ( <%= current_admin.name %> )</a>
+<%end%> &nbsp;

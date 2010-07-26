@@ -1,0 +1,41 @@
+<!-- 툴팁관련 자바 스크립트 기본적인 Jquery 파일은 최상단 레이어에 붙였음. -->
+<script src="/js/other_libs/bgiframe_2.1.1/jquery.bgiframe.min.js" type="text/javascript" charset="utf-8"></script><!--[if IE]><script src="/js/other_libs/excanvas_r3/excanvas.compiled.js" type="text/javascript" charset="utf-8"></script><![endif]-->
+<script src="/js/jquery.bt.min.js" type="text/javascript" charset="utf-8"></script>
+
+<div id="top_bar">
+	<div id="nav_container">
+		<ul id="nav">
+			<li><a <%= "Class=\"on\"" if @menu == "home" %> href="/">home</a></li>
+			<li><a <%= "Class=\"on\"" if @menu == "about" %> href="/pages/about">about</a></li>
+			<li><a <%= "Class=\"on\"" if @menu == "template" %> href="/temps">template</a></li>
+			<li><a <%= "Class=\"on\"" if @menu == "board" %> href="/notices">board</a></li>
+			<li><a <%= "Class=\"on\"" if @menu == "tutorial" %> href="/pages/tutorial">tutorial</a></li>
+<!--			<li><a <%= "Class=\"on\"" if @menu == "contact" %>href="/pages/contact">contact</a></li> -->
+			<% if signed_in? %>
+			<li id="myspace" title="TEMPLATE 페이지에서 복사한 자신의 템플릿을 편집하고 관리하는 영역입니다."><a <%= "Class=\"on\"" if @menu == "mytemplate" %> href="/mytemplates">My Space</a></li>						
+				<% if @menu == "mlayout" %>
+					<li ><a <%= "Class=\"on\"" if @menu == "mlayout" %> href="#">Edit</a></li>							
+				<% end %>
+			<% end %>
+		</ul>
+	</div>
+</div>
+<!-- 툴팁관련 -->
+<script type="text/javascript">
+  $(document).ready(function(){
+	$('#myspace').bt({
+	  padding: 20,
+	  width: 120,
+	  spikeLength: 40,
+	  spikeGirth: 20,
+	  cornerRadius: 30,
+	  fill: 'rgba(0, 0, 0, .8)',
+	  strokeWidth: 2,
+	  strokeStyle: '#CC0',
+	  cssStyles: {color: '#FFF', fontWeight: 'normal', lineHeight: '150%', zIndex: '99999'}
+	});
+  });
+</script>
+
+
+

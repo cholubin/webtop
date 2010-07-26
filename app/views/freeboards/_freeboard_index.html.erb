@@ -1,0 +1,78 @@
+<%= stylesheet_link_tag '/css/paginate.css' %>
+<div id="feature_wrapper">
+	<h2>자유게시판</h2>
+		<p1>	웹탑프린트샵 자유게시판입니다.
+		</p1>
+<br><br>
+
+	</div>
+<!-- <copy> -->
+	<table class="board_table">
+	    <thead class="board_thead">
+	        <tr>
+	            <th class="board_thead" width="60px">번호 </th>
+	            <td class="board_thead" width="465px"><center>제목</center></td>
+				<td class="board_thead" width="80px"><center>작성자</center></td>
+	            <td class="board_thead" width="80px"><center>등록일</center></td>
+	            <td class="board_thead" width="65px"><center>조회</center></td>
+
+	        </tr>
+	    </thead>
+	 
+	    <tbody class="board_tbody">
+			<% 	if params[:page].to_i == 0 or params[:page].to_i == 1
+					@temp_page = 0
+				else
+					@temp_page = params[:page].to_i - 1
+				end
+				@page_num = @total_count - (10 * @temp_page) %>
+				
+
+			<% @freeboard.each do |freeboard| %>
+	        <tr class="table_b","board_tbody">
+	            <th class="board_tbody" width="60px"><%= @page_num %></th>
+	            <td title="<%= freeboard.title if freeboard.title.length > 90 %>" class="board_tbody" width="465px"><a href="/freeboards/<%=freeboard.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>"><%= entitle(freeboard) %></a></td>
+				<td class="board_tbody" width="80px"><center><%= User.first(:id => freeboard.user_id).name %></center></td>
+	            <td class="board_tbody" width="80px"><center><%= freeboard.created_at.strftime('%Y-%m-%d') %></center></td>
+	            <td class="board_tbody" width="65px"><center><%= freeboard.hit_cnt %></center></td>
+
+	        </tr>
+	        <% @page_num -= 1
+			end %>
+	        
+	    </tbody>
+	</table>
+	   
+
+	<div id="line_bottom1"></div>
+	<br>
+
+		<!-- dm-pager Pagination -->
+		<table width="730" >
+		<% form_tag request.path + "?page=#{params[:page]}", :method => 'get' do %>			
+			<tr>
+				<td width="230">&nbsp;</td>
+				<td width="350" style="align:center">
+					<div class="pager">
+					<%=Freeboard.search(params[:search], params[:page]).pager.to_html "/freeboards?search=#{params[:search]}" %>
+					</div>
+				</td>
+				<td width="150" align="right">
+					<%if signed_in? %>
+						<a href="/freeboards/new"><img src="images/board/write.jpg"></a>					
+					<%else%>
+						<a href="/login?uri=/freeboards/new"><img src="images/board/write.jpg"></a>
+					<%end%>
+				</td>
+			</tr>
+			
+			<tr height="10">
+				<td align="center" colspan="3">
+					    <%= text_field_tag :search, params[:search] %><%= image_submit_tag("/images/board/search.jpg", :align => "absmiddle") %>	
+				</td>
+			</tr>
+		<% end %>			
+		</table>
+		
+
+						

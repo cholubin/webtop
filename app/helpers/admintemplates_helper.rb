@@ -1,0 +1,2 @@
+module AdmintemplatesHelper
+end

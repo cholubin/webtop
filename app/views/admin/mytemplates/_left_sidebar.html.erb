@@ -1,0 +1,15 @@
+<% @categories.each do |category| %>
+
+ 	<h3><a class="<%= "on" if @category_name == category.name%>" href="/mytemplates?category_name=<%= category.name %>"><%= category.name %></a></h3>
+
+
+	<p>
+	  <% @subcategories = category.subcategories  %>
+	  <% @subcategories.each do |subcategory| %>
+			<a class="<%= "on" if @subcategory_name == subcategory.name and @category_name == category.name%>" href="/mytemplates?category_name=<%= category.name %>&subcategory_name=<%= subcategory.name %>">&nbsp;&nbsp;-&nbsp;<%= subcategory.name %></a> <br>  		
+
+	  <%end  %>
+	</p>
+	
+	
+<%end%>

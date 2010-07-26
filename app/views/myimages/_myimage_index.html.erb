@@ -1,0 +1,173 @@
+<style>
+#layer1{border:0px solid green;position:absolute; left:500px; top:200px;width:100;height:100px; z-index:99999;}
+</style>
+
+<div id="layer1" style="display:none;"><%= image_tag("/images/template/loading.gif", :width => '100') %></div>
+
+
+<script language="javascript">
+function folder_view() {
+	var t = document.getElementById('folder');
+	
+	if (t.style.display == "none") {
+		t.style.display = "block";			
+	}else{
+		t.style.display = "none";					
+	}
+
+}
+
+
+function show_progress() {
+	var width = 100;
+	var height = 100;
+	
+	var left = (screen.width - width)/2;
+ 	var top = (screen.height - height)/2;
+	
+	document.getElementById("layer1").style.left = left;
+	document.getElementById("layer1").style.top = top;
+	
+	document.getElementById("layer1").style.display = "block";		
+
+}
+
+function hide_progress() {
+	document.getElementById("layer1").style.display = "none";		
+}
+</script>
+<% if params[:ext] != nil; ext = params[:ext] else; ext = "" end
+   if params[:folder] != nil; folder = params[:folder] else; folder = "" end
+   if params[:page] != nil; page = params[:page] else; page = "" end
+   if params[:search] != nil; search = params[:search] else; search = "" end
+%>
+
+<%= stylesheet_link_tag '/css/paginate.css' %>
+	<div id="admincontents_wrapper">
+	<h2>클립아트 리스트</h2>
+	<p2>웹탑프린트샵에 등록한 클립아트 리스트 입니다. <br>
+		<img src="/images/mytemplates/check.jpg"/>
+		클립아트를 업로드 하시려면 페이지 우측하단의 '업로드'를 클릭해 이용해주세요.<br>
+		<img src="/images/mytemplates/check.jpg"/>
+		등록하신 클립아트를 삭제하시려면, 해당 파일 하단의 'Delete'를 클릭하세요.
+	</p2>
+	</div>
+
+	<% 	
+		ext = params[:ext] 
+	   	if ext == nil or ext == "" or ext == "all"
+			ext = "all"
+			title_text = "전체"
+		else
+			title_text = ext.upcase
+		end
+
+	%>	
+	<div align="right" style="padding:0 24 5 0">
+		<font color="white">폴더별 </font> 
+		<span id="folder_select">
+		<select name="_folder" onChange="location.href='/myimages?page=<%= page %>&search=<%= params[:search] %>&ext=<%= params[:ext] %>&folder='+document.all._folder.value;">
+			<option value="all" <%= "selected" if params[:folder] == "all" %>>전체</option>				
+			<%@folders.each do |s| %>	
+			<option value="<%= s.id %>" <%= "selected" if params[:folder] == s.id.to_s %>><%= s.name %></option>				
+			<% end %>
+		</select>
+		</span>		
+		<font color="white">확장자별 </font> <select name="_ext" onChange="location.href='/myimages?page=<%= page %>&folder=<%= folder %>&search=<%= search %>&ext='+document.all._ext.value;">
+			<option value="all" <%= "selected" if ext == "all" %>>전체</option>				
+			<option value="pdf" <%= "selected" if ext == "pdf" %>>PDF</option>							
+			<option value="jpg" <%= "selected" if ext == "jpg" %>>JPG</option>
+			<option value="eps" <%= "selected" if ext == "eps" %>>EPS</option>						
+			<option value="gif" <%= "selected" if ext == "gif" %>>GIF</option>
+			<option value="tif" <%= "selected" if ext == "tif" %>>TIF</option>			
+		</select>	
+	</div>
+	
+	<table class="clipart_table">
+	    <thead class="clipart_thead">
+	        <tr>
+	            <td class="clipart_thead" width="400px">나의 클립아트 리스트 (<%= title_text %>)</td>
+	            <td class="clipart_thead" width="400px" align="right"><a href="Javascript:folder_view();"><%= image_tag("/images/folder/folder_manage.jpg", :align => 'absmiddle') %></a></td>	
+	        </tr>
+			<tr>
+				<td colspan="2">
+					<%= render :partial => "/myimages/folder" %>
+				</td>
+			</tr>	
+	    </thead>
+	</table>
+<% temp = 1 %>	
+<% @myimages.each do |myimage| %>
+<% if temp%4 == 1%>
+	<div>
+	<img src="/images/mytemplates/line.jpg">
+	</div>
+		<table>
+			<tr>
+<% end %>					
+				<td>
+					<!-- <템플릿 정보 반복 구간입니다.> -->
+					<table class="template_table">
+						<tr>
+						<td width>&nbsp;</td></tr>
+						<tr>
+						<td class="templatelist" width="180"><a title="<%= myimage.description if !myimage.description.nil? %>" href="/myimages/<%= myimage.id.to_s %>?ext=<%=ext%>&page=<%= params[:page] %>"><%= image_tag myimage.thumb_url, :border=>'0' %></a></td>
+						<td width="14">&nbsp;</td></tr>
+						<tr>
+						<td>&nbsp;</td></tr>
+						<tr> 
+						<td class="templatelist"><a href="/myimages/<%= myimage.id.to_s %>?ext=<%=ext%>&page=<%= params[:page] %>"><%= if myimage.name.length > 15; myimage.name[0,15] else;  myimage.name end %></a></td></tr>
+						<tr> 
+						<td class="templatelist"><font color="white">등록일: <%= myimage.created_at.strftime('%Y-%m-%d') %></font></td></tr>
+						<tr>
+						<td class="templatelist"><%= link_to '삭제', myimage_path(myimage.id.to_s), :confirm => '정말 삭제하시겠습니까?', :method => :delete %></td></tr>
+
+						<tr>
+						<td>&nbsp;</td></tr>
+					</table>
+					<!-- <템플릿 정보 반복 구간입니다.> -->
+				</td>
+<% if temp%4 == 0 or temp == @myimages.length%>
+			</tr>
+		</table>
+<% end  %>
+
+<% temp += 1
+end%>
+
+<table class="clipart_table2">
+    <thead>
+        <tr>
+            <td class="clipart_thead_bottom" width="400px">&nbsp;</td>
+			<td class="clipart_thead_bottom" width="400px" align="right"><a href="<%= if signed_in?; "/myimages/new?search="+search+"&page="+page+"&ext="+ext+"&folder="+folder else "/login" end %>"><img src="/images/mytemplates/upload.jpg"></a></td>
+        </tr>
+    </thead>
+</table>
+
+			<table width="776">
+				<tr height="30">
+					<td width="546">
+						<div class="pager">
+							<%= @myimages.pager.to_html "/myimages?ext=#{ext}&search=#{params[:search]}" %>
+						</div>
+					</td>
+				</tr>
+			</table>
+
+			<table width="776">
+				<tr>
+					<td align="right">
+						<% form_tag request.path + "?ext=#{ext}&page=#{params[:page]}", :method => 'get' do %>			
+						<input type="hidden" name="ext" value="<%= ext %>">
+					    <%= text_field_tag :search, params[:search] %><%= image_submit_tag("/images/board/search.jpg", :align => "absmiddle") %>	
+						<% end %>			
+
+					</td>
+				</tr>
+			</table>
+
+			</div>
+		</div>
+	</div>
+</div>
+

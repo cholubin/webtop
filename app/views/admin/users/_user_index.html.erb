@@ -60,7 +60,7 @@
 				<td width="230">&nbsp;</td>
 				<td width="350" style="align:center">
 					<div class="pager">
-					<%=User.search(params[:search], params[:page]).pager.to_html "/users?search=#{params[:search]}" %>
+					<%=User.search(params[:search], params[:page]).pager.to_html "/admin/users?search=#{params[:search]}" %>
 					</div>
 				</td>
 				<td width="150" align="right">

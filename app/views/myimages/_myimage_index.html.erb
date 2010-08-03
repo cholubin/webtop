@@ -135,11 +135,15 @@ function hide_progress() {
 <% temp += 1
 end%>
 
+<div>
+<img src="/images/mytemplates/line.jpg">
+</div>
+
 <table class="clipart_table2">
     <thead>
         <tr>
             <td class="clipart_thead_bottom" width="400px">&nbsp;</td>
-			<td class="clipart_thead_bottom" width="400px" align="right"><a href="<%= if signed_in?; "/myimages/new?search="+search+"&page="+page+"&ext="+ext+"&folder="+folder else "/login" end %>"><img src="/images/mytemplates/upload.jpg"></a></td>
+			<td class="clipart_thead_bottom" width="370px" align="right"><a href="<%= if signed_in?; "/myimages/new?search="+search+"&page="+page+"&ext="+ext+"&folder="+folder else "/login" end %>"><img src="/images/mytemplates/upload.jpg"></a></td>
         </tr>
     </thead>
 </table>

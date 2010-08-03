@@ -73,7 +73,24 @@ class Admin::UsersController < ApplicationController
     if !chk.nil? 
       chk.each do |chk|
         @user = User.get(chk[0].to_i)
-        @user.destroy    
+        
+        begin
+          user_dir = "#{RAILS_ROOT}" + "/public/user_files/#{@user.userid}/"
+          FileUtils.rm_rf user_dir
+
+          @mycarts = Mycart.all(:user_id => @user.id)  
+          @mycarts.destroy
+
+          @freeboards = Freeboard.all(:user_id => @user.id)  
+          @freeboards.destroy
+
+          @myimages = Myimage.all(:user_id => @user.id)  
+          @myimages.destroy
+        
+          @user.destroy   
+        rescue
+          flash[:notice] = '삭제시 에러가 발생했습니다.!'              
+        end 
       end
     else
         flash[:notice] = '삭제할 사용자를 선택하지 않으셨습니다!'    

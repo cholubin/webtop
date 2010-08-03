@@ -136,7 +136,7 @@ function hide_progress() {
 <% @temp += 1
 end%>
 
-
+<% if @mytemplates.count > 0 %>
 <table class="clipart_table2">
     <thead>
         <tr>
@@ -150,7 +150,7 @@ end%>
 		</tr>
     </thead>
 </table>
-
+<% end %>
 <!-- dm-pager Pagination -->
 <table width="780" >
 	<% form_tag request.path + "?page=#{params[:page]}", :method => 'get' do %>			

@@ -50,7 +50,7 @@
 						<tr> 
 							<td class="templatelist"><a href="#">등록일: <%= mypdf.created_at.strftime('%Y-%m-%d') %></a></td></tr>
 						<tr>
-						<td class="templatelist">							
+						<td class="templatelist">
 							<%= link_to image_tag("/images/template/delete_s.jpg", :border=>0, :title => "삭제"), mypdf_path(mypdf.id.to_s), :confirm => '정말 삭제하시겠습니까?',  :method => :delete %>
 							<%= link_to image_tag("/images/template/registration2_s.jpg", :border=>0, :title => "클립아트로 등록하여 편집시 이미지처럼 사용할 수 있습니다."), '/mypdfs?mypdf_id='+mypdf.id.to_s, :confirm => '마이클립아트에 등록하시겠습니까?', :method => :post %>
 						</td></tr>
@@ -74,11 +74,13 @@ end%>
         <tr>
             <td class="clipart_thead_bottom" width="400px">&nbsp;</td>
 			<td class="clipart_thead_bottom" width="400px" align="right">
+				<% if @mypdfs.count > 0 %>
 				<%= image_tag '/images/mybook/delete_s.jpg', :align => 'absmiddle', 
 				:onmouseover => "this.style.cursor='hand';",
 				:onclick => "if (window.confirm('선택하신 PDF파일을 정말 삭제하시겠습니까?')){}else{return false;};" + remote_function(:url => { :controller => 'mypdfs', :action => :deleteSelection },
 				:with => "'pdf_id=' + result()")
 				%>
+				<% end %>
 			</td>
         </tr>
     </thead>

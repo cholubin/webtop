@@ -20,10 +20,7 @@ class MyimagesController < ApplicationController
     if folder == "all" or folder == nil or folder == ""     
       folder = "all"
     end
-    
-    puts_message ext
-    puts_message folder
-    
+        
     if ext == "all" and folder == "all"
       @myimages = Myimage.all(:user_id => current_user.id, :order => [:created_at.desc]).search_user(params[:search], params[:page])                   
     elsif ext == "all" and folder != "all"

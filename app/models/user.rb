@@ -34,8 +34,11 @@ class User
   has n, :mypdfs  
   before :save, :encrypt_password
   before :create, :pdf_path
+  after  :save, :demo_up
 
   def pdf_path
+
+        
     dir = "#{RAILS_ROOT}" + "/public/user_files/#{self.userid}/pdfs"
     FileUtils.mkdir_p dir if not File.exist?(dir)
     FileUtils.chmod 0777, dir
@@ -53,10 +56,45 @@ class User
     FileUtils.mkdir_p dir if not File.exist?(dir)
     FileUtils.chmod 0777, dir
     
+    # For demo =========================================================================
+    source_path = "#{RAILS_ROOT}" + "/public/basic_photo/basic_photo"
+    destination_dir = "#{RAILS_ROOT}" + "/public/user_files/#{self.userid}/images/"
+    if !File.exist?(destination_dir + "basic_photo") 
+      FileUtils.cp_r source_path, destination_dir
+    end
+    puts_message "building basic photo folder for demo"
+ 
+    # For demo =========================================================================
+
+    
     MyimageUploader.store_dir = dir    
     return dir    
   end
- 
+
+  def demo_up
+    begin
+      if Folder.all(:name => 'basic_photo', :user_id => self.id.to_s).count < 1
+        Folder.new(:name => 'basic_photo', :user_id => self.id.to_s).save
+        Myimage.new(:image_filename=>'1.JPG', :image_thumb_filename => '1.JPG', :name => '1', :user_id => self.id, :folder => 'basic_photo').save
+        Myimage.new(:image_filename=>'2.JPG', :image_thumb_filename => '2.JPG', :name => '2', :user_id => self.id, :folder => 'basic_photo').save      
+        Myimage.new(:image_filename=>'3.JPG', :image_thumb_filename => '3.JPG', :name => '3', :user_id => self.id, :folder => 'basic_photo').save            
+        Myimage.new(:image_filename=>'4.JPG', :image_thumb_filename => '4.JPG', :name => '4', :user_id => self.id, :folder => 'basic_photo').save                  
+        Myimage.new(:image_filename=>'5.JPG', :image_thumb_filename => '5.JPG', :name => '5', :user_id => self.id, :folder => 'basic_photo').save                  
+        Myimage.new(:image_filename=>'6.JPG', :image_thumb_filename => '6.JPG', :name => '6', :user_id => self.id, :folder => 'basic_photo').save                  
+        Myimage.new(:image_filename=>'7.JPG', :image_thumb_filename => '7.JPG', :name => '7', :user_id => self.id, :folder => 'basic_photo').save                  
+        Myimage.new(:image_filename=>'8.JPG', :image_thumb_filename => '8.JPG', :name => '8', :user_id => self.id, :folder => 'basic_photo').save                  
+        Myimage.new(:image_filename=>'9.JPG', :image_thumb_filename => '9.JPG', :name => '9', :user_id => self.id, :folder => 'basic_photo').save                  
+        Myimage.new(:image_filename=>'10.JPG', :image_thumb_filename => '10.JPG', :name => '10', :user_id => self.id, :folder => 'basic_photo').save                  
+        Myimage.new(:image_filename=>'11.JPG', :image_thumb_filename => '11.JPG', :name => '11', :user_id => self.id, :folder => 'basic_photo').save                  
+        Myimage.new(:image_filename=>'12.JPG', :image_thumb_filename => '12.JPG', :name => '12', :user_id => self.id, :folder => 'basic_photo').save                  
+        Myimage.new(:image_filename=>'13.JPG', :image_thumb_filename => '13.JPG', :name => '13', :user_id => self.id, :folder => 'basic_photo').save                  
+      end
+    rescue
+      puts_message "error!!!"
+    end
+    puts_message "building basic photo db for demo"
+    
+  end
   
   def has_password?(submitted_password)
       encrypted_password == encrypt(submitted_password)      

@@ -34,7 +34,7 @@ class Myimage
 
   
   def self.search_user(search, page)
-      (Myimage.all(:name.like => "%#{search}%") | Myimage.all(:tags.like => "%#{search}%")).page :page => page, :per_page => 6
+      (Myimage.all(:name.like => "%#{search}%") | Myimage.all(:tags.like => "%#{search}%")).page :page => page, :per_page => 12
   end
 
   def self.search(search, page)
@@ -67,6 +67,7 @@ class Myimage
 
       
   def image_path
+
     dir1 = "#{RAILS_ROOT}" + "/public/user_files/#{self.user.userid}/images/photo/Thumb"
     FileUtils.mkdir_p dir1 if not File.exist?(dir1)
     FileUtils.chmod 0777, dir1
@@ -82,6 +83,7 @@ class Myimage
     
     MyimageUploader.store_dir = dir    
     return dir 
+    
   end
 
   def image_folder(folder)

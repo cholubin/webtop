@@ -301,14 +301,25 @@ def pdf_merge
   basic_path = "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/pdfs/"
   filename = pdf_filename.gsub('.pdf', '')
 
-  job_done = false
-  while job_done == false
+  time_after_10_seconds = Time.now + 10.seconds     
+
+  job_done = target_path.gsub('.pdf','.done')
+  
+  while Time.now < time_after_10_seconds
+    break if File.exists?(job_done)
+  end
+  
+
+  if !File.exists?(job_done)
+    pid = `ps -c -eo pid,comm | grep MLayout`.to_s
+    pid = pid.gsub(/MLayout 2/,'').gsub(' ', '')
+    system "kill #{pid}"     
+    puts_message "MLayout was killed!!!!! ============"
+    
+  else
     puts_message "make thumbnail image"
-    if File.exist?(target_path.gsub('.pdf','.done'))
-      puts %x[#{RAILS_ROOT}"/lib/thumbup" #{target_path} #{basic_path + filename + "_p.jpg"} 0.5 #{basic_path + filename + "_t.jpg"} 128]
-      job_done = true
-    end
-  end 
+    puts %x[#{RAILS_ROOT}"/lib/thumbup" #{target_path} #{basic_path + filename + "_p.jpg"} 0.5 #{basic_path + filename + "_t.jpg"} 128]    
+  end
 
   puts_message "pdf_merge finished!"
 
@@ -317,7 +328,7 @@ def pdf_merge
     page.replace_html 'dp_sub2', :partial => 'dp_sub2'
   end  
 end
-  
+
   def deleteSelection  
     mybook_id = params[:mybook_id].to_i
     chk = params[:pdf_id].split(',')

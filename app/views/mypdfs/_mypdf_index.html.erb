@@ -1,3 +1,23 @@
+<% if @mybooks.count < 1 
+	@mybook = Mybook.new
+	@mybook.name = "mybook"
+	@mybook.user_id = current_user.id
+	@mybook.folder_name = @mybook.name
+	if @mybook.save
+		@mybookfolder = Mybookfolder.new
+		@mybookfolder.name = @mybook.folder_name
+		@mybookfolder.user_id = @mybook.user_id
+		
+		if @mybookfolder.save
+			dir = "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/mybook/#{@mybookfolder.name}"
+		    FileUtils.mkdir_p dir if not File.exist?(dir)
+		    FileUtils.chmod 0777, dir
+		end
+	end
+	
+	@mybooks = Mybook.all(:order => [:order], :user_id => current_user.id)
+	end %>
+	
 <%= stylesheet_link_tag '/css/paginate.css' %>
 	<div id="admincontents_wrapper">
 		<h2>PDF 리스트</h2>

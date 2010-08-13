@@ -87,7 +87,31 @@ class Admin::UsersController < ApplicationController
           @myimages = Myimage.all(:user_id => @user.id)  
           @myimages.destroy
         
-          @user.destroy   
+          @mytemplates = Mytemplate.all(:user_id => @user.id)  
+          @mytemplates.destroy
+          
+          @folders = Folder.all(:user_id => @user.id)  
+          @folders.destroy
+
+          @mybookfolders = Mybookfolder.all(:user_id => @user.id)  
+          @mybookfolders.destroy
+
+          @mybookpdfs = Mybookpdf.all(:user_id => @user.id)  
+          @mybookpdfs.destroy
+
+          @mybooks = Mybook.all(:user_id => @user.id)  
+          @mybooks.destroy
+
+          @mypdfs = Mypdf.all(:user_id => @user.id)  
+          @mypdfs.destroy
+
+          
+          if @user.destroy   
+            puts_message "정상적으로 유저 삭제됨!"
+          else
+            puts_message "유저삭제시 에러 발생"            
+          end
+          
         rescue
           flash[:notice] = '삭제시 에러가 발생했습니다.!'              
         end 

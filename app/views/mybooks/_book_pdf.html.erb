@@ -19,12 +19,17 @@ end
 	:onclick => "if (window.confirm('선택하신 PDF파일을 정말 삭제하시겠습니까?')){show_progress();}else{return false;};" + remote_function(:url => { :controller => 'mybooks', :action => :deleteSelection },
 	:with => "'pdf_id=' + result2() +'&mybook_id=' + "+book_id)
 	%>&nbsp;
-	<%= image_tag '/images/mybook/make_one.jpg', :align => 'absmiddle' %>
+	<%= image_tag '/images/mybook/make_one.jpg', :align => 'absmiddle', 
+	:onmouseover => "this.style.cursor='hand';",
+	:onclick => "if (window.confirm('아래의 모든 PDF파일들을 순서대로 합치시겠습니까?')){show_progress();}else{return false;};" + remote_function(:url => { :controller => 'mybooks', :action => :pdf_merge },
+	:with => "'pdf_id=' + result2() +'&mybook_id=' + "+book_id)
+	%>	
 	</td>
 	</tr>
 </table>
 </div>
-
+<div id="dp_sub2">
+</div>
 <div id="pain" class="scroll-pane">	
 <div id="dp_sub">
 <table>

@@ -56,16 +56,6 @@ class User
     FileUtils.mkdir_p dir if not File.exist?(dir)
     FileUtils.chmod 0777, dir
     
-    # For demo =========================================================================
-    source_path = "#{RAILS_ROOT}" + "/public/basic_photo/basic_photo"
-    destination_dir = "#{RAILS_ROOT}" + "/public/user_files/#{self.userid}/images/"
-    if !File.exist?(destination_dir + "basic_photo") 
-      FileUtils.cp_r source_path, destination_dir
-    end
-    puts_message "building basic photo folder for demo"
- 
-    # For demo =========================================================================
-
     
     MyimageUploader.store_dir = dir    
     return dir    
@@ -75,6 +65,7 @@ class User
     begin
       if Folder.all(:name => 'basic_photo', :user_id => self.id.to_s).count < 1
         Folder.new(:name => 'basic_photo', :user_id => self.id.to_s).save
+        
         Myimage.new(:image_filename=>'1.JPG', :image_thumb_filename => '1.JPG', :name => '1', :user_id => self.id, :folder => 'basic_photo').save
         Myimage.new(:image_filename=>'2.JPG', :image_thumb_filename => '2.JPG', :name => '2', :user_id => self.id, :folder => 'basic_photo').save      
         Myimage.new(:image_filename=>'3.JPG', :image_thumb_filename => '3.JPG', :name => '3', :user_id => self.id, :folder => 'basic_photo').save            

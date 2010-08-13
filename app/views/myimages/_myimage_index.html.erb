@@ -120,7 +120,12 @@ function hide_progress() {
 						<tr> 
 						<td class="templatelist"><font color="white">등록일: <%= myimage.created_at.strftime('%Y-%m-%d') %></font></td></tr>
 						<tr>
-						<td class="templatelist"><%= link_to '삭제', myimage_path(myimage.id.to_s), :confirm => '정말 삭제하시겠습니까?', :method => :delete %></td></tr>
+						<td class="templatelist">
+							<% if myimage.folder != "basic_photo" %>
+							<%= link_to '삭제', myimage_path(myimage.id.to_s), :confirm => '정말 삭제하시겠습니까?', :method => :delete %>
+							<% end %>
+						</td>
+						</tr>
 
 						<tr>
 						<td>&nbsp;</td></tr>

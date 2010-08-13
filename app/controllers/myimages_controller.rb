@@ -6,6 +6,12 @@ class MyimagesController < ApplicationController
   # GET /myimages.xml
   def index
     
+    #basic_photo 폴더링크가 없으면 생성한다.
+    user_path =  "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/images/basic_photo"
+    if not File.exist?(user_path)
+      puts %x[ln -s "#{RAILS_ROOT}/public/basic_photo/" "#{RAILS_ROOT}/public/user_files/#{current_user.userid}/images/basic_photo"]
+    end
+    
     #확장자별 소팅
     ext = params[:ext]
     folder = params[:folder]
@@ -34,6 +40,8 @@ class MyimagesController < ApplicationController
     @folders = Folder.all(:user_id => current_user.id)
 
     render 'myimage'
+    
+    
   end
 
   # GET /myimages/1

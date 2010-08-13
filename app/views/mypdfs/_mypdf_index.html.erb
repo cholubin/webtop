@@ -38,7 +38,7 @@
 						<tr><td><input type="checkbox" name="chk[]" value="<%= mypdf.id %>"></td></tr>
 						<tr>
 							<td class="templatelist" width="180" height="120" valign="top">
-								<a title="<%= mypdf.description if !mypdf.description.nil? %>" href="<%= mypdf.pdf_url %>" target="new"><%= image_tag mypdf.thumb_url %></a>
+								<a title="<%= mypdf.description if !mypdf.description.nil? %>" href="<%= mypdf.pdf_url %>" target="new"><%= image_tag mypdf.thumb_url + '?' +  Time.now.to_f.to_s %></a>
 							</td>
 							<td width="14">&nbsp;</td>
 						</tr>

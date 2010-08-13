@@ -18,7 +18,6 @@ class Admin::TempsController < ApplicationController
     if sort == nil
       sort = "all"
     end
-    puts_message sort
     
     if sort == "all"
       @temps = Temp.all.search2(params[:search], params[:page])      
@@ -141,10 +140,6 @@ class Admin::TempsController < ApplicationController
           
           make_contens_xml(@temp) 
           puts_message "make_contens_xml finished!"
-          # check_jpg_and_process_thumbnail(@temp) 
-             
-          # close_document(@temp) 
-          # puts_message "close_document finished!"
                     
           erase_job_done_file(@temp)
           puts_message "erase_job_done_file finished!"
@@ -229,7 +224,12 @@ class Admin::TempsController < ApplicationController
           if @temp != nil
             if File.exist?(TEMP_PATH + @temp.file_filename) 
               File.delete(TEMP_PATH + @temp.file_filename)   
-              FileUtils.rm_rf TEMP_PATH + @temp.file_filename.gsub(/.zip/,'')
+            end
+            
+            if File.exist?(@temp.path) 
+                # FileUtils.rm_rf @temp.path ==> 인코딩때문에 삭제되지 않는다!
+                # File의 경우 상관없으나 FileUtils의 경우 인코딩처리를 해줘야 한다.
+                FileUtils.rm_rf @temp.path.force_encoding('UTF8-MAC')                 
             end
           end
           @temp.destroy    
@@ -391,9 +391,11 @@ class Admin::TempsController < ApplicationController
   
 
   def make_contens_xml(temp) 
-    erase_job_done_file(@temp)
+    erase_job_done_file(temp)
     path = temp.path
-    njob = path + "/do_job.mJob"
+    puts_message "templagte's path: "
+    puts_message path
+    # njob = path + "/do_job.mJob"
     mjob_file= <<-EOF
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -417,11 +419,9 @@ class Admin::TempsController < ApplicationController
      
      File.open(mjob,'w') { |f| f.write mjob_file }    
 
-     if File.exists?(mjob)
+    if File.exists?(mjob)
         system "open #{mjob}"
-      end 
-          
-
+    end 
        
     puts_message "make_contens_xml finished"
   end

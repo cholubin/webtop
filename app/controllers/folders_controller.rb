@@ -129,20 +129,23 @@ class FoldersController < ApplicationController
     basic_path = "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/images/"
     folder_path = basic_path + @folder.name
 
-    if @folder.destroy
+    # # basic_photo 폴더는 삭제되지 않도록 한다.
+    # if @folder.name != "basic_photo"
+      if @folder.destroy
       
-      #폴더 삭제 ========================================================
-      if File.exist?(folder_path)
-        FileUtils.rm_rf folder_path
+        #폴더 삭제 ========================================================
+        if File.exist?(folder_path)
+          FileUtils.rm_rf folder_path
+        end
+      
+        #이미지 삭제 ========================================================      
+    	  @myimages = Myimage.all(:folder => folder_name)
+        @img_cnt = @myimages.count
+        @myimages.each do |m|
+    	    m.destroy        
+        end      
       end
-      
-      #이미지 삭제 ========================================================      
-  	  @myimages = Myimage.all(:folder => folder_name)
-      @img_cnt = @myimages.count
-      @myimages.each do |m|
-  	    m.destroy        
-      end      
-    end
+    # end
     
     @folders = Folder.all(:user_id => current_user.id.to_s)
 

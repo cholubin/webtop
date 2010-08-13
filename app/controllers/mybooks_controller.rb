@@ -201,6 +201,8 @@ class MybooksController < ApplicationController
 
   def book_order_update
 
+    puts_message "book_order_update start!"
+    
     book_id = params[:book_id].split(',')
 
     if !book_id.nil? 
@@ -216,6 +218,8 @@ class MybooksController < ApplicationController
 
     @mybooks = Mybook.all(:order => [:order], :user_id => current_user.id)
     
+    puts_message "book_order_update finished!"
+    
     render :nothing => true 
     # render :update do |page|
     #   page.replace_html 'sortables_book', :partial => 'sortables_book', :object => @mybooks
@@ -223,6 +227,96 @@ class MybooksController < ApplicationController
     
   end
   
+def pdf_merge
+  puts_message "pdf_merge start!"
+
+  mybook_id = params[:mybook_id].to_i
+  book_folder = Mybook.get(mybook_id).folder_name
+
+  @mybook_pdfs = Mybookpdf.all(:mybook_id => mybook_id, :order => [:order])
+  pdf_filename = book_folder + ".pdf"
+  puts_message pdf_filename
+  
+  #pdf book db file creation
+  # 판단은 폴더명으로 한다.
+  # 아직 db data가 만들어지지 않은 경우
+  # - 새로 db data를 생성하고 pdf파일도 새로 생성한다.
+  if Mypdf.all(:pdf_filename => pdf_filename).count < 1
+    puts_message "새로 db data를 생성하고 pdf파일도 새로 생성한다."
+    @mypdf = Mypdf.new
+    @mypdf.pdf_filename = pdf_filename
+    @mypdf.name = book_folder
+    @mypdf.description = 'book'
+    @mypdf.user_id = current_user.id
+    @mypdf.save
+  # 이미 db data가 있는 경우
+  # - 새로 만들지 않고 기존 데이타는 이용하고 pdf파일은 덮어쓴다    
+  end
+
+
+  @bookpdf = Mypdf.new
+
+  target_path = "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/pdfs/#{pdf_filename}"
+
+  # <string> value creation
+  puts_message @mybook_pdfs.count.to_s
+  
+  string_value = ""
+  
+  @mybook_pdfs.each do |pdf|
+    puts_message pdf.pdf_filename
+    string_value += "<string>#{RAILS_ROOT}/public/user_files/cholubin/pdfs/#{pdf.pdf_filename}</string>"
+    puts_message string_value    
+  end
+    
+  xml_file= <<-EOF
+  <?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+  <plist version="1.0">
+  <dict>
+  <key>Action</key>
+  <string>MergePDFs</string>
+  <key>Target</key>
+  <string>#{target_path}</string>
+  <key>ID</key>
+  <string>4b7e3bcbab7f25f7f5000007</string>
+  <key>PDFList</key>
+  <array>
+  #{string_value}
+  </array> 	
+  </dict>
+  </plist>
+
+  EOF
+
+  if File.exist?(target_path.gsub('.pdf','.done'))
+    File.delete(target_path.gsub('.pdf','.done'))
+  end
+
+  job_to_do = ("#{RAILS_ROOT}/public/user_files/#{current_user.userid}/mybook/#{book_folder}" + "/mergePDF.mJob")
+  File.open(job_to_do,'w') { |f| f.write xml_file }    
+
+  system("open #{job_to_do}")
+
+  basic_path = "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/pdfs/"
+  filename = pdf_filename.gsub('.pdf', '')
+
+  job_done = false
+  while job_done == false
+    puts_message "make thumbnail image"
+    if File.exist?(target_path.gsub('.pdf','.done'))
+      puts %x[#{RAILS_ROOT}"/lib/thumbup" #{target_path} #{basic_path + filename + "_p.jpg"} 0.5 #{basic_path + filename + "_t.jpg"} 128]
+      job_done = true
+    end
+  end 
+
+  puts_message "pdf_merge finished!"
+
+  # render :nothing => true 
+  render :update do |page|
+    page.replace_html 'dp_sub2', :partial => 'dp_sub2'
+  end  
+end
   
   def deleteSelection  
     mybook_id = params[:mybook_id].to_i

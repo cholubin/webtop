@@ -13,7 +13,7 @@
 	</tr>
 <tr><td colspan="3" height="1px" style="background-color:#00415f"></td></tr>	
 <%  i = 1
-	@folders.all(:name.not => "photo", :order => [:name]).each do |s| 
+	@folders.all(:name.not => "photo",:name.not => "basic_photo", :order => [:name]).each do |s| 
 	%>
 	<tr>
 		<td colspan="3">
@@ -24,7 +24,7 @@
 						<input type="hidden" name="folder_id_<%= i %>" id="folder_id_<%= i %>" value="<%= s.id.to_s %>">
 					</td>
 					<td width="30" align="right">
-						<% if s.name != "basic" %>
+						<% if s.name != "basic"  %>
 							<%= image_tag '/images/folder/delete.jpg', :align => 'absmiddle', 
 							:onmouseover => "this.style.cursor='hand';",
 							:onclick => "if (window.confirm('정말 삭제하시겠습니까? 폴더가 삭제되면 해당폴더 내부의 모든클립들도 함께 삭제됩니다!')){show_progress();}else{return false;};" + remote_function(:url => { :controller => 'folders', :action => :destroy_folder },
@@ -33,7 +33,7 @@
 						<%end %>												
 					</td>
 					<td width="230">
-						<% if s.name != "basic" %>											
+						<% if s.name != "basic"  %>											
 						<input type="txt" name="folder_name" id="folder_name_<%= i %>" value="<%= s.name %>">
 						<%= image_tag '/images/folder/modify.jpg', :align => 'absmiddle', 
 						:onmouseover => "this.style.cursor='hand';",

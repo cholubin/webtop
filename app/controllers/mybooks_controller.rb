@@ -265,7 +265,7 @@ def pdf_merge
   
   @mybook_pdfs.each do |pdf|
     puts_message pdf.pdf_filename
-    string_value += "<string>#{RAILS_ROOT}/public/user_files/cholubin/pdfs/#{pdf.pdf_filename}</string>"
+    string_value += "<string>#{RAILS_ROOT}/public/user_files/#{current_user.userid}/pdfs/#{pdf.pdf_filename}</string>"
     puts_message string_value    
   end
     

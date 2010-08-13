@@ -1,4 +1,8 @@
 <script>
 	hide_progress();
+	<% if @error_code == "no" %>
 	alert("PDF합치기가 완료되어 마이PDF폴더로 옮겨졌습니다!");
+	<% else %>
+	alert("PDF합치기에서 오류가 발생했습니다. 관리자에게 문의해주세요!");	
+	<% end %>
 </script>

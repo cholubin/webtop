@@ -315,17 +315,18 @@ def pdf_merge
     pid = pid.gsub(/MLayout 2/,'').gsub(' ', '')
     system "kill #{pid}"     
     puts_message "MLayout was killed!!!!! ============"
-    
+    @error_code = "yes"
   else
     puts_message "make thumbnail image"
     puts %x[#{RAILS_ROOT}"/lib/thumbup" #{target_path} #{basic_path + filename + "_p.jpg"} 0.5 #{basic_path + filename + "_t.jpg"} 128]    
+    @error_code = "no"
   end
 
   puts_message "pdf_merge finished!"
 
   # render :nothing => true 
   render :update do |page|
-    page.replace_html 'dp_sub2', :partial => 'dp_sub2'
+    page.replace_html 'dp_sub2', :partial => 'dp_sub2', :object => @error_code
   end  
 end
 

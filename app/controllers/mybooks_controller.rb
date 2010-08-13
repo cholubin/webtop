@@ -301,11 +301,11 @@ def pdf_merge
   basic_path = "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/pdfs/"
   filename = pdf_filename.gsub('.pdf', '')
 
-  time_after_10_seconds = Time.now + 10.seconds     
+  time_after_15_seconds = Time.now + 15.seconds     
 
   job_done = target_path.gsub('.pdf','.done')
   
-  while Time.now < time_after_10_seconds
+  while Time.now < time_after_15_seconds
     break if File.exists?(job_done)
   end
   

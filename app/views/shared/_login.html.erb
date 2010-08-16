@@ -1,7 +1,14 @@
 	<%if !signed_in? %>
+		<% if HOSTING_URL == "http://211.35.79.132:3000/" %>
+			<div id="login_section" class="register">
+				<a href="/login?uri=<%= get_current_url %>">로그인</a>
+			</div>
+		<% else %>
 		<div id="login_section" class="register">
 			<a href="/login?uri=<%= get_current_url %>">로그인</a> &nbsp; l &nbsp; <a href="/users/new">회원가입</a> &nbsp; <!-- l &nbsp; 로그아웃  -->
 		</div>
+		
+		<% end %>
 	<%else%>
 		<div id="login_section" class="register">
 			<%= current_user.name + " 고객님 " %><a href="/logout">로그아웃</a> &nbsp; l &nbsp; <a href="/users/<%= current_user.id %>/edit">마이페이지</a> &nbsp; <!-- l &nbsp; 로그아웃  -->

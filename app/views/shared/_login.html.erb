@@ -1,4 +1,5 @@
 	<%if !signed_in? %>
+		<!-- 세무사 사이트만 적용 -->
 		<% if HOSTING_URL == "http://211.35.79.132:3000/" %>
 			<div id="login_section" class="register">
 				<a href="/login?uri=<%= get_current_url %>">로그인</a>

@@ -70,7 +70,7 @@ class MybooksController < ApplicationController
 
   def create_folder
 
-    if Mybook.all(:folder_name => params[:folder_name]).count < 1
+    if Mybook.all(:folder_name => params[:folder_name], :user_id => current_user.id).count < 1
       @folder = Mybook.new()
       @folder.name = params[:folder_name]
       @folder.folder_name = sanitize_filename(params[:folder_name])

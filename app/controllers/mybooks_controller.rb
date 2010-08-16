@@ -241,7 +241,7 @@ def pdf_merge
   # 판단은 폴더명으로 한다.
   # 아직 db data가 만들어지지 않은 경우
   # - 새로 db data를 생성하고 pdf파일도 새로 생성한다.
-  if Mypdf.all(:pdf_filename => pdf_filename).count < 1
+  if Mypdf.all(:pdf_filename => pdf_filename, :user_id => current_user.id).count < 1
     puts_message "새로 db data를 생성하고 pdf파일도 새로 생성한다."
     @mypdf = Mypdf.new
     @mypdf.pdf_filename = pdf_filename

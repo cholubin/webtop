@@ -64,6 +64,13 @@ end
 	<link rel="stylesheet" type="text/css" media="all" href="/js/jScrollPane/demoStyles.css" />
 			 
 <script type="text/javascript">
+
+  $("#sortables").sortable({
+   update: function(event, ui) { 
+	<%= remote_function(:url  => {:action => "pdf_order_update"},:with => "'pdf_id='+result_pdf()") %>
+	}
+  });
+
    //function to execute when doc ready
    $(function() {
       //make specified element sortable
@@ -93,5 +100,11 @@ end
 	{
 		$('#pane').jScrollPane();
 	});
+	
+	function result_pdf(){
+	  var result = new Array();
+	  result = $('#sortables').sortable('toArray');
+	  return result;
+	}	
  </script>
 

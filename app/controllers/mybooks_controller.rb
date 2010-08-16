@@ -226,6 +226,34 @@ class MybooksController < ApplicationController
     # end
     
   end
+
+def pdf_order_update
+
+  puts_message "book_order_update start!"
+
+  pdf_id = params[:pdf_id].split(',')
+
+  if !pdf_id.nil? 
+    i = 1
+    pdf_id.each do |c|
+      mybookpdf = Mybookpdf.get(c.to_i)
+      mybookpdf.order = i
+      mybookpdf.save
+    
+      i += 1
+    end
+  end
+
+  # @mybooks = Mybook.all(:order => [:order], :user_id => current_user.id)
+
+  puts_message "pdf_order_update finished!"
+
+  render :nothing => true 
+  # render :update do |page|
+  #   page.replace_html 'sortables_book', :partial => 'sortables_book', :object => @mybooks
+  # end
+
+end
   
 def pdf_merge
   puts_message "pdf_merge start!"

@@ -161,7 +161,7 @@
 				%><span id="copy_template"></span>		
 			
 				<!-- <%= link_to image_tag("/images/template/copy_mytemplate.jpg", :border=>0), '/mytemplates?temp_id='+@temp.id.to_s, :confirm => '나의 템플릿으로 복사하시겠습니까?',  :method => :post %>		 -->
-				<%= link_to image_tag("/images/template/edit_instant.jpg", :border=>0), '/mytemplates?temp_id='+@temp.id.to_s+'&edit=y', :confirm => '나의 템플릿으로 복사와 함께 바로 편집하시겠습니까?',  :method => :post %>						
+				<%#= link_to image_tag("/images/template/edit_instant.jpg", :border=>0), '/mytemplates?temp_id='+@temp.id.to_s+'&edit=y', :confirm => '나의 템플릿으로 복사와 함께 바로 편집하시겠습니까?',  :method => :post %>						
 			<%else %>
 				<%= link_to image_tag("/images/template/copy_mytemplate.jpg", :border=>0), '/login?uri='+ get_current_url %>		
 			<%end%>

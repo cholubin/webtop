@@ -31,7 +31,7 @@ class User
   has n, :freeboards
   has n, :myimages
   has n, :mycarts
-  has n, :mypdfs  
+  has n, :mypdfs 
   before :save, :encrypt_password
   before :create, :pdf_path
   after  :save, :demo_up

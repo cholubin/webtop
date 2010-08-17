@@ -43,6 +43,9 @@ class Temp
   property :hit_cnt,                Integer, :default => 0
   property :copy_cnt,               Integer, :default => 0  
   property :is_best,                Boolean, :default => false  
+
+  # for 원플러스 (특정사용자에게만 템플릿 공개)
+  property :users,                  Text
        
   # property :included_images,      Array, :default => []     
   # property :images,               Array, :default => []       
@@ -60,6 +63,22 @@ class Temp
       Temp.all(:conditions => {:name.like => "%#{search}%"}).page :page => page, :per_page => 6
   end
 
+  
+  # for 원플러스 (특정사용자에게만 템플릿 공개)
+  def self.isopen(userid)
+    if HOSTING_URL != "http://www.oneplus.asia/"
+      temp_array = Array.new
+      usertempopenlists = Usertempopenlist.all(:user_id => userid)
+      i = 0
+      usertempopenlists.each do |u|
+        temp_array[i] = u.temp_id
+        i += 1
+      end
+      Temp.all(:conditions => {:id => temp_array})
+    else
+      Temp.all()
+    end
+  end
   
   def self.best
     Temp.all(:is_best => true)

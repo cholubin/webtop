@@ -122,6 +122,26 @@ class Admin::TempsController < ApplicationController
     respond_to do |format|
       if @temp.save
 
+        # 원플러스용 사용자별 템플릿 공개 혀용 
+        temp_id = @temp.id
+        user_list = params[:user_list].split(',')
+
+        if !user_list.nil? 
+          # 먼저 해당템플릿에 대해 공개허용된 사용자정보를 삭제한다. 
+          user_open_all = Usertempopenlist.all(:temp_id => temp_id)
+          if !user_open_all.nil?
+            user_open_all.destroy
+          end
+          # 새롭게 사용자별로 허용한다.  
+          user_list.each do |u|
+            usertemp = Usertempopenlist.new()
+            usertemp.user_id = u
+            usertemp.temp_id = temp_id
+            usertemp.save
+          end
+        end
+
+        
         # filename renaming ======================================================================
         file_name = @temp.file_filename_encoded
         
@@ -167,9 +187,26 @@ class Admin::TempsController < ApplicationController
     @menu = "template"
     @board = "temp"
     @section = "edit"
-        
-    @temp = Temp.get(params[:id].to_i)
+    temp_id = params[:id].to_i    
+    @temp = Temp.get(temp_id)
     
+    user_list = params[:user_list].split(',')
+
+    if !user_list.nil? 
+      # 먼저 해당템플릿에 대해 공개허용된 사용자정보를 삭제한다. 
+      user_open_all = Usertempopenlist.all(:temp_id => temp_id)
+      if !user_open_all.nil?
+        user_open_all.destroy
+      end
+      # 새롭게 사용자별로 허용한다.  
+      user_list.each do |u|
+        usertemp = Usertempopenlist.new()
+        usertemp.user_id = u
+        usertemp.temp_id = temp_id
+        usertemp.save
+      end
+    end
+        
     @temp.name = params[:temp][:name]
     @temp.size = params[:temp][:size]
     @temp.price = params[:temp][:price]
@@ -204,8 +241,12 @@ class Admin::TempsController < ApplicationController
           FileUtils.rm_rf TEMP_PATH + @temp.file_filename.gsub(/.zip/,'')
         end
       end
-
-      @temp.destroy
+      
+      temp_id = @temp.id
+      if @temp.destroy
+        usertempopenlist = Usertempopenlist.all(:temp_id => temp_id)
+        usertempopenlist.destroy
+      end
 
       respond_to do |format|
         format.html { redirect_to(temps_url) }
@@ -232,7 +273,11 @@ class Admin::TempsController < ApplicationController
                 FileUtils.rm_rf @temp.path.force_encoding('UTF8-MAC')                 
             end
           end
-          @temp.destroy    
+          temp_id = @temp.id
+          if @temp.destroy
+            usertempopenlist = Usertempopenlist.all(:temp_id => temp_id)
+            usertempopenlist.destroy
+          end  
         end
 
       else
@@ -422,7 +467,15 @@ class Admin::TempsController < ApplicationController
     if File.exists?(mjob)
         system "open #{mjob}"
     end 
-       
+    
+    time_after_15_seconds = Time.now + 15.seconds     
+    thumb_path = "#{RAILS_ROOT}/public#{temp.thumb_url}"
+    puts_message thumb_path
+      puts_message "waiting for thumnail image!"    
+    while Time.now < time_after_15_seconds
+      break if File.exists?(thumb_path)
+    end
+           
     puts_message "make_contens_xml finished"
   end
   

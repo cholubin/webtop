@@ -119,7 +119,7 @@
 		<td width="727" >
 			<%= link_to image_tag("/images/board/list.jpg", :border=>0, :align => 'right'), mytemplates_path + "?page=" + params[:page] %>&nbsp;
 			<a title='복사된 템플릿의 기본정보를 수정합니다.' href="/mytemplates/<%= @mytemplate.id.to_s %>/edit?cate=<%= params[:cate] %>&page=<%= params[:page] %>"><img align="right" src="/images/board/modify.jpg" style="padding:0 2 0 2"></a>			
-			<%= link_to image_tag("/images/template/edit.jpg", :border=>0, :align => 'right', :title => '편집기에서 템플릿을 수정합니다.'), '/mlayout?doc_name='+ @mytemplate.file_filename.gsub(/.zip/,''), :confirm => '바로 편집하시겠습니까?'%>						
+			<%#= link_to image_tag("/images/template/edit.jpg", :border=>0, :align => 'right', :title => '편집기에서 템플릿을 수정합니다.'), '/mlayout?doc_name='+ @mytemplate.file_filename.gsub(/.zip/,''), :confirm => '바로 편집하시겠습니까?'%>						
 			<% if signed_in? %>
 				<%= javascript_include_tag :defaults %>
 				<%= image_tag '/images/cart/cart.gif', :align => 'left', 

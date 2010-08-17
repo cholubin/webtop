@@ -1,8 +1,9 @@
 <h1>템플릿 업로드</h1>
 
 <font >
-<% form_for(:temp, :url => admin_temps_path, :html => {:multipart => true}) do |f| %>	
+<% form_for(:temp, :url => admin_temps_path, :html => {:multipart => true, :onsubmit => "javascript:return result2();"}) do |f| %>	
   <%= f.error_messages %>
+  <input type="hidden" name="user_list" id="user_list" value=""> 
   <p>
 	<%= javascript_include_tag :defaults %>	
 	<%= collection_select :temp, :category, @categories, :name, :name, 
@@ -30,10 +31,87 @@
     <%= f.label :'이미지 업로드' %><br />
     <%= f.file_field :file %>
   </p>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
+
+<br><br>
+  <h1>사용자 공개설정 ================</h1>
+
+<table>
+	<tr>
+		<td align="center"><font color="white">비공개</font></td>
+		<td align="center">&nbsp;</td>
+		<td align="center"><font color="white">공개</font></td>				
+	</tr>
+	<tr>
+		<td>
+			<select style="width:150; height:150;font-size:12pt" multiple id="s1">
+				<% @users = User.all(); %>
+				<% @users.each do |user| %>
+				<option value="<%= user.userid %>"><%= user.userid %>(<%= user.name %>)</option>
+				<% end %>
+			</select>
+		</td>
+		<td>
+			<input type="button" value="=>" id="addSelect"/><br>
+			<input type="button" value="<=" id="delSelect"/><br>
+		</td>
+		<td>
+			<select style="width:150; height:150;font-size:12pt" multiple id="s2"> 
+			</select>
+		</td>				
+	</tr>
+</table>
+
+<p>
+  <%= f.submit 'Create' %>
+</p>
+
 <% end %>
 
 <%= link_to 'Back', admin_temps_path %>
 </font>
+
+
+
+
+<script>
+$(document).ready(function(){
+
+	$("#addSelect").click(function(){
+
+		$("#s1 option:selected").each(function(){
+			$("#s2").append($(this));
+		});
+		
+	}); 	 	 
+		
+	$("#delSelect").click(function(){
+
+		$("#s2 option:selected").each(function(){
+			$("#s1").append($(this));
+		});
+	});
+});	 
+
+</script>
+
+<script>
+function result2(){
+	var s2_length = $("#s2 option").length;
+	var result = "";
+	var current_value = "";
+	
+	if(s2_length>0){
+		for(i=0;i<s2_length;i++){
+			current_value = $("#s2 option:eq("+i+")").val();
+			if(i==0){
+				result = current_value;										
+			}else{
+				result = result + "," + current_value;					
+			}
+		}
+	}
+	document.all.user_list.value = result;
+  	return true;
+}
+
+</script>

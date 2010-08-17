@@ -5,7 +5,6 @@ class AdminsessionsController < ApplicationController
   def new
     Myadmin.up   
     
-    puts_message "여기들어오는지 보면 되지 "        
     @menu = "admin"
     @board = "ad"
     @section = "new"
@@ -39,7 +38,7 @@ class AdminsessionsController < ApplicationController
                              
         if admin.nil? 
           flash.now[:error] = "아이디와 비밀번호가 일치하지 않습니다!"
-          render '/admin/adminsessions/new'
+          render 'admin/adminsessions/new'
           
         else
           

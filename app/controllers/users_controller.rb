@@ -180,18 +180,28 @@ class UsersController < ApplicationController
       user_dir = "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/"
       FileUtils.rm_rf user_dir
       
-      @mycarts = Mycart.all(:user_id => current_user.id)  
-      @mycarts.destroy
+      begin
+        @mycarts = Mycart.all(:user_id => current_user.id)  
+        @mycarts.destroy
 
-      @freeboards = Freeboard.all(:user_id => current_user.id)  
-      @freeboards.destroy
+        @freeboards = Freeboard.all(:user_id => current_user.id)  
+        @freeboards.destroy
+      
+        @mytemplates = Mytemplate.all(:user_id => current_user.id)
+        @mytemplates.destroy
+      
+        @myimages = Myimage.all(:user_id => current_user.id)  
+        @myimages.destroy
 
-      @myimages = Myimage.all(:user_id => current_user.id)  
-      @myimages.destroy
-
+        @usertempopenlists = Usertempopenlist.all(:user_id => current_user.id)
+        @usertempopenlists.destroy
+      rescue
+        puts_message "사용자 관련 테이블 삭제 진행중 오류 발생!"
+      end
+      
       if @user.destroy
       else
-        puts "에러 발생 =========================================="
+        puts_message "사용자 테이블 삭제 진행중 오류 발생!"
         puts @user.errors
       end
             

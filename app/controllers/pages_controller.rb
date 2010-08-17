@@ -40,7 +40,7 @@ class PagesController < ApplicationController
 
   def about
     @title = "about"
-    @menu = "about"
+    @menu = "about" 
     @categories = Category.all(:order => [:priority])
 
   end
@@ -50,6 +50,11 @@ class PagesController < ApplicationController
     @menu = "tutorial"
     @categories = Category.all(:order => [:priority])
 
+  end
+  
+  def test
+    @title = "test"
+    @menu = "home"
   end
   
   def login

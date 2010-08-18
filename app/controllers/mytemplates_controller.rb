@@ -486,16 +486,28 @@ class MytemplatesController < ApplicationController
       system "open #{njob}"
       
 
-      time_after_180_seconds = Time.now + 180.seconds     
+      
 
       job_done = target_template.path + "/web/done.txt" 
 
-
-      while Time.now < time_after_180_seconds
-      # loop do
-        break if File.exists?(job_done)
+      start_file_size = File.size("#{goal}")
+      
+      time_after_1_seconds = Time.now + 1.seconds     
+      
+      # while Time.now < time_after_180_seconds
+      loop do
+        start_file_size = File.size("#{goal}")
+        while Time.now < time_after_1_seconds
+          # puts start_file_size
+        end
+        break if start_file_size == File.size("#{goal}")
       end
 
+      time_after_5_seconds = Time.now + 5.seconds     
+      while Time.now < time_after_5_seconds
+        break if File.exists?(job_done)
+      end
+      
       if !File.exists?(job_done)
         pid = `ps -c -eo pid,comm | grep MLayout`.to_s
         pid = pid.gsub(/MLayout 2/,'').gsub(' ', '')

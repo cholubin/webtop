@@ -79,11 +79,12 @@ class User
         Myimage.new(:image_filename=>'11.JPG', :image_thumb_filename => '11.JPG', :name => '11', :user_id => self.id, :folder => 'basic_photo').save                  
         Myimage.new(:image_filename=>'12.JPG', :image_thumb_filename => '12.JPG', :name => '12', :user_id => self.id, :folder => 'basic_photo').save                  
         Myimage.new(:image_filename=>'13.JPG', :image_thumb_filename => '13.JPG', :name => '13', :user_id => self.id, :folder => 'basic_photo').save                  
+        puts_message "building basic photo db for demo"
       end
     rescue
       puts_message "error!!!"
     end
-    puts_message "building basic photo db for demo"
+    
     
   end
   

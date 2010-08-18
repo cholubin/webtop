@@ -66,7 +66,7 @@ class Temp
   
   # for 원플러스 (특정사용자에게만 템플릿 공개)
   def self.isopen(userid)
-    if HOSTING_URL != "http://www.oneplus.asia/"
+    if TEMPLATE_OPEN_FUNC_TOGGLE == true
       temp_array = Array.new
       usertempopenlists = Usertempopenlist.all(:user_id => userid)
       i = 0

@@ -20,25 +20,45 @@ class TempsController < ApplicationController
       @subcategory_name = Subcategory.get(params[:subcategory_name].to_i).name
     end
     
-    if signed_in?
+    # 사용자별 템플릿 공개여부 결정 기능 추가 (for oneplus)
+    puts_message TEMPLATE_OPEN_FUNC_TOGGLE.to_s
+    if TEMPLATE_OPEN_FUNC_TOGGLE == true
+      if signed_in?
+        if @category_name != nil and @subcategory_name != nil
+          @temps = Temp.all(:category => @category_name, :subcategory => @subcategory_name).isopen(current_user.userid).search(params[:search], params[:page])
+          @temps_best = Temp.all(:category => @category_name).best
+        elsif @category_name != nil
+          @temps = Temp.all(:category => @category_name).isopen(current_user.userid).search(params[:search], params[:page])      
+          @temps_best = Temp.all(:category => @category_name).best
+        elsif  @subcategory_name != nil
+          @temps = Temp.all(:subcategory => @subcategory_name).isopen(current_user.userid).search(params[:search], params[:page])      
+        else
+          @category_name = Category.first(:priority => 1).name
+          @temps = Temp.all(:category => @category_name).isopen(current_user.userid).search(params[:search], params[:page])      
+          @temps_best = Temp.all(:category => @category_name).best
+        end
+        @total_count = Temp.search(params[:search],"").isopen(current_user.userid).count    
+      else
+        @temps = Temp.all(:id => '9999999')
+        @total_count = 0
+      end
+    else
       if @category_name != nil and @subcategory_name != nil
-        @temps = Temp.all(:category => @category_name, :subcategory => @subcategory_name).isopen(current_user.userid).search(params[:search], params[:page])
+        @temps = Temp.all(:category => @category_name, :subcategory => @subcategory_name).search(params[:search], params[:page])
         @temps_best = Temp.all(:category => @category_name).best
       elsif @category_name != nil
-        @temps = Temp.all(:category => @category_name).isopen(current_user.userid).search(params[:search], params[:page])      
+        @temps = Temp.all(:category => @category_name).search(params[:search], params[:page])      
         @temps_best = Temp.all(:category => @category_name).best
       elsif  @subcategory_name != nil
-        @temps = Temp.all(:subcategory => @subcategory_name).isopen(current_user.userid).search(params[:search], params[:page])      
+        @temps = Temp.all(:subcategory => @subcategory_name).search(params[:search], params[:page])      
       else
         @category_name = Category.first(:priority => 1).name
-        @temps = Temp.all(:category => @category_name).isopen(current_user.userid).search(params[:search], params[:page])      
+        @temps = Temp.all(:category => @category_name).search(params[:search], params[:page])      
         @temps_best = Temp.all(:category => @category_name).best
       end
-      @total_count = Temp.search(params[:search],"").isopen(current_user.userid).count    
-    else
-      @temps = Temp.all(:id => '9999999')
-      @total_count = 0
+      @total_count = Temp.search(params[:search],"").count      
     end
+    
   
           
     @categories = Category.all(:order => :priority)    

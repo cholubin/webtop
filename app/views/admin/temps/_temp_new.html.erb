@@ -32,35 +32,36 @@
     <%= f.file_field :file %>
   </p>
 
-<br><br>
-  <h1>사용자 공개설정 ================</h1>
+<% if TEMPLATE_OPEN_FUNC_TOGGLE == true %>
+	<br><br>
+	  <h1>사용자 공개설정 ================</h1>
 
-<table>
-	<tr>
-		<td align="center"><font color="white">비공개</font></td>
-		<td align="center">&nbsp;</td>
-		<td align="center"><font color="white">공개</font></td>				
-	</tr>
-	<tr>
-		<td>
-			<select style="width:150; height:150;font-size:12pt" multiple id="s1">
-				<% @users = User.all(); %>
-				<% @users.each do |user| %>
-				<option value="<%= user.userid %>"><%= user.userid %>(<%= user.name %>)</option>
-				<% end %>
-			</select>
-		</td>
-		<td>
-			<input type="button" value="=>" id="addSelect"/><br>
-			<input type="button" value="<=" id="delSelect"/><br>
-		</td>
-		<td>
-			<select style="width:150; height:150;font-size:12pt" multiple id="s2"> 
-			</select>
-		</td>				
-	</tr>
-</table>
-
+	<table>
+		<tr>
+			<td align="center"><font color="white">비공개</font></td>
+			<td align="center">&nbsp;</td>
+			<td align="center"><font color="white">공개</font></td>				
+		</tr>
+		<tr>
+			<td>
+				<select style="width:150; height:150;font-size:12pt" multiple id="s1">
+					<% @users = User.all(); %>
+					<% @users.each do |user| %>
+					<option value="<%= user.userid %>"><%= user.userid %>(<%= user.name %>)</option>
+					<% end %>
+				</select>
+			</td>
+			<td>
+				<input type="button" value="=>" id="addSelect"/><br>
+				<input type="button" value="<=" id="delSelect"/><br>
+			</td>
+			<td>
+				<select style="width:150; height:150;font-size:12pt" multiple id="s2"> 
+				</select>
+			</td>				
+		</tr>
+	</table>
+<% end %>
 <p>
   <%= f.submit 'Create' %>
 </p>
@@ -96,6 +97,7 @@ $(document).ready(function(){
 
 <script>
 function result2(){
+<% if TEMPLATE_OPEN_FUNC_TOGGLE == true %>	
 	var s2_length = $("#s2 option").length;
 	var result = "";
 	var current_value = "";
@@ -111,6 +113,7 @@ function result2(){
 		}
 	}
 	document.all.user_list.value = result;
+<% end %>	
   	return true;
 }
 

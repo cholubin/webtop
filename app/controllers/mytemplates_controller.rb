@@ -491,7 +491,8 @@ class MytemplatesController < ApplicationController
       job_done = target_template.path + "/web/done.txt" 
 
 
-      while Time.now < time_after_120_seconds
+      # while Time.now < time_after_120_seconds
+      loop
         break if File.exists?(job_done)
       end
 

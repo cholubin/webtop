@@ -492,7 +492,7 @@ class MytemplatesController < ApplicationController
 
 
       # while Time.now < time_after_120_seconds
-      loop
+      loop do
         break if File.exists?(job_done)
       end
 

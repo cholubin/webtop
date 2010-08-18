@@ -289,6 +289,7 @@ class MytemplatesController < ApplicationController
       job_done = path + "/web/done.txt" 
       if File.exists?(job_done)
         FileUtils.remove_entry_secure(job_done)
+        puts_message "job done file erased!"              
       end
       puts_message "erase_job_done_file end"      
     end
@@ -464,7 +465,6 @@ class MytemplatesController < ApplicationController
       # erase_job_done_file(mytemplate)   
       target_template = mytemplate
       goal = target_template.path    
-      puts_message "goal!!!!!!!!"
       puts_message goal
 #      goal = mypdf.basic_path    
       
@@ -489,7 +489,25 @@ class MytemplatesController < ApplicationController
       # process_index_thumbnail(target_template.path) 
       system "open #{njob}"
       
-      
+
+      time_after_10_seconds = Time.now + 10.seconds     
+
+      job_done = target_template.path + "/web/done.txt" 
+
+
+      while Time.now < time_after_10_seconds
+        break if File.exists?(job_done)
+      end
+
+      if !File.exists?(job_done)
+        pid = `ps -c -eo pid,comm | grep MLayout`.to_s
+        pid = pid.gsub(/MLayout 2/,'').gsub(' ', '')
+        system "kill #{pid}"     
+        puts_message "MLayout was killed!!!!! ============"
+      else
+        puts_message "There is job done file of PDF file making!"
+      end
+            
       set_pdf_path(mytemplate)
       puts_message "publish_mjob end"               
     end    

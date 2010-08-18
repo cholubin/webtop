@@ -517,12 +517,17 @@ class MytemplatesController < ApplicationController
       # mypdf.user_id = current_user.id
       #        
       # puts_message mypdf.basic_path
-      
+      puts_message "set_pdf_path Start!"
       pdf = "#{RAILS_ROOT}" + "/public/user_files/" + current_user.userid + "/article_templates/" + "#{mytemplate.file_filename.gsub(/.zip/,'')}" +"/web/document.pdf"
       url = "#{HOSTING_URL}" + "/user_files/" + current_user.userid + "/article_templates/" + "#{mytemplate.file_filename.gsub(/.zip/,'')}" +"/web/document.pdf" 
       mytemplate.pdf = url 
       mytemplate.pdf_path = pdf
-      mytemplate.save 
+      if mytemplate.save
+        puts_message "pdf_path saved!"
+      else
+        puts_message "pdf_path save failed!"
+      end
+      puts_message "set_pdf_path Finished!" 
     end
 
 

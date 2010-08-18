@@ -224,10 +224,14 @@ class MytemplatesController < ApplicationController
     mytemplate = Mytemplate.get(params[:id])
     close_document(mytemplate)
     
-    if mytemplate != nil
-      if File.exist?(mytemplate.path.force_encoding('UTF8-MAC')) 
-        FileUtils.remove_entry_secure mytemplate.path.force_encoding('UTF8-MAC') 
+    begin
+      if mytemplate != nil
+        if File.exist?(mytemplate.path.force_encoding('UTF8-MAC')) 
+          FileUtils.remove_entry_secure mytemplate.path.force_encoding('UTF8-MAC') 
+        end
       end
+    rescue
+      puts_message "Error! in progress of mytemplate file deletion."
     end
     
     mytemplate.destroy

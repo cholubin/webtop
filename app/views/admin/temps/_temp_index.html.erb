@@ -86,12 +86,13 @@
 					else
 						sort = "all"
 					end
-
-					if sort == "all" or sort == nil or sort == "" %>
-						<%= Temp.all.search2(params[:search], params[:page]).pager.to_html "/admin/temps?sort=#{sort}&search=#{params[:search]}"	 %>
-					<% else %>
-						<%= Temp.all(:category => sort).search2(params[:search], params[:page]).pager.to_html "/admin/temps?sort=#{sort}&search=#{params[:search]}" %>
-					<% end  %>
+      				if signed_in?
+						if sort == "all" or sort == nil or sort == "" %>
+							<%= Temp.all.search2(params[:search], params[:page]).isopen(current_user.userid).pager.to_html "/admin/temps?sort=#{sort}&search=#{params[:search]}"	 %>
+						<% else %>
+							<%= Temp.all(:category => sort).search2(params[:search], params[:page]).isopen(current_user.userid).pager.to_html "/admin/temps?sort=#{sort}&search=#{params[:search]}" %>
+						<% end  
+					end %>
 
 					</div>
 				</td>

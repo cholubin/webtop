@@ -486,13 +486,13 @@ class MytemplatesController < ApplicationController
       system "open #{njob}"
       
 
-      time_after_120_seconds = Time.now + 120.seconds     
+      time_after_180_seconds = Time.now + 180.seconds     
 
       job_done = target_template.path + "/web/done.txt" 
 
 
-      # while Time.now < time_after_120_seconds
-      loop do
+      while Time.now < time_after_180_seconds
+      # loop do
         break if File.exists?(job_done)
       end
 

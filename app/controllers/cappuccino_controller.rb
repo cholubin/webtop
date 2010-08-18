@@ -174,9 +174,9 @@ class CappuccinoController < ApplicationController
      path = mytemplate.path
      job_done = path + "/web/done.txt"             
      
-     time_after_5_seconds = Time.now + 5.seconds     
+     time_after_30_seconds = Time.now + 30.seconds     
 
-     while Time.now < time_after_5_seconds
+     while Time.now < time_after_30_seconds
        break if File.exists?(job_done)
      end
      

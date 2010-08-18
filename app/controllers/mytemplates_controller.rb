@@ -257,10 +257,6 @@ class MytemplatesController < ApplicationController
       publish_mjob(mytemplate) 
       set_pdf_path(mytemplate)    
       path = mytemplate.path
-      job_done = path+"/web/done.txt"
-      loop do 
-         break if File.exists?(job_done)
-      end                        
       # closing a doc right after generating pdf throws mlayout error
       # close_document(mytemplate)
       puts_message "check_job_done_and_publish end"      

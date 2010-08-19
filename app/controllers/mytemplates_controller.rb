@@ -497,25 +497,25 @@ class MytemplatesController < ApplicationController
 
       job_done = target_template.path + "/web/done.txt" 
 
-      start_file_size = File.size("#{goal}")
-      puts_message "시작시 파일 사이즈!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts_message goal
-      puts_message start_file_size.to_s
+      # start_file_size = File.size("#{goal}")
+      # puts_message "시작시 파일 사이즈!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+      # puts_message goal
+      # puts_message start_file_size.to_s
       # while Time.now < time_after_180_seconds
-      loop do
-        time_after_5_seconds = Time.now + 5.seconds             
-        puts_message time_after_5_seconds.to_s
-        start_file_size = File.size("#{goal}")
-        while Time.now < time_after_5_seconds
-          puts start_file_size.to_s
-          puts "================"
-          puts File.size("#{goal}").to_s          
-        end
-        break if start_file_size == File.size("#{goal}")
-      end
+      # loop do
+      #   time_after_5_seconds = Time.now + 5.seconds             
+      #   puts_message time_after_5_seconds.to_s
+      #   start_file_size = File.size("#{goal}")
+      #   while Time.now < time_after_5_seconds
+      #     puts start_file_size.to_s
+      #     puts "================"
+      #     puts File.size("#{goal}").to_s          
+      #   end
+      #   break if start_file_size == File.size("#{goal}")
+      # end
 
-      time_after_5_seconds = Time.now + 5.seconds     
-      while Time.now < time_after_5_seconds
+      time_after_180_seconds = Time.now + 180.seconds     
+      while Time.now < time_after_180_seconds
         break if File.exists?(job_done)
       end
       

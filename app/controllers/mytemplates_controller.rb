@@ -499,6 +499,7 @@ class MytemplatesController < ApplicationController
 
       start_file_size = File.size("#{goal}")
       puts_message "시작시 파일 사이즈!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+      puts_message goal
       puts_message start_file_size.to_s
       # while Time.now < time_after_180_seconds
       loop do

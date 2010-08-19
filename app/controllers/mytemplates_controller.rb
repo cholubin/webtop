@@ -499,10 +499,9 @@ class MytemplatesController < ApplicationController
 
       start_file_size = File.size("#{goal}")
       
-      time_after_1_seconds = Time.now + 1.seconds     
-      
       # while Time.now < time_after_180_seconds
       loop do
+        time_after_1_seconds = Time.now + 1.seconds             
         start_file_size = File.size("#{goal}")
         while Time.now < time_after_1_seconds
           # puts start_file_size

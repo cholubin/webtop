@@ -498,7 +498,8 @@ class MytemplatesController < ApplicationController
       job_done = target_template.path + "/web/done.txt" 
 
       start_file_size = File.size("#{goal}")
-      
+      puts_message "시작시 파일 사이즈!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+      puts_message start_file_size.to_s
       # while Time.now < time_after_180_seconds
       loop do
         time_after_2_seconds = Time.now + 2.seconds             
@@ -514,7 +515,6 @@ class MytemplatesController < ApplicationController
 
       time_after_5_seconds = Time.now + 5.seconds     
       while Time.now < time_after_5_seconds
-        puts_message "checking job done file!"
         break if File.exists?(job_done)
       end
       

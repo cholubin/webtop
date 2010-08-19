@@ -501,11 +501,13 @@ class MytemplatesController < ApplicationController
       
       # while Time.now < time_after_180_seconds
       loop do
-        time_after_1_seconds = Time.now + 1.seconds             
-        puts_message time_after_1_seconds.to_s
+        time_after_2_seconds = Time.now + 2.seconds             
+        puts_message time_after_2_seconds.to_s
         start_file_size = File.size("#{goal}")
-        while Time.now < time_after_1_seconds
-          # puts start_file_size
+        while Time.now < time_after_2_seconds
+          puts start_file_size.to_s
+          puts "================"
+          puts File.size("#{goal}").to_s          
         end
         break if start_file_size == File.size("#{goal}")
       end

@@ -502,7 +502,7 @@ class MytemplatesController < ApplicationController
       # while Time.now < time_after_180_seconds
       loop do
         time_after_1_seconds = Time.now + 1.seconds             
-        puts_message time_after_1_seconds
+        puts_message time_after_1_seconds.to_s
         start_file_size = File.size("#{goal}")
         while Time.now < time_after_1_seconds
           # puts start_file_size
@@ -512,6 +512,7 @@ class MytemplatesController < ApplicationController
 
       time_after_5_seconds = Time.now + 5.seconds     
       while Time.now < time_after_5_seconds
+        puts_message "checking job done file!"
         break if File.exists?(job_done)
       end
       

@@ -112,7 +112,30 @@ class MytemplatesController < ApplicationController
     move_to_mypdf(@mytemplate)
     redirect_to :action => 'index'
   end
+
+  def erase_job_done_file(mytemplate)         
+    puts_message "erase_job_done_file start"
+    
+    path = mytemplate.path
   
+    job_done = path + "/web/done.txt" 
+    if File.exists?(job_done)
+      FileUtils.remove_entry_secure(job_done)
+      puts_message "job done file erased!"              
+    end
+    puts_message "erase_job_done_file end"      
+  end
+
+  def check_job_done_and_publish(mytemplate)
+    puts_message "check_job_done_and_publish start"      
+    publish_mjob(mytemplate) 
+    set_pdf_path(mytemplate)    
+    path = mytemplate.path
+    # closing a doc right after generating pdf throws mlayout error
+    # close_document(mytemplate)
+    puts_message "check_job_done_and_publish end"      
+  end
+    
   def move_to_mypdf(mytemplate)
     puts_message "move_to_mypdf start!"
 
@@ -256,15 +279,7 @@ class MytemplatesController < ApplicationController
       end
     end
 
-    def check_job_done_and_publish(mytemplate)
-      puts_message "check_job_done_and_publish start"      
-      publish_mjob(mytemplate) 
-      set_pdf_path(mytemplate)    
-      path = mytemplate.path
-      # closing a doc right after generating pdf throws mlayout error
-      # close_document(mytemplate)
-      puts_message "check_job_done_and_publish end"      
-    end
+
 
     def check_jpg_and_process_thumbnail(mytemplate)
                             
@@ -281,18 +296,6 @@ class MytemplatesController < ApplicationController
        # erase_job_done_file(mytemplate)   
     end 
 
-    def erase_job_done_file(mytemplate)         
-      puts_message "erase_job_done_file start"
-      
-      path = mytemplate.path
-    
-      job_done = path + "/web/done.txt" 
-      if File.exists?(job_done)
-        FileUtils.remove_entry_secure(job_done)
-        puts_message "job done file erased!"              
-      end
-      puts_message "erase_job_done_file end"      
-    end
 
     def find_user
       @user = current_user    

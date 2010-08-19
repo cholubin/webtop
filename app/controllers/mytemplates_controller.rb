@@ -493,7 +493,7 @@ class MytemplatesController < ApplicationController
       system "open #{njob}"
       
 
-      
+      goal = goal + "/web/document.pdf"
 
       job_done = target_template.path + "/web/done.txt" 
 

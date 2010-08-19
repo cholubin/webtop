@@ -514,6 +514,7 @@ class MytemplatesController < ApplicationController
       #   break if start_file_size == File.size("#{goal}")
       # end
 
+      puts_message "creating PDF file!!!"
       time_after_180_seconds = Time.now + 180.seconds     
       while Time.now < time_after_180_seconds
         break if File.exists?(job_done)

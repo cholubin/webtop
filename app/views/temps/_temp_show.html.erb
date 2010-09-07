@@ -1,5 +1,6 @@
-<% 	if File.exist?(@temp.preview_url)
-		temp_image_path = @temp.preview_url  
+<% 	
+if File.exist?(RAILS_ROOT + "/public" + @temp.preview_url)
+		temp_image_path = @temp.preview_url
 	else
 		temp_image_path = @temp.thumb_url  		
 	end 
@@ -46,8 +47,11 @@
 <%if @temp.category != "현수막"%>
 
 <table>
-		<tr width="450" height="260">
-            <td width="400" class="imgmargin"><%= image_tag temp_image_path %></td>
+	<tr width="730" height="260">
+        <td width="730" style="padding:20 0 0 0;" colspan="2" align="center" ><%= image_tag temp_image_path %></td>			
+	</tr>
+<!-- 		<tr width="450" height="260">
+            <td width="400" align="center"></td>			
 			<td width="280px">
 				<table width="250">
 					<tr>
@@ -84,7 +88,7 @@
 				</table>
 			</td>
         </tr>
-
+-->
 </table>
 
 

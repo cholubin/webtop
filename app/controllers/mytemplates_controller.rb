@@ -2,7 +2,7 @@
 
 class MytemplatesController < ApplicationController
   before_filter :authenticate_user!
-    
+
   # GET /mytemplates
   # GET /mytemplates.xml
   def index

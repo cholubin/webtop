@@ -200,7 +200,7 @@ class CappuccinoController < ApplicationController
     puts_message "filelist start"   
     
     user = current_user
-    request = params[:request]
+    request = params[:request].force_encoding('UTF-8')
     puts request
     if user and check_existance_of_path(request)    
      if request == nil

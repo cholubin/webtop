@@ -82,7 +82,7 @@ class MyimagesController < ApplicationController
       @folder.save
     end
 
-    @folders = Folder.all(:user_id => current_user.id)
+    @folders = Folder.all(:user_id => current_user.id,:name.not => "basic_photo" )
       
     render 'myimage'
   end

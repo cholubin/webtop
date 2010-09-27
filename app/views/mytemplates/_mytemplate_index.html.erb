@@ -105,8 +105,11 @@ function hide_progress() {
 				<tr>
 				<td class="templatelist" width="180">
 					<% temp_image_path = my.thumb_url  if my.thumb_url
-						doc_name = my.id.to_s%>
-					<a title="<%= my.description %>" href="/mytemplates/<%=my.id%>?cate=<%= cate %>&search=<%=params[:search]%>&page=<%=params[:page]%>"><%= "<img border='0' src='" + my.thumb_url+"?"+ Time.now.to_f.to_s + "'>" if my.thumb_url %></a>
+						doc_name = my.id.to_s
+						link_string =  "<img title='즉시편집' border='0' src='" + my.thumb_url+"?"+ Time.now.to_f.to_s + "' onClick=\"popup('"+doc_name+"');\"; style=\"cursor:hand;\" >"
+						%>
+
+					<%= link_string  if my.thumb_url %>
 				</td>				 			
 				<td width="14">&nbsp;</td></tr>
 				<tr>
@@ -117,7 +120,8 @@ function hide_progress() {
 				<td class="templatelist"><a href="#"><%= my.category%><%="/"+my.subcategory if my.subcategory != nil%></a></td></tr>
 				<tr>
 				<td class="templatelist">
-					<img src="/images/template/edit_instant_s.jpg" border="0" title="즉시편집" style="cursor:hand;" onClick="popup('<%= doc_name %>');">
+
+					<a href="/mytemplates/<%=my.id%>?cate=<%= cate %>&search=<%=params[:search]%>&page=<%=params[:page]%>"><img src="/images/template/edit_instant_s.jpg" border="0" title="상세보기"></a>
 					<%#= image_tag("/images/template/edit_instant_s.jpg", :border=>0, :title => "즉시편집", :onClick => "pop('/mlayout?doc_name='+doc_name)")%>
 		
 					<%= link_to image_tag("/images/template/delete_s.jpg", :border=>0, :title => "삭제"), mytemplate_path(my.id), :confirm => '정말 삭제하시겠습니까?',  :method => :delete %>		

@@ -111,7 +111,7 @@
 				<tr> 
 				<td class="templatelist"><a href="/temps/<%=my.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>"><%= my.name %></a></td></tr>
 				<tr> 
-				<td class="templatelist"><a href="#"><%= my.category%>/<%= my.subcategory if my.subcategory != nil %></a></td></tr>
+				<td class="templatelist"><a href="#"><%= Category.get(my.category.to_i).name if !Category.get(my.category.to_i).nil?%>/<%= Subcategory.get(my.subcategory.to_i).name if Subcategory.get(my.subcategory.to_i) != nil %></a></td></tr>
 				<tr>
 					<td class="templatelist">
 						<% if signed_in? %>

@@ -44,7 +44,7 @@
 	    <td style="padding-left: 10px"><!-- <%= subcategory.priority %> --></td>	
 	    <td>- <%= subcategory.name %></td>
 	    <td>&nbsp;</td>
-	    <td><%= link_to '수정', edit_admin_category_path(subcategory.id.to_s) %></td>
+	    <td><%#= link_to '수정', edit_admin_category_path(subcategory.id.to_s) %></td>
 	    <td><%= link_to '삭제', '/admin/categories/destroy_sub/'+subcategory.id.to_s,  :confirm => '정말 삭제하시겠습니까?',:method => :delete %></td>  	
 
 	

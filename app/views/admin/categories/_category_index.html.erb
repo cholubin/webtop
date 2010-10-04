@@ -1,4 +1,16 @@
+<script type="text/javascript" src="/js/jquery_1.4.2/ui/jquery.ui.core.js"></script>
+<script type="text/javascript" src="/js/jquery_1.4.2/ui/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/js/jquery_1.4.2/ui/jquery.ui.mouse.js"></script>
+<script type="text/javascript" src="/js/jquery_1.4.2/ui/jquery.ui.sortable.js"></script>
+<script type="text/javascript" src="/js/jScrollPane/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="/js/jScrollPane/jquery.em.js"></script>
+<script type="text/javascript" src="/js/jScrollPane/jScrollPane.js"></script>
+
 <h1>Listing categories</h1>
+
+
+<link rel="stylesheet" type="text/css" media="all" href="/js/jScrollPane/jScrollPane.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/js/jScrollPane/demoStyles.css" />
 
 
 
@@ -14,7 +26,8 @@
 	</td></tr>
 
 <% @categories.each do |category| %>
-  <tr>
+  <div id="sortables" style="background-color:yellow;">
+   <tr>
     <td><%= category.priority %></td>	
     <td><%= category.name %></td>
     <td><%= link_to '보기', admin_category_path(category.id.to_s) %></td>
@@ -36,9 +49,10 @@
 
 	
 	  </tr>
+	</div>
   <%end
 end  %>
-
+	
 	<tr>
 		<td colspan="5">		
 			<div id="line_top"></div>
@@ -48,4 +62,47 @@ end  %>
 </table>
 
 <br />
+<script type="text/javascript">
 
+  $("#sortables").sortable({
+   update: function(event, ui) { 
+	<%= remote_function(:url  => {:action => "pdf_order_update"},:with => "'pdf_id='+result_pdf()") %>
+	}
+  });
+
+   //function to execute when doc ready
+   $(function() {
+      //make specified element sortable
+      $("#sortables").sortable({axis: 'y' });
+
+   });
+
+
+	function result(){
+	  var result = new Array();
+	  result = $('#sortables').sortable('toArray');
+	  return result;
+	}
+	
+	function result2(){
+	  var result = new Array();
+
+	$("input[name=chk]:checkbox:checked").each(
+	     function (){
+	       result += this.value + ',';    // 명령어
+	 });
+	return result
+
+	}
+
+	$(function()
+	{
+		$('#pane').jScrollPane();
+	});
+	
+	function result_pdf(){
+	  var result = new Array();
+	  result = $('#sortables').sortable('toArray');
+	  return result;
+	}	
+ </script>

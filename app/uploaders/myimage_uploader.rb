@@ -53,7 +53,7 @@ class MyimageUploader < CarrierWave::Uploader::Base
   # end
 
   def extension_white_list
-      %w(jpg jpeg gif png pdf eps)
+      %w(jpg jpeg gif png pdf eps tif)
   end
 
   def filename

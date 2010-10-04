@@ -1,13 +1,14 @@
-<p5><a href="#"><%= @mytemplate.category %></a>
-	<a class="on" href="#">&nbsp;&nbsp;>&nbsp;<%= @mytemplate.subcategory %></a>  
+<p5><a href="#"><%= Category.get(@mytemplate.category.to_i).name if !Category.get(@mytemplate.category.to_i).nil?%></a>
+	<% if !Subcategory.get(@mytemplate.subcategory.to_i).nil?%>
+		<a class="on" href="#">&nbsp;&nbsp;>&nbsp;<%= Subcategory.get(@mytemplate.subcategory.to_i).name %></a>  
+	<%end %>
 
 </p5>
 
 <div id="line_top3"></div>
 <div id="line_top2"></div>
 
-<% 	if @mytemplate.preview_url
-	puts_message @mytemplate.preview_url
+<% 	if !@mytemplate.preview_url.nil?
 		temp_image_path = @mytemplate.preview_url
 	else
 		temp_image_path = @mytemplate.thumb_url		

@@ -1,7 +1,7 @@
 <% 
 up_my_temps = Mytemplate.all(:user_id => current_user.id)
 up_my_temps.each do |u|
-	if Temp.get(u.temp_id) != nil?
+	if !Temp.get(u.temp_id).nil?
 		puts_message Temp.get(u.temp_id).id.to_s
 		u.category = Temp.get(u.temp_id).category
 		u.subcategory = Temp.get(u.temp_id).subcategory

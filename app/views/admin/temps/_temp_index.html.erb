@@ -21,7 +21,7 @@
 					<option value="all">전체</option>				
 					<%  if Category.all.length > 0 %>
 						<% Category.all.each do |s| %>
-							<option value="<%= s.id %>" <%= "selected" if params[:sort] == s.name %>><%= s.name %></option>				
+							<option value="<%= s.id %>" <%= "selected" if params[:sort] == s.id.to_s %>><%= s.name %></option>				
 						<%end%>
 					<%end %>
 				</select>	

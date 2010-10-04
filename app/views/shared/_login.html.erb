@@ -21,10 +21,10 @@
 <table>
 	<tr height="5">
 		<td align="right">
-			<select name="search[category]">
+			<select name="category_name">
 				<%  if Category.all.length > 0 %>
 					<% Category.all.each do |s| %>
-						<option value="<%= s.id %>"><%= s.name %></option>				
+						<option value="<%= s.id %>" <%= "selected" if params[:category_name] == s.id.to_s %>><%= s.name %></option>				
 					<%end%>
 					<%end %>
 			</select>	

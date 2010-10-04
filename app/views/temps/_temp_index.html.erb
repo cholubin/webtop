@@ -102,9 +102,7 @@
 				<td width>&nbsp;</td></tr>
 				<tr>
 				<td class="templatelist" width="180">
-					<% temp_image_path = my.thumb_url  if my.thumb_url
-					puts_message temp_image_path
-					%>
+					<% temp_image_path = my.thumb_url  if my.thumb_url%>
 					<a href="/temps/<%=my.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>"><%= "<img src='" + temp_image_path + "'>" if my.thumb_url %></a>
 				</td>				 			
 				<td width="14">&nbsp;</td></tr>
@@ -145,47 +143,49 @@
 <% @temp += 1
 end%>
 
+<% if @temps.count > 0%>			
 <!-- dm-pager Pagination -->
-<% form_tag request.path + "?page=#{params[:page]}", :method => 'get' do %>			
-<table width= "730">
-	<tr>
-		<td width="350">
-			<div class="pager">
-				<%
-				if params[:category_name] != nil
-					@category_name = Category.get(params[:category_name].to_i).name
-					puts_message @category_name
-				end
-				if params[:subcategory_name] != nil
-			    	@subcategory_name = Subcategory.get(params[:subcategory_name].to_i).name
-					puts_message @subcategory_name
-				end
+	<% form_tag request.path + "?page=#{params[:page]}", :method => 'get' do %>			
+	<table width= "730">
+		<tr>
+			<td width="350">
+				<div class="pager">
+					<%
+					if params[:category_name] != nil
+						@category_name = Category.get(params[:category_name].to_i).name
+						puts_message @category_name
+					end
+					if params[:subcategory_name] != nil
+				    	@subcategory_name = Subcategory.get(params[:subcategory_name].to_i).name
+						puts_message @subcategory_name
+					end
 
-      			if signed_in?
-				    if @category_name != nil and @subcategory_name != nil%>
-				      <%= Temp.all(:category => @category_name, :subcategory => @subcategory_name).isopen(current_user.userid).search(params[:search], params[:page]).pager.to_html "/temps?category_name=#{params[:category_name]}&subcategory_name=#{params[:subcategory_name]}&search=#{params[:search]}" %>
-				    <% elsif @category_name != nil %>
-				      <%= Temp.all(:category => @category_name).isopen(current_user.userid).search(params[:search], params[:page]).pager.to_html "/temps?category_name=#{params[:category_name]}&search=#{params[:search]}" %>      
-				    <% elsif  @subcategory_name != nil %>
-				      <%= Temp.all(:subcategory => @subcategory_name).isopen(current_user.userid).search(params[:search], params[:page]).pager.to_html "/temps?subcategory_name=#params[:subcategory_name]}&search=#{params[:search]}" %>      
-				    <%else %>
-				      <%= Temp.all().isopen(current_user.userid).search(params[:search], params[:page]).pager.to_html "/temps?search=#{params[:search]}" %>      
-				    <% end 
-				end%>				
+	      			if signed_in?
+					    if @category_name != nil and @subcategory_name != nil%>
+					      <%= Temp.all(:category => @category_name, :subcategory => @subcategory_name).isopen(current_user.userid).search(params[:search], params[:page]).pager.to_html "/temps?category_name=#{params[:category_name]}&subcategory_name=#{params[:subcategory_name]}&search=#{params[:search]}" %>
+					    <% elsif @category_name != nil %>
+					      <%= Temp.all(:category => @category_name).isopen(current_user.userid).search(params[:search], params[:page]).pager.to_html "/temps?category_name=#{params[:category_name]}&search=#{params[:search]}" %>      
+					    <% elsif  @subcategory_name != nil %>
+					      <%= Temp.all(:subcategory => @subcategory_name).isopen(current_user.userid).search(params[:search], params[:page]).pager.to_html "/temps?subcategory_name=#params[:subcategory_name]}&search=#{params[:search]}" %>      
+					    <%else %>
+					      <%= Temp.all().isopen(current_user.userid).search(params[:search], params[:page]).pager.to_html "/temps?search=#{params[:search]}" %>      
+					    <% end 
+					end%>				
 
-			</div></td>
-		<td width="230">
+				</div></td>
+			<td width="230">
 
-		</td>
-		<td width="150"></td>
-	</tr>
+			</td>
+			<td width="150"></td>
+		</tr>
 	
-	<tr height="10">
-		<td align="center" colspan="3">
-			    <%= text_field_tag :search, params[:search] %><%= image_submit_tag("/images/board/search.jpg", :align => "absmiddle") %>	
-		</td>
-	</tr>
-<% end %>			
+		<tr height="10">
+			<td align="center" colspan="3">
+				    <%= text_field_tag :search, params[:search] %><%= image_submit_tag("/images/board/search.jpg", :align => "absmiddle") %>	
+			</td>
+		</tr>
+	<% end %>
+<% end %>
 </table>
 
 

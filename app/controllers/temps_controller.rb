@@ -10,18 +10,16 @@ class TempsController < ApplicationController
   # GET /temps.xml
   def index
     
-    # @temp = Temp.first(:id => 2)
-    #    @temp.destroy
-    
     if params[:category_name] != nil
-      @category_name = Category.get(params[:category_name].to_i).name
+      # @category_name = Category.get(params[:category_name].to_i).name
+      @category_name = params[:category_name].to_i
     end
     if params[:subcategory_name] != nil
-      @subcategory_name = Subcategory.get(params[:subcategory_name].to_i).name
+      # @subcategory_name = Subcategory.get(params[:subcategory_name].to_i).name
+      @subcategory_name = params[:subcategory_name].to_i
     end
     
     # 사용자별 템플릿 공개여부 결정 기능 추가 (for oneplus)
-    puts_message TEMPLATE_OPEN_FUNC_TOGGLE.to_s
     if TEMPLATE_OPEN_FUNC_TOGGLE == true
       if signed_in?
         if @category_name != nil and @subcategory_name != nil
@@ -59,8 +57,6 @@ class TempsController < ApplicationController
       @total_count = Temp.search(params[:search],"").count      
     end
     
-  
-          
     @categories = Category.all(:order => :priority)    
     
     @menu = "template"
@@ -195,7 +191,7 @@ class TempsController < ApplicationController
   # PUT /temps/1.xml
   def update
     @temp = Temp.get(params[:id])
-
+    
     respond_to do |format|
       if @temp.save
         flash[:notice] = 'Temp was successfully updated.'

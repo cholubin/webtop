@@ -28,12 +28,7 @@
 	}
 
 </script>
-
-<% if params[:category_name] == nil  or params[:category_name] != "현수막" %>	
-	<%= stylesheet_link_tag '/css/slideimg.css' %>
-<%elsif params[:category_name] == "현수막"   %>
-	<%= stylesheet_link_tag '/css/slideimg_banner.css' %>
-<%end %>
+<%= stylesheet_link_tag '/css/slideimg.css' %>
 
 <!-- Best Template section start -->
 <% if @temps_best != nil and @temps_best.length > 0 %>
@@ -165,7 +160,6 @@ end%>
 			    	@subcategory_name = Subcategory.get(params[:subcategory_name].to_i).name
 					puts_message @subcategory_name
 				end
-
 
       			if signed_in?
 				    if @category_name != nil and @subcategory_name != nil%>

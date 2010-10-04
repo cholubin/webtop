@@ -21,9 +21,9 @@
 					<option value="all">전체</option>				
 					<%  if Category.all.length > 0 %>
 						<% Category.all.each do |s| %>
-							<option value="<%= s.name %>" <%= "selected" if params[:sort] == s.name %>><%= s.name %></option>				
+							<option value="<%= s.id %>" <%= "selected" if params[:sort] == s.name %>><%= s.name %></option>				
 						<%end%>
-						<%end %>
+					<%end %>
 				</select>	
 			</td>			
 		</tr>
@@ -59,8 +59,22 @@
 	            <th class="board_tbody" width="60px"><%= @page_num %></th>
 	            <td class="board_tbody" width="120px"><center><a href="/admin/temps/<%=temp.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>"><%= "<img src='" + temp_image_path + "'>" if temp.thumb_url %></a></center></td>
 				<td class="board_tbody" width="80px"><center><%= temp.name %></center></td>
-				<td class="board_tbody" width="80px"><center><%= temp.category %></center></td>
-				<td class="board_tbody" width="80px"><center><%= temp.subcategory %></center></td>								
+				<td class="board_tbody" width="80px"><center>
+													<% if Category.get(temp.category.to_i).nil?%>
+													<%= temp.category %>
+													<% else %>
+													<%= Category.get(temp.category.to_i).name %>
+													<% end %>
+													</center>
+				</td>
+				<td class="board_tbody" width="80px"><center>
+													<% if Subcategory.get(temp.subcategory.to_i).nil?%>
+													<%= temp.subcategory %>
+													<% else %>
+													<%= Subcategory.get(temp.subcategory.to_i).name %>
+													<% end %>
+													</center>
+				</td>								
 	            <td class="board_tbody" width="65px"><center><%= temp.created_at.strftime('%Y-%m-%d') %></center></td>
 	            <td class="board_tbody" width="70px"><center><%= temp.copy_cnt.to_s+"/"+temp.hit_cnt.to_s %></center></td>
 				<td class="board_tbody" width="30px"><center><input type="checkbox" name="chk[<%= temp.id %>]"></center></td>

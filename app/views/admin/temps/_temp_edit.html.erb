@@ -1,7 +1,49 @@
+<script>
+function update_subcategory(){
+	var select_item = $('#temp_category option:selected').val();
+	$.ajax({
+		data:'category_id='+ select_item, 
+		dataType:'script', 
+		type:'post', 
+		url:'/admin/temps/update_subcategories'
+	});				
+	
+};
+
+// $(document).ready(function(){
+// 
+// });
+</script>
+
 <% form_for @temp, :html => {:onsubmit => "javascript:return result2();"}, :url => { :action => "update" } do |f| %>
   <%= f.error_messages %>
   <input type="hidden" name="user_list" id="user_list" value="">
   <h1>템플릿 기본정보</h1>
+  <p>
+    <%= f.label :category %><br />
+	<select name="temp[category]" id="temp_category" onChange="update_subcategory();">
+	<% categories = Category.all(:order => [ :priority ]) 
+	   categories.each do |c| %>
+		<option value="<%= c.id %>" <%= "selected" if c.id.to_s == @temp.category.to_s %>><%= c.name %></option>
+	 <% end %>
+	</select>
+  </p>
+  <p>
+    <%= f.label :subcategory %><br />
+	<span id="subcategories"><select name="temp[subcategory]" id="temp_subcategory">
+	<% if Subcategory.all(:category_id => @temp.category.to_i).count > 0
+		subcategories = Subcategory.all(:category_id => @temp.category.to_i) 
+	   else 
+		subcategories = Subcategory.all(:category_id => Category.first(:priority => 1).id) 
+	   end 	
+	   subcategories.each do |s| %>
+		<option value="<%= s.id %>" <%= "selected" if s.id.to_s == @temp.subcategory.to_s %>><%= s.name %></option>
+	 <% end%>
+	
+	</select></span>
+
+  </p>
+
   <p>
     <%= f.label :name %><br />
     <%= f.text_field :name %>
@@ -68,7 +110,7 @@
 	</table>
 <% end %>
 <p>
-  <%= f.submit 'Update' %>
+  <%= f.submit '   수정   ' %>
 </p>
 <% end %>
 

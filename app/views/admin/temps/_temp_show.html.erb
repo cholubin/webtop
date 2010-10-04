@@ -1,6 +1,6 @@
 <% if @temp.preview_url;temp_image_path = @temp.preview_url else; temp_image_path = @temp.thumb_url end  %>
-<p5><a href="#"><%= @temp.category %></a>
-	<a class="on" href="#">&nbsp;&nbsp;>&nbsp;<%= @temp.subcategory %></a>  
+<p5><a href="#"><%= Category.get(@temp.category.to_i).name %></a>
+	<a class="on" href="#">&nbsp;&nbsp;>&nbsp;<%= Subcategory.get(@temp.subcategory.to_i).name %></a>  
 
 </p5>
 

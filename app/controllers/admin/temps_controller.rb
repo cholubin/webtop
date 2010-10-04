@@ -39,10 +39,11 @@ class Admin::TempsController < ApplicationController
   def update_subcategories
       # updates subcategories based on (main)category selected
       
-      categories = Category.first(:name => params[:category_id])
+      categories = Category.first(:id => params[:category_id].to_i)
       subcategories = categories.subcategories
 
-      # puts subcategories.inspect
+      
+      puts_message subcategories.count.to_s
 
       render :update do |page|
         page.replace_html 'subcategories', :partial => 'subcategories', :object => subcategories
@@ -189,6 +190,9 @@ class Admin::TempsController < ApplicationController
     @section = "edit"
     temp_id = params[:id].to_i    
     @temp = Temp.get(temp_id)
+    @temp.category = params[:temp][:category]
+    @temp.subcategory = params[:temp][:subcategory]
+    
     
     user_list = params[:user_list].split(',')
 

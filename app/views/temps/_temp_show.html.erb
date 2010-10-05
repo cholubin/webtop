@@ -36,9 +36,9 @@ if File.exist?(RAILS_ROOT + "/public" + @temp.preview_url)
 
 
 
-<p5><a href="#"><%= Category.get(@temp.category.id).name if !Category.get(@temp.category.id).nil? %></a>
-	<% if !Subcategory.get(@temp.subcategory.id).nil?%>
-	<a class="on" href="#">&nbsp;&nbsp;>&nbsp;<%= Subcategory.get(@temp.subcategory.id).name %></a>  
+<p5><a href="#"><%= Category.get(@temp.category.to_i).name if !Category.get(@temp.category.to_i).nil? %></a>
+	<% if !Subcategory.get(@temp.subcategory.to_i).nil?%>
+	<a class="on" href="#">&nbsp;&nbsp;>&nbsp;<%= Subcategory.get(@temp.subcategory.to_i).name %></a>  
 	<% end %>
 
 </p5>

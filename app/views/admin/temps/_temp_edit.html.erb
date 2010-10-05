@@ -31,14 +31,13 @@ function update_subcategory(){
   <p>
     <%= f.label :subcategory %><br />
 	<span id="subcategories"><select name="temp[subcategory]" id="temp_subcategory">
-	<% if Subcategory.all(:category_id => @temp.category.to_i).count > 0
-		subcategories = Subcategory.all(:category_id => @temp.category.to_i) 
-	   else 
-		subcategories = Subcategory.all(:category_id => Category.first(:priority => 1).id) 
-	   end 	
-	   subcategories.each do |s| %>
-		<option value="<%= s.id %>" <%= "selected" if s.id.to_s == @temp.subcategory.to_s %>><%= s.name %></option>
-	 <% end%>
+	<% if Subcategory.all(:category_id => @temp.category.to_i).count > 0 %>
+	<%	subcategories = Subcategory.all(:category_id => @temp.category.to_i) %>
+		<%subcategories.each do |s| %>
+			<option value="<%= s.id %>" <%= "selected" if s.id.to_s == @temp.subcategory.to_s %>><%= s.name %></option>
+	 	<%end%>
+	<%  end 	%>
+	   	
 	
 	</select></span>
 

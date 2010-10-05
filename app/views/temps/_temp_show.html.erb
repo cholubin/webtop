@@ -36,7 +36,7 @@ if File.exist?(RAILS_ROOT + "/public" + @temp.preview_url)
 
 
 
-<p5><a href="#"><%= @temp.category %></a>
+<p5><a href="#"><%= Category.get(@temp.category.id).name %></a>
 	<a class="on" href="#">&nbsp;&nbsp;>&nbsp;<%= @temp.subcategory %></a>  
 
 </p5>

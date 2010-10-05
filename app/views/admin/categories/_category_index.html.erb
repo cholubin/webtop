@@ -64,6 +64,10 @@ $(document).ready(function(){
 					type:'post', 
 					url:'/admin/categories/delete_category',
 					success: function(request){
+						
+						
+						
+						
 						// $('#epub_make').html(request);
 						if (temp_id[0] == "cate.del"){
 							$('#cate_'+temp_id[1]).slideUp('fast',function(){$(this).remove()})

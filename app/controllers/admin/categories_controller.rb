@@ -139,11 +139,12 @@ class Admin::CategoriesController < ApplicationController
 
   def category_order_update
     category_id = params[:category_id].split(',')
-  
+    
     if !category_id.nil? 
       i = 1
       category_id.each do |c|
-        category = Category.get(c.to_i)
+        temp = c.split('_')
+        category = Category.get(temp[1].to_i)
         category.priority = i
         category.save
         i += 1

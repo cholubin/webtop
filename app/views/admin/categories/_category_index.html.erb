@@ -105,11 +105,12 @@ $(document).ready(function(){
 			if (temp_id[0] == "cate-edit"){
 				// $('#cate-edit_'+temp_id[1]).removeClass("edit");
 				$('#cate-edit_'+temp_id[1]).removeClass('edit').addClass('edit-complete');
-				$('#cate_name_'+temp_id[1]).html("<input id='cate-input_"+temp_id[1]+"' type='text' value='"+$('#cate_name_'+temp_id[1]).text()+"'>&nbsp;");
-				
+				$('#cate_name_'+temp_id[1]).html("<input id='cate-input_"+temp_id[1]+"' type='text'  class='textfield' value='"+$('#cate_name_'+temp_id[1]).text()+"'>&nbsp;");
+				$('#cate-input_'+temp_id[1]).focus();
 			}else{
 				$('#subcate-edit_'+temp_id[1]).removeClass('edit').addClass('edit-complete');
-				$('#subcate_name_'+temp_id[1]).html("<input id='subcate-input_"+temp_id[1]+"' type='text' value='"+$('#subcate_name_'+temp_id[1]).text()+"'>&nbsp;");
+				$('#subcate_name_'+temp_id[1]).html("<input id='subcate-input_"+temp_id[1]+"' type='text'  class='textfield' value='"+$('#subcate_name_'+temp_id[1]).text()+"'>&nbsp;");
+				$('#subcate-input_'+temp_id[1]).focus();
 			}
 		};	
 		

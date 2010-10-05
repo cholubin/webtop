@@ -16,6 +16,8 @@ var html_str = "<li id='cate_<%= category.id.to_s %>' class='main-category-list'
 
 $('#sortables').prepend(html_str);
 
+$('#main-category-write').val("");
+
 $('#add_subcategory_<%= category.id.to_s %>').click(function() {
 	if ($('#subcategory-write_<%= category.id.to_s %>').val() == ""){
 		alert("카테고리명을 입력하세요~");

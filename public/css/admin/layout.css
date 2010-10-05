@@ -1,4 +1,4 @@
-#category-list { color: white; font-family: sans-serif; width: 702px; margin: 0 auto;}
+#category-list { color: white; font-family: sans-serif; width: 702px; margin: 0 0 0 14px}
 #category-list ul, #category-list li, #category-list p, #category-list h4, #category-list h5,  #category-list form { list-style: none; padding: 0; margin: 0;}
 #category-list .textfield {
 	color: white;
@@ -6,19 +6,23 @@
 	border: 1px solid #6c6c6c;
 	border-top-color: #191919; border-left-color: #191919;
 	background: url(/images/admin/category/input-bg.png) repeat-x;
+	Border-radius: 4px;
 }
 
 #category-list legend { display: none; }
 #category-list .edit, #category-list .delete, #category-list .edit-complete { width: 19px; display:block; float:left; height: 20px; cursor: pointer; border: 0; background: url(/images/admin/category/button-edit.png) no-repeat; text-indent:-5000px;}
+#category-list .edit { margin-left: 41px; }
 #category-list .delete { margin-left: 4px; background:url(/images/admin/category/button-delete.png) no-repeat }
 #category-list .edit-complete { width: 60px; background: url(/images/admin/category/button-edit-agree.png) no-repeat }
 #category-list .main-category-list { position: relative; border: 1px solid #262626; border-left-color: #6c6c6c;  border-top-color: #6c6c6c;width: 700px; background: #4d4d4d url(/images/admin/category/list-main-topbg.png) repeat-x left top; margin-bottom: 10px;}
-#category-list .main-category-list h4 { line-height: 42px; border-bottom: 1px solid #666666; padding: 0 50px; background: url(/images/admin/category/list-main-icon.png) no-repeat 14px center; }
-#category-list .main-category-action { position: absolute; top: 11px; right: 16px; width: 140px; }
+#category-list .main-category-list h4 { line-height: 42px; border-bottom: 1px solid #666666; padding: 0 50px; font-size: 16px; background: url(/images/admin/category/list-main-icon.png) no-repeat 14px center; }
+#category-list .main-category-list h4 .textfield { line-height: 25px; width: 534px; font-size: 16px; padding: 0 4px; background-position: 0 -24px; }
+#category-list .main-category-action { position: absolute; top: 11px; left: 590px; width: 100px; }
 
 #category-list .sub-category-list { width: 656px; margin: 0 0 0 auto; border-bottom: 1px solid #666666; position: relative; background: url(/images/admin/category/list-sub-icon.png) no-repeat 6px center; }
 #category-list .sub-category-list h5 { line-height: 34px; font-size: 12px; padding: 0 10px 0 32px;  border-bottom: 1px solid #262626;}
-#category-list .sub-category-action { position: absolute; top: 7px; right: 16px; width: 140px; }
+#category-list .sub-category-list h5 .textfield { line-height: 18px; width: 510px; font-size: 12px; padding: 0 4px; background-position: 0 -35px; }
+#category-list .sub-category-action { position: absolute; top: 7px; left: 546px; width: 100px; }
 
 #category-list .main-write-form { border: 0; width: 620px;padding: 10px 10px 10px 70px;	background: url(/images/admin/category/label-main-add.png) no-repeat 22px center; margin: 0;}
 #category-list .main-write-form .submit { width: 93px; height: 42px; border: 0; text-indent: -5000px; background: url(/images/admin/category/button-main-add.png); cursor: pointer; border: 0}
@@ -27,5 +31,5 @@
 
 #category-list .sub-write-form { border: 0; width: 610px;padding: 10px 10px 10px 50px;	background: url(/images/admin/category/label-sub-add.png) no-repeat 16px center; margin: 0 0 0 auto;}
 #category-list .sub-write-form .submit { width: 61px; height: 30px; border: 0; text-indent: -5000px; background: url(/images/admin/category/button-sub-add.png); cursor: pointer; border: 0}
-#category-list .sub-write-form .textfield { width: 529px; height: 24px; padding: 2px; font-size: 12px; }
+#category-list .sub-write-form .textfield { width: 529px; height: 24px; padding: 2px; font-size: 12px; background-position: 0 -14px }
 #category-list .sub-write-form label { display: none; text-indent: -5000px; }

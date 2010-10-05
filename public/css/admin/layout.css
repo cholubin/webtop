@@ -9,17 +9,16 @@
 }
 
 #category-list legend { display: none; }
-#category-list .edit, #category-list .delete, #category-list .edit-complate { width: 19px; display:block; float:left; height: 20px; cursor: pointer; border: 0; background: url(/images/admin/category/button-edit.png) no-repeat; text-indent:-5000px;}
+#category-list .edit, #category-list .delete, #category-list .edit-complete { width: 19px; display:block; float:left; height: 20px; cursor: pointer; border: 0; background: url(/images/admin/category/button-edit.png) no-repeat; text-indent:-5000px;}
 #category-list .delete { margin-left: 4px; background:url(/images/admin/category/button-delete.png) no-repeat }
-#category-list .edit-complate { width: 60px; background: url(/images/admin/category/button-edit-delete.png) no-repeat }
-
+#category-list .edit-complete { width: 60px; background: url(/images/admin/category/button-edit-agree.png) no-repeat }
 #category-list .main-category-list { position: relative; border: 1px solid #262626; border-left-color: #6c6c6c;  border-top-color: #6c6c6c;width: 700px; background: #4d4d4d url(/images/admin/category/list-main-topbg.png) repeat-x left top; margin-bottom: 10px;}
 #category-list .main-category-list h4 { line-height: 42px; border-bottom: 1px solid #666666; padding: 0 50px; background: url(/images/admin/category/list-main-icon.png) no-repeat 14px center; }
-#category-list .main-category-action { position: absolute; top: 11px; left: 634px; width: 100px; }
+#category-list .main-category-action { position: absolute; top: 11px; right: 16px; width: 140px; }
 
 #category-list .sub-category-list { width: 656px; margin: 0 0 0 auto; border-bottom: 1px solid #666666; position: relative; background: url(/images/admin/category/list-sub-icon.png) no-repeat 6px center; }
 #category-list .sub-category-list h5 { line-height: 34px; font-size: 12px; padding: 0 10px 0 32px;  border-bottom: 1px solid #262626;}
-#category-list .sub-category-action { position: absolute; top: 7px; left: 590px; width: 100px; }
+#category-list .sub-category-action { position: absolute; top: 7px; right: 16px; width: 140px; }
 
 #category-list .main-write-form { border: 0; width: 620px;padding: 10px 10px 10px 70px;	background: url(/images/admin/category/label-main-add.png) no-repeat 22px center; margin: 0;}
 #category-list .main-write-form .submit { width: 93px; height: 42px; border: 0; text-indent: -5000px; background: url(/images/admin/category/button-main-add.png); cursor: pointer; border: 0}

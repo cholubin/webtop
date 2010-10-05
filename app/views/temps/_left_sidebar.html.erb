@@ -4,7 +4,7 @@
 
 
 	<p>
-	  <% @subcategories = category.subcategories  %>
+	  <% @subcategories = category.subcategories.all(:order => [:priority])  %>
 	  <% @subcategories.each do |subcategory| %>
 			<a class="<%= "on" if @subcategory_name == subcategory.name and @category_name == category.name%>" href="/temps?category_name=<%= category.id %>&subcategory_name=<%= subcategory.id %>">&nbsp;&nbsp;-&nbsp;<%= subcategory.name %></a> <br>  		
 

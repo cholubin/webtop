@@ -161,7 +161,8 @@ class Admin::CategoriesController < ApplicationController
     if !subcategory_id.nil? 
       i = 1
       subcategory_id.each do |s|
-        subcategory = @category.subcategories.get(s.to_i)
+        temp = s.split('_')
+        subcategory = Subcategory.get(temp[1].to_i)
         subcategory.priority = i
         subcategory.save
         
@@ -190,7 +191,11 @@ class Admin::CategoriesController < ApplicationController
     category.priority = 1
     category.save
     
-    render :nothing => true
+    @category = category
+    
+    render :update do |page|
+      page.replace_html 'created_category', :partial => 'created_category', :object => @category
+    end
   end
   
   def add_subcategory
@@ -216,8 +221,12 @@ class Admin::CategoriesController < ApplicationController
     else
       puts_message "erorr occrued!"
     end
-    
-    render :nothing => true
+
+    @category_id = category_id
+    render :update do |page|
+      page.replace_html 'created_subcategory', :partial => 'created_subcategory', :object => @subcategory, :object => @category_id
+    end
+
   end
 
   def delete_category
@@ -227,7 +236,7 @@ class Admin::CategoriesController < ApplicationController
     category_selector = temp_category_name[0]
     id = temp_category_name[1]
     
-    if category_selector == "cate.del"
+    if category_selector == "cate-del"
       #카테고리 삭제의
       category_id = id.to_i
       @category = Category.get(id.to_i)
@@ -250,4 +259,27 @@ class Admin::CategoriesController < ApplicationController
     
     render :nothing => true
   end
+  
+  def update_category
+    temp_category_id = params[:category_id].split('_')
+    category_name = params[:category_name]
+    category_selector = temp_category_id[0]
+    category_id = temp_category_id[1]
+    
+    if category_selector == "cate-edit"
+      @category = Category.get(category_id.to_i)
+      @category.name = category_name
+      if @category.save
+        puts_message "카테고리 업데이트 완료!"
+      end
+    else
+      @subcategory = Subcategory.get(category_id.to_i)
+      @subcategory.name = category_name
+      if @subcategory.save
+        puts_message "서브카테고리 업데이트 완료!"
+      end
+    end
+    render :nothing => true
+  end
+  
 end

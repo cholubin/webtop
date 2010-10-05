@@ -6,67 +6,108 @@
 <script type="text/javascript" src="/js/jScrollPane/jquery.em.js"></script>
 <script type="text/javascript" src="/js/jScrollPane/jScrollPane.js"></script>
 
-<h1>Listing categories</h1>
+<link href="/css/admin/layout.css" rel="stylesheet" type="text/css" />
+<div id="category-list">
+	<fieldset class="main-write-form">
+		<legend>카테고리 추가</legend>
+		<label for="main-category-write">카테고리명</label>
+		<input type="text" name="category_name" id="main-category-write" class="textfield" placeholder="메인 카테고리명 입력"/>
+		<input id ="add_category" type="button" class="submit" value="추가"/>
+	</fieldset>
+	<ul id="sortables">
+		<!-- 메인 카테고리 반복 시작 -->
+		<% @categories.each do |category| %>
+		<li id="cate_<%= category.id.to_s %>" class="main-category-list">
+			<h4><%= category.name %></h4>
+			<p class="main-category-action"><a class="edit">수정</a><a id="cate.del_<%= category.id.to_s %>" class="delete">삭제</a></p>
+			<ul id="sortables_<%= category.id.to_s %>">
+				<!-- 서브 카테고리 반복될 부분 시작 -->
+				<% @categories.subcategories(:order => [ :priority]).each do |subcategory| 
+					if category.id == subcategory.category_id
+				%>
+				<li id="subcate_<%= subcategory.id.to_s %>" class="sub-category-list">
+					<h5><%= subcategory.name %></h5>
+					<p class="sub-category-action"><a class="edit">수정</a><a id="subcate.del_<%= subcategory.id.to_s %>" class="delete">삭제</a></p>
+				</li>
+				<% end %>
+			<!-- 서브 카테고리 반복될 부분 끝 -->
+			<% end %>
+			</ul>
+			<fieldset class="sub-write-form">
+				<legend>서브 카테고리 추가</legend>
+				<label for="subcategory-write_<%= category.id.to_s %>">카테고리명</label>
+				<input type="text" name="subcategory_name" id="subcategory-write_<%= category.id.to_s %>" class="textfield"  placeholder="서브 카테고리명 입력"/>
+				<input id="add_subcategory_<%= category.id.to_s %>" class="submit" type="button" value="추가"/>
+			</fieldset>
+		</li>
+		<!-- 메인 카테고리 반복 시작 끝 -->
+		<% end %>
+	</ul>
+</div>
 
-
-<link rel="stylesheet" type="text/css" media="all" href="/js/jScrollPane/jScrollPane.css" />
-<link rel="stylesheet" type="text/css" media="all" href="/js/jScrollPane/demoStyles.css" />
-
-
-
-<table>
-<tr>
-	<td colspan="5" align="right">
-		<%= link_to 'New category', new_category_path %>		
-	</td>
-</tr>
-<tr>
-	<td colspan="5">		
-		<div id="line_top"></div>
-	</td></tr>
-
-<% @categories.each do |category| %>
-  <div id="sortables" style="background-color:yellow;">
-   <tr>
-    <td><%= category.priority %></td>	
-    <td><%= category.name %></td>
-    <td><%= link_to '보기', admin_category_path(category.id.to_s) %></td>
-    <td><%= link_to '수정', edit_admin_category_path(category.id.to_s) %></td>
-    <td><%= link_to '삭제', admin_category_path(category.id.to_s), :confirm => "정말 삭제하시겠습니까?\n메인분류를 삭제하시면 서브분류들도 자동 삭제처리됩니다!", :method => :delete %></td>
-  </tr>
-
-<!-- <% @subcategories = category.subcategories.all(:order => [ :priority.asc ])  %> -->
-<!-- changed code for Strategic Eager Loading -->
-  <% @categories.subcategories.each do |subcategory| 
-	if category.id == subcategory.category_id
-  %>
-	  <tr>
-	    <td style="padding-left: 10px"><!-- <%= subcategory.priority %> --></td>	
-	    <td>- <%= subcategory.name %></td>
-	    <td>&nbsp;</td>
-	    <td><%#= link_to '수정', edit_admin_category_path(subcategory.id.to_s) %></td>
-	    <td><%= link_to '삭제', '/admin/categories/destroy_sub/'+subcategory.id.to_s,  :confirm => '정말 삭제하시겠습니까?',:method => :delete %></td>  	
-
-	
-	  </tr>
-	</div>
-  <%end
-end  %>
-	
-	<tr>
-		<td colspan="5">		
-			<div id="line_top"></div>
-		</td></tr>
-	</tr>
-<% end %>
-</table>
-
-<br />
 <script type="text/javascript">
+
+$(document).ready(function(){
+	$('#sortables').click(function(event){
+		if ( $(event.target).is('.delete') ){
+			var temp_id = event.target.id.split("_");
+			if (temp_id[0] == "cate.del"){
+				var confirm_message = "카테고리를 정말 삭제하시겠습니까?\n카테고리가 삭제되면 해당 카테고리에 속하는 \n모든 서브카테고리들도 함께 삭제됩니다!"
+			}else{
+				var confirm_message = "서브카테고리를 정말 삭제하시겠습니까?"				
+			}
+			
+			if (window.confirm(confirm_message)){
+				$.ajax({
+					data:'category_id='+ event.target.id, 
+					dataType:'script', 
+					type:'post', 
+					url:'/admin/categories/delete_category',
+					success: function(request){
+						// $('#epub_make').html(request);
+						if (temp_id[0] == "cate.del"){
+							$('#cate_'+temp_id[1]).slideUp('fast',function(){$(this).remove()})
+						}else{
+							$('#subcate_'+temp_id[1]).slideUp('fast',function(){$(this).remove()})
+						}
+					}
+				});
+			};			
+		};
+	});
+	
+	$('#add_category').click(function() {
+		if ($('#main-category-write').val() == ""){
+			alert("카테고리명을 입력하세요~");
+		}else{
+			$.ajax({
+				data:'category_name='+ $('#main-category-write').val(), 
+				dataType:'script', 
+				type:'post', 
+				url:'/admin/categories/add_category'
+			});	
+		}
+	});
+	
+	<% @categories.each do |category| %>
+	$('#add_subcategory_<%= category.id.to_s %>').click(function() {
+		if ($('#subcategory-write_<%= category.id.to_s %>').val() == ""){
+			alert("카테고리명을 입력하세요~");
+		}else{
+			$.ajax({
+				data:'category_id=<%= category.id.to_s %>&subcategory_name='+ $('#subcategory-write_<%= category.id.to_s %>').val(), 
+				dataType:'script', 
+				type:'post', 
+				url:'/admin/categories/add_subcategory'
+			});	
+		}
+	});
+	<% end %>	
+});
 
   $("#sortables").sortable({
    update: function(event, ui) { 
-	<%= remote_function(:url  => {:action => "pdf_order_update"},:with => "'pdf_id='+result_pdf()") %>
+	<%= remote_function(:url  => {:action => "category_order_update"},:with => "'category_id='+result_category()") %>
 	}
   });
 
@@ -77,7 +118,24 @@ end  %>
 
    });
 
+<% @categories.each do |category| %>
+	$("#sortables_<%= category.id.to_s %>").sortable({
+	   update: function(event, ui) { 
+		<%= remote_function(:url  => {:action => "subcategory_order_update"},:with => "'category_id=#{category.id.to_s}&subcategory_id='+result_category_#{category.id.to_s}()") %>
+		}
+	});
 
+	 $(function() {
+	    $("#sortables_<%= category.id.to_s %>").sortable({axis: 'y' });
+	 });
+
+	function result_category_<%= category.id.to_s %>(){
+	  var result = new Array();
+	  result = $('#sortables_<%= category.id.to_s %>').sortable('toArray');
+	  return result;
+	}	
+
+<% end %>
 	function result(){
 	  var result = new Array();
 	  result = $('#sortables').sortable('toArray');
@@ -100,7 +158,7 @@ end  %>
 		$('#pane').jScrollPane();
 	});
 	
-	function result_pdf(){
+	function result_category(){
 	  var result = new Array();
 	  result = $('#sortables').sortable('toArray');
 	  return result;

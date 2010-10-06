@@ -136,7 +136,12 @@ class MyimagesController < ApplicationController
       @myimage.type = ext_name.gsub(".",'') 
        
       @myimage.image_filename = @temp_filename
-      @myimage.image_thumb_filename = file_name + ".jpg"
+      
+      if ext_name == ".eps" or ext_name == ".pdf"
+        @myimage.image_thumb_filename = file_name + ".png"
+      else
+        @myimage.image_thumb_filename = file_name + ".jpg"
+      end
        # 중복파일명 처리 ===============================================================================
 
       @myimage.image_filename_encoded = @myimage.image_file.filename
@@ -163,11 +168,20 @@ class MyimagesController < ApplicationController
           if  File.exist?(image_path + "/" + file_name_up + ext_name_up)
             if params[:myimage][:folder] == "photo"
           	  File.rename image_path + "/" + @myimage.image_filename_encoded, image_path  + "/" + file_name + ext_name #original file
-          	  puts %x[#{RAILS_ROOT}"/lib/thumbup" #{image_path + "/" + @myimage.image_filename} #{image_path + "/preview/" + file_name + ".jpg"} 0.5 #{image_path + "/thumb/" + file_name + ".jpg"} 128]            	  
+          	  
+          	  if ext_name_up == ".eps" or ext_name_up == ".pdf"
+          	    puts %x[#{RAILS_ROOT}"/lib/thumbup" #{image_path + "/" + @myimage.image_filename} #{image_path + "/preview/" + file_name + ".png"} 0.5 #{image_path + "/thumb/" + file_name + ".png"} 128]            	  
+          	  else
+          	    puts %x[#{RAILS_ROOT}"/lib/thumbup" #{image_path + "/" + @myimage.image_filename} #{image_path + "/preview/" + file_name + ".jpg"} 0.5 #{image_path + "/thumb/" + file_name + ".jpg"} 128]            	  
+        	    end
           	else
           	  image_folder = @myimage.image_folder(params[:myimage][:folder])
           	  File.rename image_path + "/" + @myimage.image_filename_encoded, image_folder  + "/" + file_name + ext_name #original file
-          	  puts %x[#{RAILS_ROOT}"/lib/thumbup" #{image_folder + "/" + @myimage.image_filename} #{image_folder + "/preview/" + file_name + ".jpg"} 0.5 #{image_folder + "/thumb/" + file_name + ".jpg"} 128]            	  
+          	  if ext_name_up == ".eps" or ext_name_up == ".pdf"
+          	    puts %x[#{RAILS_ROOT}"/lib/thumbup" #{image_folder + "/" + @myimage.image_filename} #{image_folder + "/preview/" + file_name + ".png"} 0.5 #{image_folder + "/thumb/" + file_name + ".png"} 128]            	  
+          	  else
+          	    puts %x[#{RAILS_ROOT}"/lib/thumbup" #{image_folder + "/" + @myimage.image_filename} #{image_folder + "/preview/" + file_name + ".jpg"} 0.5 #{image_folder + "/thumb/" + file_name + ".jpg"} 128]            	  
+          	  end
           	end
           end
         end      

@@ -89,7 +89,8 @@ end%>
 
 <% if @temps.length > 0%>			
 <!-- dm-pager Pagination -->
-	<% form_tag request.path + "?category=#{params[:category]}&subcategory=#{params[:subcategory]}&page=#{params[:page]}", :method => 'get' do %>			
+
+	<form action="/temps?category_name=<%= params[:category_name] %>&subcategory_name=<%= params[:subcategory_name] %>&page=" method="get">
 	<table width= "730">
 		<tr>
 			<td width="350">
@@ -141,9 +142,11 @@ end%>
 		<tr height="10">
 			<td align="center" colspan="3">
 				    <%= text_field_tag :search, params[:search] %><%= image_submit_tag("/images/board/search.jpg", :align => "absmiddle") %>	
+					<input type="hidden" name="category_name" value="<%= params[:category_name] %>">
+					<input type="hidden" name="subcategory_name" value="<%= params[:subcategory_name] %>">
 			</td>
 		</tr>
-	<% end %>
+	</form>
 <% end %>
 </table>
 

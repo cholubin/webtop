@@ -9,14 +9,13 @@ class TempsController < ApplicationController
   # GET /temps
   # GET /temps.xml
   def index
-    
+
     if params[:category_name] != nil
-      # @category_name = Category.get(params[:category_name].to_i).name
-      @category_name = params[:category_name].to_i
+      @category_name = params[:category_name]
     end
+    
     if params[:subcategory_name] != nil
-      # @subcategory_name = Subcategory.get(params[:subcategory_name].to_i).name
-      @subcategory_name = params[:subcategory_name].to_i
+      @subcategory_name = params[:subcategory_name]
     end
     
     # 사용자별 템플릿 공개여부 결정 기능 추가 (for oneplus)
@@ -24,22 +23,20 @@ class TempsController < ApplicationController
       if signed_in?
         if @category_name != nil and @subcategory_name != nil
           @temps = Temp.all(:category => @category_name, :subcategory => @subcategory_name).isopen(current_user.userid).search(params[:search], params[:page])
-          @temps_best = Temp.all(:category => @category_name).best
         elsif @category_name != nil
           @temps = Temp.all(:category => @category_name).isopen(current_user.userid).search(params[:search], params[:page])      
-          @temps_best = Temp.all(:category => @category_name).best
         elsif  @subcategory_name != nil
           @temps = Temp.all(:subcategory => @subcategory_name).isopen(current_user.userid).search(params[:search], params[:page])      
         else
           @category_name = Category.first(:priority => 1).name
           @temps = Temp.all(:category => @category_name).isopen(current_user.userid).search(params[:search], params[:page])      
-          @temps_best = Temp.all(:category => @category_name).best
         end
         @total_count = Temp.search(params[:search],"").isopen(current_user.userid).count    
       else
         @temps = Temp.all(:id => '9999999')
         @total_count = 0
       end
+
     else
       if @category_name != nil and @subcategory_name != nil
         @temps = Temp.all(:category => @category_name, :subcategory => @subcategory_name).search(params[:search], params[:page])
@@ -62,8 +59,6 @@ class TempsController < ApplicationController
     @menu = "template"
     @board = "temp"
     @section = "index"
-    
-    @category_name = nil
     
     render 'temp'  
   end

@@ -55,6 +55,7 @@ class Temp
   
   before :create, :file_path
 
+  #!!!!! 이녀석을 거치게 되면 더이상 데이타매퍼 오브젝트가 아니라 배열이 되버린다! 그래서 count로 갯수를 셀수가 없고 length를 써야 한다!!!!!!!!!
   def self.search(search, page)
       Temp.all(:conditions => {:name.like => "%#{search}%"}).page :page => page, :per_page => 12
   end

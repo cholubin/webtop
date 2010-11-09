@@ -1,0 +1,33 @@
+<%
+category_id = @category_id
+subcategory = @subcategory %>
+<script>
+var html_str = "<li id='subcate_<%= subcategory.id.to_s %>' class='sub-category-list'>"+
+				"<h5 id='subcate_name_<%= subcategory.id.to_s %>'><%= subcategory.name %></h5>"+
+				"<p class='sub-category-action'><a id='subcate-edit_<%= subcategory.id.to_s %>'"+ "class='edit'>수정</a><a id='subcate-del_<%= subcategory.id.to_s %>' class='delete'>삭제</a></p>"+
+				"</li>";
+$('#sortables_<%= category_id %>').append(html_str);
+
+$('#subcategory-write_<%= @category_id %>').val("");
+
+$("#sortables_<%= category_id.to_s %>").sortable({
+   update: function(event, ui) { 
+	<%= remote_function(:url  => {:action => "subcategory_order_update"},:with => "'category_id=#{category_id.to_s}&subcategory_id='+result_category_#{category_id.to_s}()") %>
+	}
+});
+
+ $(function() {
+    $("#sortables_<%= category_id.to_s %>").sortable({axis: 'y' });
+ });
+				
+function result_category_<%= category_id.to_s %>(){
+  var result = new Array();
+  result = $('#sortables_<%= category_id.to_s %>').sortable('toArray');
+  return result;
+}
+				
+</script>
+
+
+
+

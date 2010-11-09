@@ -24,7 +24,7 @@
 		확장자별: <select name="_ext" onChange="location.href='/admin/myimages?ext='+document.all._ext.value;">
 			<option value="all" <%= "selected" if ext == "all" %>>전체</option>				
 			<%@exts.each do |ex| %>
-				<option value="<%= ex %>" <%= "selected" if ext == ex %>><%= ex.upcase %></option>							
+				<option value="<%= ex.downcase %>" <%= "selected" if ext.downcase == ex.downcase %>><%= ex.upcase %></option>							
 			<%end %>
 		</select>	
 	</div>

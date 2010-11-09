@@ -105,7 +105,7 @@ class Admin::MyimagesController < ApplicationController
       file_name = @temp_filename.gsub(ext_name,'')
       
       #검색시 필터로 사용할 타입 설정
-      @myimage.type = ext_name.gsub(".",'') 
+      @myimage.type = ext_name.gsub(".",'').downcase 
        
       @myimage.image_filename = @temp_filename
       
@@ -190,7 +190,7 @@ class Admin::MyimagesController < ApplicationController
     file_name = @myimage.image_filename.gsub(ext_name,'')
 
     #파일명의 확장자로 판단하여 타입결정
-    @myimage.type = ext_name.gsub('.','')
+    @myimage.type = ext_name.gsub('.','').downcase
 
     #이미지를 변경하는 경우 
     if params[:myimage][:image_file] != nil

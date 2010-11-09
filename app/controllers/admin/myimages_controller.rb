@@ -83,8 +83,8 @@ class Admin::MyimagesController < ApplicationController
     @myimage.folder = "basic_photo"
     @myimage.common = true
     
-    image_path = @myimage.image_path
-    MyimageUploader.store_dir = @myimage.image_path
+    image_path = @myimage.image_admin_path
+    MyimageUploader.store_dir = @myimage.image_admin_path
     
     # 이미지 업로드 처리 ===============================================================================
     if params[:myimage][:image_file] != nil

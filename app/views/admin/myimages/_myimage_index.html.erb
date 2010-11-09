@@ -48,7 +48,7 @@
 				else
 					@temp_page = params[:page].to_i - 1
 				end
-				@page_num = @total_count - (6 * @temp_page) %>
+				@page_num = @total_count - (12 * @temp_page) %>
 				
 			<%puts_message @myimages.count.to_s %>
 			<% @myimages.each do |myimage| %>

@@ -59,21 +59,26 @@ class FoldersController < ApplicationController
   def create_folder
 
     if Folder.all(:name => params[:folder_name]).count < 1
-      @folder = Folder.new()
-      @folder.name = params[:folder_name]
+      if params[:folder_name] != "basic_photo"
+        @folder = Folder.new()
+        @folder.name = params[:folder_name]
 
-      @folder.user_id = current_user.id
+        @folder.user_id = current_user.id
 
-      basic_path = "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/images/"
+        basic_path = "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/images/"
 
 
-      dir = basic_path + @folder.name
+        dir = basic_path + @folder.name
 
-      if !File.exist?(dir)
-       FileUtils.mkdir_p dir if not File.exist?(dir)
-       FileUtils.chmod 0777, dir
+        if !File.exist?(dir)
+         FileUtils.mkdir_p dir if not File.exist?(dir)
+         FileUtils.chmod 0777, dir
 
-       @folder.save
+         @folder.save
+        end
+      else
+        puts_message "이미 생성된 폴더명입니다!"
+        @already_done = true
       end
     else
       puts_message "이미 생성된 폴더명입니다!"

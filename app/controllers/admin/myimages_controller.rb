@@ -9,17 +9,18 @@ class Admin::MyimagesController < ApplicationController
       #확장자별 소팅
       gubun = params[:gb]
       ext = params[:ext]
-      @menu = "myimage"
-      @board = "myimage"
-      @section = "index"
       
       if gubun != "admin"
+        @menu = "myimage"
+        @board = "myimage"
+        @section = "index"
+        
         if ext == "all" or ext == nil or ext == ""
-          @myimages = Myimage.all(:order => [:created_at.desc]).search_user(params[:search], params[:page])   
-          @total_count = @myimages.count   
+          @myimages = Myimage.all(:admin_id => nil, :order => [:created_at.desc]).search_user(params[:search], params[:page])   
+          @total_count = Myimage.all(:admin_id => nil).search_user(params[:search], "").count
         else
-          @myimages = Myimage.all(:type => ext, :order => [:created_at.desc]).search_user(params[:search], params[:page])           
-          @total_count = @myimages.count
+          @myimages = Myimage.all(:admin_id => nil, :type => ext, :order => [:created_at.desc]).search_user(params[:search], params[:page])           
+          @total_count = Myimage.all(:admin_id => nil, :type => ext).search_user(params[:search], "").count
         end
         
         render 'myimage'
@@ -31,10 +32,10 @@ class Admin::MyimagesController < ApplicationController
         
         if ext == "all" or ext == nil or ext == ""
           @myimages = Myimage.all(:common => true, :order => [:created_at.desc]).search_user(params[:search], params[:page])   
-          @total_count = @myimages.count   
+          @total_count = Myimage.all(:common => true).search_user(params[:search], "")   .count   
         else
           @myimages = Myimage.all(:common => true, :type => ext, :order => [:created_at.desc]).search_user(params[:search], params[:page])           
-          @total_count = @myimages.count
+          @total_count = Myimage.all(:common => true, :type => ext).search_user(params[:search], "").count
         end
 
         @exts = repository(:default).adapter.select('SELECT distinct type FROM myimages where common = \'t\'')

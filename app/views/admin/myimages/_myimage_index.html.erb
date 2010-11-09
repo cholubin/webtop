@@ -52,11 +52,15 @@
 				end
 				@page_num = @total_count - (6 * @temp_page) %>
 				
-
+			<%puts_message @myimages.count.to_s %>
 			<% @myimages.each do |myimage| %>
 	        <tr class="table_b","board_tbody" onClick="location.href='/admin/myimages/<%= myimage.id.to_s %>'" style="cursor:hand;">
 	            <th class="board_tbody" width="60px"><%= @page_num %></th>
-	            <td class="board_tbody" width="1px"><center><a href="/admin/myimages/<%=myimage.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>"><%=image_tag myimage.thumb_url %></a></center></td>
+	            <td class="board_tbody" width="1px">
+					<center>
+					<a href="/admin/myimages/<%= myimage.id.to_s%>?search=<%=params[:search]%>&page=<%=params[:page]%>"><%=image_tag myimage.thumb_url %></a>
+					</center>
+				</td>
 				<td class="board_tbody" width="80px"><center><%= myimage.name %></center></td>
 				<td class="board_tbody" width="80px"><center><%= User.first(:id => myimage.user_id).userid %></center></td>
 	            <td class="board_tbody" width="80px"><center><%= User.first(:id => myimage.user_id).name %></center></td>

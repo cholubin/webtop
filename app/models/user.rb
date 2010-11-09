@@ -34,7 +34,7 @@ class User
   has n, :mypdfs 
   before :save, :encrypt_password
   before :create, :pdf_path
-  after  :save, :demo_up
+  # after  :save, :demo_up
 
   def pdf_path
 
@@ -61,7 +61,7 @@ class User
     return dir    
   end
 
-  # def demo_up
+  # def 
   #   begin
   #     if Folder.all(:name => 'basic_photo', :user_id => self.id.to_s).count < 1
   #       Folder.new(:name => 'basic_photo', :user_id => self.id.to_s).save

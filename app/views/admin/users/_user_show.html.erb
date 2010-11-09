@@ -1,26 +1,40 @@
 <p>
-  <b>ID:</b>
+  <b>아이디:</b>
   <%=h @user.userid %>
 </p>
 
 <p>
-  <b>Name:</b>
+  <b>이름:</b>
   <%=h @user.name %>
 </p>
 
 <p>
-  <b>Password:</b>
-  <%=h @user.password %>
-</p>
-
-<p>
-  <b>Email:</b>
+  <b>메일주소:</b>
   <%=h @user.email %>
 </p>
 
+<%
+count_image = Myimage.all(:user_id => @user.id).count
+count_temp = Mytemplate.all(:user_id => @user.id).count
+%>
+<input type="button" value="목록" style="cursor:hand;" onClick="goList()">
+<input type="button" value="<%= @user.name %>님의 템플릿"><%= count_temp %>건
+<input type="button" value="<%= @user.name %>님의 이미지"><%= count_image %>건
+<!--
+<input type="button" value="<%= @user.name %>님의 템플릿" style="cursor:hand;" onClick="goPage('temp','<%= @user.id %>')"><%= count_temp %>건
+<input type="button" value="<%= @user.name %>님의 이미지" style="cursor:hand;" onClick="goPage('image','<%= @user.id %>')"><%= count_image %>건
+-->
+<script>
+function goList(){
+	window.location.href = "/admin/users";
+}
 
-<%= link_to '수정', edit_admin_user_path(@user.id.to_s) %> |
-<%= link_to '목록', admin_users_path %>
-<p2>
-	<a href="/admin/mytemplates?userid=<%= @user.id %>"><%= @user.name %>님의 마이템플릿 리스트</a>
-</p2>
+function goPage(gubun, userid){
+	if (gubun == "temp"){
+		window.location.href = "/admin/mytemplates?userid="+userid;
+	}else if (gubun == "image"){
+		window.location.href = "/admin/myimages?userid="+userid;
+	}
+	
+}
+</script>

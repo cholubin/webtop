@@ -23,11 +23,9 @@
 	<div align="right" style="padding:0 175 5 0">
 		확장자별: <select name="_ext" onChange="location.href='/admin/myimages?ext='+document.all._ext.value;">
 			<option value="all" <%= "selected" if ext == "all" %>>전체</option>				
-			<option value="pdf" <%= "selected" if ext == "pdf" %>>PDF</option>							
-			<option value="jpg" <%= "selected" if ext == "jpg" %>>JPG</option>
-			<option value="eps" <%= "selected" if ext == "eps" %>>EPS</option>						
-			<option value="gif" <%= "selected" if ext == "gif" %>>GIF</option>
-			<option value="tif" <%= "selected" if ext == "tif" %>>TIF</option>			
+			<%@exts.each do |ex| %>
+				<option value="<%= ex %>" <%= "selected" if ext == ex %>><%= ex.upcase %></option>							
+			<%end %>
 		</select>	
 	</div>
 	

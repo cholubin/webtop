@@ -18,9 +18,13 @@ class Admin::MyimagesController < ApplicationController
         if ext == "all" or ext == nil or ext == ""
           @myimages = Myimage.all(:admin_id => nil, :order => [:created_at.desc]).search_user(params[:search], params[:page])   
           @total_count = Myimage.all(:admin_id => nil).search_user(params[:search], "").count
+          
+          @exts = repository(:default).adapter.select('SELECT distinct type FROM myimages where common = \'f\'')
         else
           @myimages = Myimage.all(:admin_id => nil, :type => ext, :order => [:created_at.desc]).search_user(params[:search], params[:page])           
           @total_count = Myimage.all(:admin_id => nil, :type => ext).search_user(params[:search], "").count
+          
+          @exts = repository(:default).adapter.select('SELECT distinct type FROM myimages where type = \''+ ext + '\' and common = \'f\'')
         end
         
         render 'myimage'
@@ -33,13 +37,15 @@ class Admin::MyimagesController < ApplicationController
         if ext == "all" or ext == nil or ext == ""
           @myimages = Myimage.all(:common => true, :order => [:created_at.desc]).search_user(params[:search], params[:page])   
           @total_count = Myimage.all(:common => true).search_user(params[:search], "").count   
+          
+          @exts = repository(:default).adapter.select('SELECT distinct type FROM myimages where common = \'t\'')
         else
           @myimages = Myimage.all(:common => true, :type => ext, :order => [:created_at.desc]).search_user(params[:search], params[:page])           
           @total_count = Myimage.all(:common => true, :type => ext).search_user(params[:search], "").count
+          
+          @exts = repository(:default).adapter.select('SELECT distinct type FROM myimages where type = \''+ ext + '\' and common = \'t\'')
         end
 
-        @exts = repository(:default).adapter.select('SELECT distinct type FROM myimages where common = \'t\'')
-        
         render '/admin/temps/temp'
       end
       

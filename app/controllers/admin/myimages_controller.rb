@@ -32,7 +32,7 @@ class Admin::MyimagesController < ApplicationController
         
         if ext == "all" or ext == nil or ext == ""
           @myimages = Myimage.all(:common => true, :order => [:created_at.desc]).search_user(params[:search], params[:page])   
-          @total_count = Myimage.all(:common => true).search_user(params[:search], "")   .count   
+          @total_count = Myimage.all(:common => true).search_user(params[:search], "").count   
         else
           @myimages = Myimage.all(:common => true, :type => ext, :order => [:created_at.desc]).search_user(params[:search], params[:page])           
           @total_count = Myimage.all(:common => true, :type => ext).search_user(params[:search], "").count

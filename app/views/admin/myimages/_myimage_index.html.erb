@@ -83,9 +83,9 @@
 				<td width="350" style="align:center">
 					<div class="pager">
 					<%if params[:ext] != nil and params[:ext] != "" and params[:ext] != "all"%>
-						<%= Myimage.search_user(params[:search], params[:page]).pager.to_html "/admin/myimages?search=#{params[:search]}" %>
-					<%else %>
 						<%= Myimage.all(:type => params[:ext]).search_user(params[:search], params[:page]).pager.to_html "/admin/myimages?search=#{params[:search]}" %>
+					<%else %>
+						<%= Myimage.search_user(params[:search], params[:page]).pager.to_html "/admin/myimages?search=#{params[:search]}" %>
 					<%end %>
 					</div>
 				</td>

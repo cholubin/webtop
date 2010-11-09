@@ -52,7 +52,7 @@
 				
 			<%puts_message @myimages.count.to_s %>
 			<% @myimages.each do |myimage| %>
-	        <tr class="table_b","board_tbody" onClick="location.href='/admin/myimages/<%= myimage.id.to_s %>'" style="cursor:hand;">
+	        <tr class="table_b","board_tbody">
 	            <th class="board_tbody" width="60px"><%= @page_num %></th>
 	            <td class="board_tbody" width="1px">
 					<center>

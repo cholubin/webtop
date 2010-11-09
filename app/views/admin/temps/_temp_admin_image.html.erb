@@ -54,7 +54,7 @@
 			<% @myimages.each do |myimage| %>
 	        <tr class="table_b","board_tbody">
 	            <th class="board_tbody" width="60px"><%= @page_num %></th>
-	            <td class="board_tbody" width="1px" style="cursor:hand;" onClick="location.href='/admin/myimages/<%= myimage.id.to_s %>'"><center><a href="/admin/myimages/<%=myimage.id%>?search=<%=params[:search]%>&page=<%=params[:page]%>"><%=image_tag myimage.thumb_admin_url %></a></center></td>
+	            <td class="board_tbody" width="1px" style="cursor:hand;" onClick="location.href='/admin/myimages/<%= myimage.id.to_s %>'"><center><a href="/admin/myimages/<%=myimage.id%>?gb=admin&search=<%=params[:search]%>&page=<%=params[:page]%>"><%=image_tag myimage.thumb_admin_url %></a></center></td>
 				<td class="board_tbody" width="80px" style="cursor:hand;" onClick="location.href='/admin/myimages/<%= myimage.id.to_s %>'"><center><%= myimage.name %></center></td>
 				<td class="board_tbody" width="80px"><center><%= Myadmin.first(:id => myimage.user_id).admin_id %></center></td>
 	            <td class="board_tbody" width="80px"><center><%= Myadmin.first(:id => myimage.user_id).name %></center></td>

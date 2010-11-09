@@ -1,15 +1,12 @@
 	<%= image_tag @myimage.url %>
 <p>
 
-  <b>이미지명:</b><br>
-  <%=h @myimage.name %>
+  <b>이미지명:</b>  <%=h @myimage.name %><br>
 
-  <b>아이디:</b><br>
-  <%=h User.get(@myimage.user_id.to_s).userid %>
+  <b>아이디:</b>  <%=h User.get(@myimage.user_id.to_s).userid %><br>
 
-  <b>이름:</b>
-  <%=h User.get(@myimage.user_id.to_s).name %>
+  <b>이름:</b>  <%=h User.get(@myimage.user_id.to_s).name %><br>
 
 </p>
 
-<%= link_to '전체목록', admin_myimages_path %>
+<input type="button" style="cursor:hand;" value="목록" onClick="location.href='/admin/myimages'">

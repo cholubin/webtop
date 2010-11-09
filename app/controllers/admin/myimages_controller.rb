@@ -260,13 +260,21 @@ class Admin::MyimagesController < ApplicationController
   # GET /myimages/1
   # GET /myimages/1.xml
   def show
-      @menu = "template"
-      @board = "temp"
-      @section = "image_show"
-        
       @myimage = Myimage.get(params[:id])
       
-      render '/admin/temps/temp'
+      if params[:gb] == "admin"
+        @menu = "template"
+        @board = "temp"
+        @section = "image_show"
+        
+        render '/admin/temps/temp'
+      else
+        @menu = "myimage"
+        @board = "myimage"
+        @section = "show"
+        
+        render '/admin/myimages/myimage'
+      end
 
   end
 

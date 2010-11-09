@@ -53,7 +53,18 @@
 	            <th class="board_tbody" width="40px"><%= @page_num %></th>
 	            <td class="board_tbody" width="120px"><center><a href="/admin/mytemplates/<%= mytemplate.id.to_s %>?search=<%= params[:search] %>&userid=<%= params[:userid] %>&page=<%= params[:page] %>"><%= "<img src='" + temp_image_path + "'>" if mytemplate.thumb_url %></a></center></td>
 				<td class="board_tbody" width="150px"><center><a href="/admin/mytemplates/<%= mytemplate.id.to_s %>?search=<%= params[:search] %>&userid=<%= params[:userid] %>&page=<%= params[:page] %>"><%= mytemplate.name %></a></center></td>
-				<td class="board_tbody" width="150px"><center><%= mytemplate.category%>/<%= mytemplate.subcategory if mytemplate.subcategory != nil %></center></td>
+				<td class="board_tbody" width="150px"><center>
+					<%
+					if mytemplate.category != nil and mytemplate.subcategory != nil
+						category_str = Category.get(mytemplate.category.to_i).name + "/" + Subcategory.get(mytemplate.subcategory.to_i).name
+					elsif mytemplate.category != nil and mytemplate.subcategory == nil
+						category_str = Category.get(mytemplate.category.to_i).name
+					else 
+						category_str = ""
+					end
+					%>
+					<%= category_str %></center>
+				</td>
 	            <td class="board_tbody" width="65px"><center><%= mytemplate.created_at.strftime('%Y-%m-%d') %></center></td>
 	            <td class="board_tbody" width="80px"><center><%= User.get(mytemplate.user_id).userid %><br>(<%= User.get(mytemplate.user_id).name %>)</center></td>
 				<td class="board_tbody" width="30px"><center><input type="checkbox" name="chk[<%= mytemplate.id %>]"></center></td>

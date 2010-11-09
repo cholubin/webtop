@@ -20,7 +20,13 @@
 ext_name = File.extname(@myimage.image_filename)
 
   %>
-<a href="<%= @myimage.url %>" target="new"><%= image_tag("#{@myimage.preview_url}", :width => '400') %></a>
+<a href="<%= @myimage.url %>" target="new">
+	<%if @myimage.common == false %>
+		<%= image_tag("#{@myimage.preview_url}", :width => '400') %>
+	<%else%>
+		<%= image_tag("#{@myimage.preview_admin_url}", :width => '400') %>
+	<%end%>
+	</a>
 
 
 <% if @myimage.description != nil && @myimage.description.length > 1 %>
@@ -35,6 +41,8 @@ ext_name = File.extname(@myimage.image_filename)
 </div>
 
 <p>
-<%= link_to image_tag("/images/board/modify.jpg", :border=>0), edit_myimage_path(@myimage.id.to_s) + "?ext="+params[:ext]+"&page=" + params[:page] %>
-<%= link_to image_tag("/images/board/list.jpg", :border=>0), myimages_path + "?ext="+params[:ext]+"&page=" + params[:page] %>
+<%if @myimage.common == false %>	
+	<%= link_to image_tag("/images/board/modify.jpg", :border=>0), edit_myimage_path(@myimage.id.to_s) + "?ext="+params[:ext]+"&page=" + params[:page] %>
+<%end %>
+<%= link_to image_tag("/images/board/list.jpg", :border=>0), myimages_path + "?folder="+params[:folder]+"&ext="+params[:ext]+"&page=" + params[:page] %>
 </p>

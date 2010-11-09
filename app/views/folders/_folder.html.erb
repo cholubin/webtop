@@ -13,7 +13,7 @@
 	</tr>
 <tr><td colspan="3" height="1px" style="background-color:#00415f"></td></tr>	
 <%  i = 1
-	@folders.all(:name.not => "photo",:name.not => "basic_photo", :order => [:name]).each do |s| 
+	@folders.all(:name.not => "photo", :order => [:name]).each do |s| 
 	%>
 	<tr>
 		<td colspan="3">

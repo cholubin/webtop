@@ -59,13 +59,12 @@ class MyimageUploader < CarrierWave::Uploader::Base
   def filename
 
     if original_filename # 이미지파일을 업로드 한 경우에만 적용 
+      puts original_filename
       @file_ext_name = File.extname(original_filename).downcase
       @file_name = original_filename.gsub(@file_ext_name,"")
 
       @temp_filename = @file_name + @file_ext_name
     
-      puts model.image_path + "/" + @file_name + @file_ext_name      
-      
       while File.exist?(model.image_path + "/" + @file_name + @file_ext_name)
 
         @file_name = @file_name + "_1"

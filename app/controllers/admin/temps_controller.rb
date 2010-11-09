@@ -188,35 +188,118 @@ class Admin::TempsController < ApplicationController
     @menu = "template"
     @board = "temp"
     @section = "edit"
+    
     temp_id = params[:id].to_i    
     @temp = Temp.get(temp_id)
+    
+    # 템플릿 파일 교체 ==================
+    if params[:temp][:file] != nil
+      
+      # 기존 파일 삭제처리 ==============================================
+      del_dir = "#{RAILS_ROOT}" + "/public/templates/"
+      del_m_zip_file = @temp.file_filename_encoded.gsub("mlayoutp","mlayoutP")
+      del_m_file = del_m_zip_file.gsub(".zip","")
+      
+      begin
+        if File.exists?(del_dir + del_m_zip_file)
+          FileUtils.rm_rf del_dir + del_m_zip_file
+          puts_message "템플릿 zip파일 삭제 완료!"
+        end
+      
+        if File.exists?(del_dir + del_m_file)
+          FileUtils.rm_rf del_dir + del_m_file
+          puts_message "템플릿 파일 삭제 완료!"
+        end
+      rescue
+        puts_message "기존 업로드된 템플릿 파일의 삭제 중 오류가 발생했습니다!"
+      end
+          
+      # 기존파일 삭제처리 =================================================
+      
+      file_path = @temp.file_path
+
+      @temp.file = params[:temp][:file]  if params[:temp][:file]
+      @temp.original_filename = params[:temp][:file].original_filename
+      @temp.file_filename = sanitize_filename(@temp.original_filename) if params[:temp][:file]
+      @temp_filename = @temp.filename
+
+      @extname = ".mlayoutP.zip"
+
+      while File.exist?(file_path + @temp_filename) 
+        @temp_filename = @temp_filename.gsub(@extname,'') + "_1" + @extname
+        @temp.file_filename = @temp_filename
+      end 
+      @temp.file_filename = @temp_filename
+      @temp.file_filename_encoded = @temp.file.filename
+
+      @temp.zip_file = "#{RAILS_ROOT}/public/templates/" + @temp.file_filename  if params[:temp][:file]
+      @temp.path = "#{RAILS_ROOT}" + "/public/templates/" + @temp.file_filename.gsub(/.zip/,'')  if params[:temp][:file]    
+      @temp.type = "template"
+
+      @temp.thumb_url = "/templates/" + @temp.filename.gsub(/.zip/,'') + "/web/doc_thumb.jpg"         
+      @temp.preview_url = "/templates/" + @temp.filename.gsub(/.zip/,'') + "/web/doc_preview.jpg"
+      
+    end
+    
+    
     @temp.category = params[:temp][:category]
     @temp.subcategory = params[:temp][:subcategory]
     
     
     user_list = params[:user_list].split(',')
 
-    if !user_list.nil? 
-      # 먼저 해당템플릿에 대해 공개허용된 사용자정보를 삭제한다. 
-      user_open_all = Usertempopenlist.all(:temp_id => temp_id)
-      if !user_open_all.nil?
-        user_open_all.destroy
-      end
-      # 새롭게 사용자별로 허용한다.  
-      user_list.each do |u|
-        usertemp = Usertempopenlist.new()
-        usertemp.user_id = u
-        usertemp.temp_id = temp_id
-        usertemp.save
-      end
-    end
+    
         
     @temp.name = params[:temp][:name]
     @temp.size = params[:temp][:size]
     @temp.price = params[:temp][:price]
     
     if @temp.save
-      redirect_to admin_temp_url
+      if !user_list.nil? 
+        # 먼저 해당템플릿에 대해 공개허용된 사용자정보를 삭제한다. 
+        user_open_all = Usertempopenlist.all(:temp_id => temp_id)
+        if !user_open_all.nil?
+          user_open_all.destroy
+        end
+        # 새롭게 사용자별로 허용한다.  
+        user_list.each do |u|
+          usertemp = Usertempopenlist.new()
+          usertemp.user_id = u
+          usertemp.temp_id = temp_id
+          usertemp.save
+        end
+      end
+      
+      # filename renaming ======================================================================
+      file_name = @temp.file_filename_encoded
+      
+      if file_name
+
+       if  File.exist?(file_path + file_name)
+        	File.rename file_path + file_name, file_path  + @temp.file_filename #original file
+        	@temp.zip_file = file_path  + @temp.file_filename
+        end
+      end      
+      # filename renaming ======================================================================
+              
+      begin
+        unzip_uploaded_file(@temp)
+        puts_message "unzip_uploaded_file finished!"
+        
+        make_contens_xml(@temp) 
+        puts_message "make_contens_xml finished!"
+                  
+        erase_job_done_file(@temp)
+        puts_message "erase_job_done_file finished!"
+                
+        flash[:notice] = 'Temp was successfully created.'
+        redirect_to admin_temps_path
+      rescue
+        flash[:notice] = "failed to upload."  
+        puts "\n============================== \n error while processing \n ============================== \n"
+        redirect_to admin_temps_path
+      end
+
     else
       render 'temp'
     end

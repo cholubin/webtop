@@ -25,7 +25,8 @@ class Myimage
   property :type,                       String,   :default => "jpg"
   
   property :folder,                     String,   :default => "photo"
-  
+  property :common,                     Boolean,  :default => false
+  property :admin_id,                   Integer
 
   timestamps :at
   
@@ -52,6 +53,11 @@ class Myimage
       "#{HOSTING_URL}" + "user_files/#{self.user.userid}/images/#{self.folder}/#{self.image_filename}"
     end
   end
+  
+  def admin_url
+    "#{HOSTING_URL}" + "basic_photo/#{self.image_filename_encoded}"
+  end
+  
 
   def thumb_url
     if not self.user.nil?
@@ -59,33 +65,90 @@ class Myimage
     end
   end
 
+  def thumb_admin_url
+    ext_name_up = File.extname(self.image_filename_encoded)
+    filename = self.image_filename_encoded.gsub(ext_name_up,"")
+    
+    if ext_name_up == ".eps" or ext_name_up == ".pdf"
+      ext_name = ".png"
+    else
+      ext_name = ".jpg"
+    end
+      
+    "#{HOSTING_URL}" + "basic_photo/Thumb/#{filename+ext_name}"
+    
+  end
+  
   def preview_url
     if not self.user.nil?
       "#{HOSTING_URL}" + "user_files/#{self.user.userid}/images/#{self.folder}/Preview/#{self.image_thumb_filename}"
     end
   end
 
+  def preview_admin_url
+    ext_name_up = File.extname(self.image_filename_encoded)
+    filename = self.image_filename_encoded.gsub(ext_name_up,"")
+    
+    if ext_name_up == ".eps" or ext_name_up == ".pdf"
+      ext_name = ".png"
+    else
+      ext_name = ".jpg"
+    end
+    
+    "#{HOSTING_URL}" + "basic_photo/Preview/#{filename+ext_name}"
+  end
       
   def image_path
 
-    dir1 = "#{RAILS_ROOT}" + "/public/user_files/#{self.user.userid}/images/photo/Thumb"
+    if self.user != nil
+      dir1 = "#{RAILS_ROOT}" + "/public/user_files/#{self.user.userid}/images/photo/Thumb"
+      FileUtils.mkdir_p dir1 if not File.exist?(dir1)
+      FileUtils.chmod 0777, dir1
+
+      dir1 = "#{RAILS_ROOT}" + "/public/user_files/#{self.user.userid}/images/photo/Preview"
+      FileUtils.mkdir_p dir1 if not File.exist?(dir1)
+      FileUtils.chmod 0777, dir1
+  
+    
+      dir = "#{RAILS_ROOT}" + "/public/user_files/#{self.user.userid}/images/photo"
+      FileUtils.mkdir_p dir if not File.exist?(dir)
+      FileUtils.chmod 0777, dir
+
+    else
+      dir1 = "#{RAILS_ROOT}" + "/public/basic_photo/Thumb"
+      FileUtils.mkdir_p dir1 if not File.exist?(dir1)
+      FileUtils.chmod 0777, dir1
+
+      dir1 = "#{RAILS_ROOT}" + "/public/basic_photo/Preview"
+      FileUtils.mkdir_p dir1 if not File.exist?(dir1)
+      FileUtils.chmod 0777, dir1
+
+      dir = "#{RAILS_ROOT}" + "/public/basic_photo"
+      FileUtils.mkdir_p dir if not File.exist?(dir)
+      FileUtils.chmod 0777, dir
+    end
+    
+    return dir
+  end
+  
+  def image_admin_path
+
+    dir1 = "#{RAILS_ROOT}" + "/public/basic_photo/Thumb/"
     FileUtils.mkdir_p dir1 if not File.exist?(dir1)
     FileUtils.chmod 0777, dir1
 
-    dir1 = "#{RAILS_ROOT}" + "/public/user_files/#{self.user.userid}/images/photo/Preview"
+    dir1 = "#{RAILS_ROOT}" + "/public/basic_photo/Preview/"
     FileUtils.mkdir_p dir1 if not File.exist?(dir1)
     FileUtils.chmod 0777, dir1
-  
-    
-    dir = "#{RAILS_ROOT}" + "/public/user_files/#{self.user.userid}/images/photo"
+
+    dir = "#{RAILS_ROOT}" + "/public/basic_photo/"
     FileUtils.mkdir_p dir if not File.exist?(dir)
     FileUtils.chmod 0777, dir
     
-    MyimageUploader.store_dir = dir    
-    return dir 
-    
+    return dir
   end
 
+  
   def image_folder(folder)
     dir1 = "#{RAILS_ROOT}" + "/public/user_files/#{self.user.userid}/images/#{folder}/Thumb"
     FileUtils.mkdir_p dir1 if not File.exist?(dir1)

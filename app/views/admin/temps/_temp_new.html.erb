@@ -28,7 +28,7 @@
     <%= f.text_field :size %>
   </p>
  <p>
-    <%= f.label :'이미지 업로드' %><br />
+    <%= f.label :'템플릿 업로드' %><br />
     <%= f.file_field :file %>
   </p>
 
@@ -45,6 +45,10 @@
 		<tr>
 			<td>
 				<select style="width:150; height:150;font-size:12pt" multiple id="s1">
+					<% @users = User.all(); %>
+					<% @users.each do |user| %>
+					<option value="<%= user.userid %>"><%= user.userid %>(<%= user.name %>)</option>
+					<% end %>
 				</select>
 			</td>
 			<td>
@@ -53,10 +57,7 @@
 			</td>
 			<td>
 				<select style="width:150; height:150;font-size:12pt" multiple id="s2"> 
-					<% @users = User.all(); %>
-					<% @users.each do |user| %>
-					<option value="<%= user.userid %>"><%= user.userid %>(<%= user.name %>)</option>
-					<% end %>
+					
 				</select>
 			</td>				
 		</tr>

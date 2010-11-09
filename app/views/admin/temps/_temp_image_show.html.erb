@@ -1,0 +1,13 @@
+<img src="<%= @myimage.admin_url %>" width="800px">
+<p>
+
+  <b>이미지명:</b><%=h @myimage.name %><br>
+
+  <b>관리자 아이디:</b><%=h Myadmin.get(@myimage.user_id.to_s).admin_id %><br>
+
+  <b>이름:</b><%=h Myadmin.get(@myimage.user_id.to_s).name %><br>
+
+</p>
+
+<input type="button" value="전체목록" onClick="location.href='/admin/myimages?gb=admin'">
+

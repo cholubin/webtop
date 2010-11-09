@@ -68,6 +68,7 @@ function hide_progress() {
 		<span id="folder_select">
 		<select name="_folder" onChange="location.href='/myimages?page=<%= page %>&search=<%= params[:search] %>&ext=<%= params[:ext] %>&folder='+document.all._folder.value;">
 			<option value="all" <%= "selected" if params[:folder] == "all" %>>전체</option>				
+			<%puts_message @folders.count.to_s %>
 			<%@folders.each do |s| %>	
 			<option value="<%= s.id %>" <%= "selected" if params[:folder] == s.id.to_s %>><%= s.name %></option>				
 			<% end %>
@@ -77,6 +78,7 @@ function hide_progress() {
 			<option value="all" <%= "selected" if ext == "all" %>>전체</option>				
 			<option value="pdf" <%= "selected" if ext == "pdf" %>>PDF</option>							
 			<option value="jpg" <%= "selected" if ext == "jpg" %>>JPG</option>
+			<option value="png" <%= "selected" if ext == "png" %>>PNG</option>
 			<option value="eps" <%= "selected" if ext == "eps" %>>EPS</option>						
 			<option value="gif" <%= "selected" if ext == "gif" %>>GIF</option>
 			<option value="tif" <%= "selected" if ext == "tif" %>>TIF</option>			
@@ -111,19 +113,30 @@ function hide_progress() {
 						<tr>
 						<td width>&nbsp;</td></tr>
 						<tr>
-						<td class="templatelist" width="180"><a title="<%= myimage.description if !myimage.description.nil? %>" href="/myimages/<%= myimage.id.to_s %>?ext=<%=ext%>&page=<%= params[:page] %>"><%= image_tag myimage.thumb_url, :border=>'0' %></a></td>
+						<td class="templatelist" width="180">
+							<a title="<%= myimage.description if !myimage.description.nil? %>" href="/myimages/<%= myimage.id.to_s %>?folder=<%= params[:folder] %>&ext=<%=ext%>&page=<%= params[:page] %>">
+								<%
+								if params[:folder] != nil and params[:folder] != ""
+									if params[:folder] != "all"
+										folder = Folder.get(params[:folder].to_i).name
+									end
+								end
+								%>
+								<%= image_tag myimage.thumb_url, :border=>'0'  %>
+							</a>
+						</td>
 						<td width="14">&nbsp;</td></tr>
 						<tr>
 						<td>&nbsp;</td></tr>
 						<tr> 
-						<td class="templatelist"><a href="/myimages/<%= myimage.id.to_s %>?ext=<%=ext%>&page=<%= params[:page] %>"><%= if myimage.name.length > 15; myimage.name[0,15] else;  myimage.name end %></a></td></tr>
+						<td class="templatelist">
+							<a href="/myimages/<%= myimage.id.to_s %>?folder=<%= params[:folder] %>&ext=<%=ext%>&page=<%= params[:page] %>"><%= if myimage.name.length > 15; myimage.name[0,15] else;  myimage.name end %></a>
+						</td></tr>
 						<tr> 
 						<td class="templatelist"><font color="white">등록일: <%= myimage.created_at.strftime('%Y-%m-%d') %></font></td></tr>
 						<tr>
 						<td class="templatelist">
-							<% if myimage.folder != "basic_photo" %>
 							<%= link_to '삭제', myimage_path(myimage.id.to_s), :confirm => '정말 삭제하시겠습니까?', :method => :delete %>
-							<% end %>
 						</td>
 						</tr>
 

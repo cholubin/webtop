@@ -4,10 +4,7 @@ require 'zip/zipfilesystem'
 
 class TempsController < ApplicationController
      before_filter :authenticate_admin! , :only => [:new, :edit, :create, :update, :destroy]     
-
      
-  # GET /temps
-  # GET /temps.xml
   def index
 
     if params[:category_name] != nil

@@ -15,7 +15,7 @@ function update_subcategory(){
 // });
 </script>
 
-<% form_for @temp, :html => {:onsubmit => "javascript:return result2();"}, :url => { :action => "update" } do |f| %>
+<% form_for @temp, :html => {:multipart => true, :onsubmit => "javascript:return result2();"}, :url => { :action => "update" } do |f| %>
   <%= f.error_messages %>
   <input type="hidden" name="user_list" id="user_list" value="">
   <h1>템플릿 기본정보</h1>
@@ -56,6 +56,12 @@ function update_subcategory(){
     <%= f.text_field :size %>
   </p>
 
+  <p>
+    <%= f.label :'템플릿 업로드(수정)' %><br />
+    <%= f.file_field :file %>
+	<br>&nbsp;&nbsp;기존파일: <%= @temp.original_filename.gsub(".zip","") %>
+  </p>
+	
 <% if TEMPLATE_OPEN_FUNC_TOGGLE == true %>
   <br><br>
   <h1>사용자 공개설정 ================</h1>

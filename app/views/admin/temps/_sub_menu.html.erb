@@ -1,5 +1,5 @@
 <ul id="nav">
 	<li><a <%= "Class=\"on\"" if @section == "index" or  @section == "show" %> href="/admin/temps">템플릿</a></li>
 	<li><a <%= "Class=\"on\"" if @section == "new" %> href="/admin/temps/new">템플릿 업로드</a></li>	
-
+	<li><a <%= "Class=\"on\"" if (@board == "temp" and @section == "admin_image") %> href="/admin/myimages?gb=admin">관리자 이미지 (사용자 공용)</a></li>	
 </ul>

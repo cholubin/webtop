@@ -61,32 +61,30 @@ class User
     return dir    
   end
 
-  def demo_up
-    begin
-      if Folder.all(:name => 'basic_photo', :user_id => self.id.to_s).count < 1
-        Folder.new(:name => 'basic_photo', :user_id => self.id.to_s).save
-        
-        Myimage.new(:image_filename=>'1.JPG', :image_thumb_filename => '1.JPG', :name => '1', :user_id => self.id, :folder => 'basic_photo').save
-        Myimage.new(:image_filename=>'2.JPG', :image_thumb_filename => '2.JPG', :name => '2', :user_id => self.id, :folder => 'basic_photo').save      
-        Myimage.new(:image_filename=>'3.JPG', :image_thumb_filename => '3.JPG', :name => '3', :user_id => self.id, :folder => 'basic_photo').save            
-        Myimage.new(:image_filename=>'4.JPG', :image_thumb_filename => '4.JPG', :name => '4', :user_id => self.id, :folder => 'basic_photo').save                  
-        Myimage.new(:image_filename=>'5.JPG', :image_thumb_filename => '5.JPG', :name => '5', :user_id => self.id, :folder => 'basic_photo').save                  
-        Myimage.new(:image_filename=>'6.JPG', :image_thumb_filename => '6.JPG', :name => '6', :user_id => self.id, :folder => 'basic_photo').save                  
-        Myimage.new(:image_filename=>'7.JPG', :image_thumb_filename => '7.JPG', :name => '7', :user_id => self.id, :folder => 'basic_photo').save                  
-        Myimage.new(:image_filename=>'8.JPG', :image_thumb_filename => '8.JPG', :name => '8', :user_id => self.id, :folder => 'basic_photo').save                  
-        Myimage.new(:image_filename=>'9.JPG', :image_thumb_filename => '9.JPG', :name => '9', :user_id => self.id, :folder => 'basic_photo').save                  
-        Myimage.new(:image_filename=>'10.JPG', :image_thumb_filename => '10.JPG', :name => '10', :user_id => self.id, :folder => 'basic_photo').save                  
-        Myimage.new(:image_filename=>'11.JPG', :image_thumb_filename => '11.JPG', :name => '11', :user_id => self.id, :folder => 'basic_photo').save                  
-        Myimage.new(:image_filename=>'12.JPG', :image_thumb_filename => '12.JPG', :name => '12', :user_id => self.id, :folder => 'basic_photo').save                  
-        Myimage.new(:image_filename=>'13.JPG', :image_thumb_filename => '13.JPG', :name => '13', :user_id => self.id, :folder => 'basic_photo').save                  
-        puts_message "building basic photo db for demo"
-      end
-    rescue
-      puts_message "error!!!"
-    end
-    
-    
-  end
+  # def demo_up
+  #   begin
+  #     if Folder.all(:name => 'basic_photo', :user_id => self.id.to_s).count < 1
+  #       Folder.new(:name => 'basic_photo', :user_id => self.id.to_s).save
+  #       
+  #       Myimage.new(:image_filename=>'1.JPG', :image_thumb_filename => '1.JPG', :name => '1', :user_id => self.id, :folder => 'basic_photo').save
+  #       Myimage.new(:image_filename=>'2.JPG', :image_thumb_filename => '2.JPG', :name => '2', :user_id => self.id, :folder => 'basic_photo').save      
+  #       Myimage.new(:image_filename=>'3.JPG', :image_thumb_filename => '3.JPG', :name => '3', :user_id => self.id, :folder => 'basic_photo').save            
+  #       Myimage.new(:image_filename=>'4.JPG', :image_thumb_filename => '4.JPG', :name => '4', :user_id => self.id, :folder => 'basic_photo').save                  
+  #       Myimage.new(:image_filename=>'5.JPG', :image_thumb_filename => '5.JPG', :name => '5', :user_id => self.id, :folder => 'basic_photo').save                  
+  #       Myimage.new(:image_filename=>'6.JPG', :image_thumb_filename => '6.JPG', :name => '6', :user_id => self.id, :folder => 'basic_photo').save                  
+  #       Myimage.new(:image_filename=>'7.JPG', :image_thumb_filename => '7.JPG', :name => '7', :user_id => self.id, :folder => 'basic_photo').save                  
+  #       Myimage.new(:image_filename=>'8.JPG', :image_thumb_filename => '8.JPG', :name => '8', :user_id => self.id, :folder => 'basic_photo').save                  
+  #       Myimage.new(:image_filename=>'9.JPG', :image_thumb_filename => '9.JPG', :name => '9', :user_id => self.id, :folder => 'basic_photo').save                  
+  #       Myimage.new(:image_filename=>'10.JPG', :image_thumb_filename => '10.JPG', :name => '10', :user_id => self.id, :folder => 'basic_photo').save                  
+  #       Myimage.new(:image_filename=>'11.JPG', :image_thumb_filename => '11.JPG', :name => '11', :user_id => self.id, :folder => 'basic_photo').save                  
+  #       Myimage.new(:image_filename=>'12.JPG', :image_thumb_filename => '12.JPG', :name => '12', :user_id => self.id, :folder => 'basic_photo').save                  
+  #       Myimage.new(:image_filename=>'13.JPG', :image_thumb_filename => '13.JPG', :name => '13', :user_id => self.id, :folder => 'basic_photo').save                  
+  #       puts_message "building basic photo db for demo"
+  #     end
+  #   rescue
+  #     puts_message "error!!!"
+  #   end
+  # end
   
   def has_password?(submitted_password)
       encrypted_password == encrypt(submitted_password)      

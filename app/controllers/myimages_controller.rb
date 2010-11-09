@@ -7,10 +7,10 @@ class MyimagesController < ApplicationController
   def index
     
     #basic_photo 폴더링크가 없으면 생성한다.
-    user_path =  "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/images/basic_photo"
-    if not File.exist?(user_path)
-      puts %x[ln -s "#{RAILS_ROOT}/public/basic_photo/" "#{RAILS_ROOT}/public/user_files/#{current_user.userid}/images/basic_photo"]
-    end
+    # user_path =  "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/images/basic_photo"
+    # if not File.exist?(user_path)
+    #   puts %x[ln -s "#{RAILS_ROOT}/public/basic_photo/" "#{RAILS_ROOT}/public/user_files/#{current_user.userid}/images/basic_photo"]
+    # end
     
     #확장자별 소팅
     ext = params[:ext]
@@ -25,8 +25,10 @@ class MyimagesController < ApplicationController
     end
     if folder == "all" or folder == nil or folder == ""     
       folder = "all"
+    else
+      folder_name = Folder.get(folder.to_i).name
     end
-        
+    
     if ext == "all" and folder == "all"
       @myimages = Myimage.all(:user_id => current_user.id, :order => [:created_at.desc]).search_user(params[:search], params[:page])                   
     elsif ext == "all" and folder != "all"
@@ -54,10 +56,14 @@ class MyimagesController < ApplicationController
         
       @myimage = Myimage.get(params[:id])
       
-      if @myimage.user_id == current_user.id
-        render 'myimage'
+      if @myimage.common == false
+        if @myimage.user_id == current_user.id
+          render 'myimage'
+        else
+          redirect_to '/'
+        end
       else
-        redirect_to '/'
+        render 'myimage'
       end
 
     else
@@ -111,7 +117,9 @@ class MyimagesController < ApplicationController
     @myimage.user_id = current_user.id
     
     image_path = @myimage.image_path
-
+    MyimageUploader.store_dir = @myimage.image_path
+    
+    puts_message "dir::::>" + @myimage.image_path
     # 이미지 업로드 처리 ===============================================================================
     if params[:myimage][:image_file] != nil
 

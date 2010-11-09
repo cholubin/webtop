@@ -8,10 +8,10 @@ class MytemplatesController < ApplicationController
   def index
 
     #basic_photo 폴더링크가 없으면 생성한다.
-    user_path =  "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/images/basic_photo"
-    if not File.exist?(user_path)
-      puts %x[ln -s "#{RAILS_ROOT}/public/basic_photo/" "#{RAILS_ROOT}/public/user_files/#{current_user.userid}/images/basic_photo"]
-    end
+    # user_path =  "#{RAILS_ROOT}" + "/public/user_files/#{current_user.userid}/images/basic_photo"
+    # if not File.exist?(user_path)
+    #   puts %x[ln -s "#{RAILS_ROOT}/public/basic_photo/" "#{RAILS_ROOT}/public/user_files/#{current_user.userid}/images/basic_photo"]
+    # end
         
     @menu = "mytemplate"
     @board = "mytemplate"

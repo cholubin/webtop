@@ -56,7 +56,11 @@
 				<td class="board_tbody" width="150px"><center>
 					<%
 					if mytemplate.category != nil and mytemplate.subcategory != nil
-						category_str = Category.get(mytemplate.category.to_i).name + "/" + Subcategory.get(mytemplate.subcategory.to_i).name
+						if Category.get(mytemplate.category.to_i) == nil or Subcategory.get(mytemplate.subcategory.to_i) == nil
+							category_str = ""
+						else
+							category_str = Category.get(mytemplate.category.to_i).name + "/" + Subcategory.get(mytemplate.subcategory.to_i).name
+						end	
 					elsif mytemplate.category != nil and mytemplate.subcategory == nil
 						category_str = Category.get(mytemplate.category.to_i).name
 					else 

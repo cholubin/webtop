@@ -104,8 +104,8 @@ class MytemplatesController < ApplicationController
   end
 
   def publish
-    if parmas[:press_mark] != nil and parmas[:press_mark] != ""
-      press_mark = parmas[:press_mark]
+    if params[:press_mark] != nil and params[:press_mark] != ""
+      press_mark = params[:press_mark]
     else
       press_mark "NO"
     end

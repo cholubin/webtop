@@ -70,6 +70,13 @@ $(document).ready(function(){
 						}else{
 							$('#subcate_'+temp_id[1]).slideUp('fast',function(){$(this).remove()})
 						}
+						
+						$.ajax({
+							data:'category_id='+result_category(), 
+							dataType:'script', 
+							type:'post', 
+							url:'/admin/categories/category_order_update'
+						});
 					}
 				});
 			};			

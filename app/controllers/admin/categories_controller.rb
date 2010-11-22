@@ -144,9 +144,11 @@ class Admin::CategoriesController < ApplicationController
       i = 1
       category_id.each do |c|
         temp = c.split('_')
-        category = Category.get(temp[1].to_i)
-        category.priority = i
-        category.save
+        if Category.get(temp[1].to_i) != nil
+          category = Category.get(temp[1].to_i)
+          category.priority = i
+          category.save
+        end
         i += 1
       end
     end

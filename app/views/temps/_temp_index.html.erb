@@ -106,31 +106,19 @@ end%>
 
 	      			if signed_in?
 						if TEMPLATE_OPEN_FUNC_TOGGLE == true
-							if @category_name != nil and @subcategory_name != nil %>
-					           <%= Temp.all(:category => @category_name, :subcategory => @subcategory_name).isopen(current_user.userid).search(params[:search], params[:page]).pager.to_html "/temps?category_name=#{params[:category_name]}&subcategory_name=#{params[:subcategory_name]}&search=#{params[:search]}" %>
-					        <% elsif @category_name != nil %>
-					          <%= Temp.all(:category => @category_name).isopen(current_user.userid).search(params[:search], params[:page]).pager.to_html "/temps?category_name=#{params[:category_name]}&search=#{params[:search]}" %>      
-					        <% elsif  @subcategory_name != nil %>
-					          <%= Temp.all(:subcategory => @subcategory_name).isopen(current_user.userid).search(params[:search], params[:page]).pager.to_html "/temps?subcategory_name=#params[:subcategory_name]}&search=#{params[:search]}" %>      
-					        <% else 
-					          @category_name = Category.first(:priority => 1).name %>
-					          <%= Temp.all(:category => @category_name).isopen(current_user.userid).search(params[:search], params[:page])%>      
-					        <% end %>
-						<%else
-							if @category_name != nil and @subcategory_name != nil %>
-					           <%= Temp.all(:category => @category_name, :subcategory => @subcategory_name).search(params[:search], params[:page]).pager.to_html "/temps?category_name=#{params[:category_name]}&subcategory_name=#{params[:subcategory_name]}&search=#{params[:search]}" %>
-					        <% elsif @category_name != nil %>
-					          <%= Temp.all(:category => @category_name).search(params[:search], params[:page]).pager.to_html "/temps?category_name=#{params[:category_name]}&search=#{params[:search]}" %>      
-					        <% elsif  @subcategory_name != nil %>
-					          <%= Temp.all(:subcategory => @subcategory_name).search(params[:search], params[:page]).pager.to_html "/temps?subcategory_name=#params[:subcategory_name]}&search=#{params[:search]}" %>      
-					        <% else 
-					          @category_name = Category.first(:priority => 1).name %>
-					          <%= Temp.all(:category => @category_name).search(params[:search], params[:page])%>      
-					        <% end %>
-						<% end %>
-						
-				        
-					<%end%>				
+					%>
+							<%= @temps.isopen(current_user.userid).search(params[:search], params[:page]).pager.to_html "/temps?category_name=#{params[:category_name]}&subcategory_name=#{params[:subcategory_name]}&search=#{params[:search]}" %>
+							
+						<%
+						else
+						%>
+							<%= @temps.search(params[:search], params[:page]).pager.to_html "/temps?category_name=#{params[:category_name]}&subcategory_name=#{params[:subcategory_name]}&search=#{params[:search]}" %>
+						<%
+						end
+						%>
+					<%
+					end
+					%>				
 
 				</div></td>
 			<td width="230">

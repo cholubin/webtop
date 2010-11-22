@@ -43,19 +43,9 @@ ActionController::Routing::Routes.draw do |map|
   
   
   # cappuccino
-  map.ftp_auth '/ftp_auth', :controller => 'Cappuccino', :action => 'ftp_auth'
-  map.ftp_access '/ftp_access', :controller => 'Cappuccino', :action => 'ftp_access'
-  map.upload_notify '/upload_notify', :controller => 'Cappuccino', :action => 'upload_notify'
-  map.whoami '/whoami', :controller => "Cappuccino", :action => 'whoami'
-  map.user_path '/user_path', :controller => "Cappuccino", :action => 'user_path'
-  map.user_home '/user_home', :controller => "Cappuccino", :action => 'user_home'  
   map.filelist '/filelist' , :controller => "Cappuccino", :action => 'filelist'    
   map.request_mlayout '/request_mlayout' , :controller => "Cappuccino", :action => 'request_mlayout'  
   map.post_mlayout '/post_mlayout', :controller => "Cappuccino", :action => 'post_mlayout' #, :member => { :prepare => [:post] }
-  map.send_result '/send_result', :controller => "Cappuccino", :action => "send_result"     
-  map.cappuccino_full '/mlayout_full', :controller => "Cappuccino", :action => "index"
-  map.cappuccino '/mlayout', :controller => "Cappuccino", :action => "show_cappuccino_ui"
-      
   map.publish '/publish/:id', :controller => "mytemplates", :action => "publish"
            
   map.connect ':controller/:action/:id'

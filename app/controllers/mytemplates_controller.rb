@@ -104,9 +104,15 @@ class MytemplatesController < ApplicationController
   end
 
   def publish
+    if parmas[:press_mark] != nil and parmas[:press_mark] != ""
+      press_mark = parmas[:press_mark]
+    else
+      press_mark "NO"
+    end
+    
     @mytemplate = Mytemplate.first(:file_filename => params[:id] + ".mlayoutP.zip", :user_id => current_user.id)   
     erase_job_done_file(@mytemplate)       
-    check_job_done_and_publish(@mytemplate) 
+    check_job_done_and_publish(@mytemplate, press_mark) 
     close_document(@mytemplate)  
     erase_job_done_file(@mytemplate)
     move_to_mypdf(@mytemplate)
@@ -126,9 +132,9 @@ class MytemplatesController < ApplicationController
     puts_message "erase_job_done_file end"      
   end
 
-  def check_job_done_and_publish(mytemplate)
+  def check_job_done_and_publish(mytemplate, press_mark)
     puts_message "check_job_done_and_publish start"      
-    publish_mjob(mytemplate) 
+    publish_mjob(mytemplate, press_mark) 
     set_pdf_path(mytemplate)    
     path = mytemplate.path
     # closing a doc right after generating pdf throws mlayout error
@@ -408,6 +414,8 @@ class MytemplatesController < ApplicationController
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
       <plist version="1.0">
       <dict>
+        <key>WebRootPath</key>
+        <string>#{M_ROOT}</string>
       	<key>Action</key>
       	<string>RefreshXML</string>
       	<key>DocPath</key>
@@ -440,6 +448,8 @@ class MytemplatesController < ApplicationController
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
       <plist version="1.0">
       <dict>
+        <key>WebRootPath</key>
+        <string>#{M_ROOT}</string>
       	<key>Action</key>
       	<string>CloseDocument</string>
       	<key>DocPath</key>
@@ -462,9 +472,10 @@ class MytemplatesController < ApplicationController
     end
 
 
-    def publish_mjob(mytemplate)  
+    def publish_mjob(mytemplate, press_mark)  
  
-      puts_message "publish_mjob start"      
+      puts_message "publish_mjob start press_mark added"      
+      puts_message "press_mark:::" + press_mark
       # erase_job_done_file(mytemplate)   
       target_template = mytemplate
       goal = target_template.path    
@@ -476,6 +487,10 @@ class MytemplatesController < ApplicationController
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
       <plist version="1.0">
       <dict>
+        <key>PressMark</key>
+        <string>#{press_mark}</string>
+        <key>WebRootPath</key>
+        <string>#{M_ROOT}</string>
       	<key>Action</key>
       	<string>SaveDocumentPDF</string>
       	<key>DocPath</key>
@@ -497,22 +512,6 @@ class MytemplatesController < ApplicationController
 
       job_done = target_template.path + "/web/done.txt" 
 
-      # start_file_size = File.size("#{goal}")
-      # puts_message "시작시 파일 사이즈!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      # puts_message goal
-      # puts_message start_file_size.to_s
-      # while Time.now < time_after_180_seconds
-      # loop do
-      #   time_after_5_seconds = Time.now + 5.seconds             
-      #   puts_message time_after_5_seconds.to_s
-      #   start_file_size = File.size("#{goal}")
-      #   while Time.now < time_after_5_seconds
-      #     puts start_file_size.to_s
-      #     puts "================"
-      #     puts File.size("#{goal}").to_s          
-      #   end
-      #   break if start_file_size == File.size("#{goal}")
-      # end
 
       puts_message "creating PDF file!!!"
       time_after_180_seconds = Time.now + 180.seconds     

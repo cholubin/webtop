@@ -25,8 +25,7 @@ class TempsController < ApplicationController
         elsif  @subcategory_name != nil
           @temps = Temp.all(:subcategory => @subcategory_name).isopen(current_user.userid).search(params[:search], params[:page])      
         else
-          @category_name = Category.first(:priority => 1).name
-          @temps = Temp.all(:category => @category_name).isopen(current_user.userid).search(params[:search], params[:page])      
+          @temps = Temp.all.isopen(current_user.userid).search(params[:search], params[:page])      
         end
         @total_count = Temp.search(params[:search],"").isopen(current_user.userid).count    
       else
@@ -37,16 +36,12 @@ class TempsController < ApplicationController
     else
       if @category_name != nil and @subcategory_name != nil
         @temps = Temp.all(:category => @category_name, :subcategory => @subcategory_name).search(params[:search], params[:page])
-        @temps_best = Temp.all(:category => @category_name).best
       elsif @category_name != nil
         @temps = Temp.all(:category => @category_name).search(params[:search], params[:page])      
-        @temps_best = Temp.all(:category => @category_name).best
       elsif  @subcategory_name != nil
         @temps = Temp.all(:subcategory => @subcategory_name).search(params[:search], params[:page])      
       else
-        @category_name = Category.first(:priority => 1).name
-        @temps = Temp.all(:category => @category_name).search(params[:search], params[:page])      
-        @temps_best = Temp.all(:category => @category_name).best
+        @temps = Temp.all.search(params[:search], params[:page])      
       end
       @total_count = Temp.search(params[:search],"").count      
     end
@@ -260,7 +255,7 @@ class TempsController < ApplicationController
      # puts "start count image"    
      count_images(temp)      
      # puts "closing your doc"     
-      make_done_txt(temp) 
+     make_done_txt(temp) 
 
     end
 
@@ -272,6 +267,8 @@ class TempsController < ApplicationController
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
       <plist version="1.0">
       <dict>
+        <key>WebRootPath</key>
+        <string>#{M_ROOT}</string>
       	<key>Action</key>
       	<string>CloseDocument</string>
       	<key>DocPath</key>
@@ -379,6 +376,8 @@ class TempsController < ApplicationController
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
     <plist version="1.0">
     <dict>
+      <key>WebRootPath</key>
+      <string>#{M_ROOT}</string>
     	<key>Action</key>
     	<string>MakeContentsXML</string>
     	<key>DocPath</key>

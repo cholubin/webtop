@@ -299,15 +299,15 @@ class Admin::MyimagesController < ApplicationController
   	
     @myimage.destroy
 
-    @menu = "template"
-    @board = "temp"
-    @section = "admin_image"
+    @menu = "myimage"
+    @board = "myimage"
+    @section = "index"
     
-    @myimages = Myimage.all(:common => true, :order => [:created_at.desc])
-    @total_count = @myimages.count
-    @exts = repository(:default).adapter.select('SELECT distinct type FROM myimages where common = \'t\'')
+    # @myimages = Myimage.all(:common => true, :order => [:created_at.desc])
+    # @total_count = @myimages.count
+    # @exts = repository(:default).adapter.select('SELECT distinct type FROM myimages where common = \'t\'')
     
-    render '/admin/temps/temp'
+    redirect_to '/admin/myimages'
   end
   
   # multiple deletion
@@ -338,15 +338,11 @@ class Admin::MyimagesController < ApplicationController
         flash[:notice] = '삭제할 글을 선택하지 않으셨습니다!'    
     end
       
-    @menu = "template"
-    @board = "temp"
-    @section = "admin_image"
+    @menu = "myimage"
+    @board = "myimage"
+    @section = "index"
 
-    @myimages = Myimage.all(:common => true, :order => [:created_at.desc])
-    @total_count = @myimages.count
-    @exts = repository(:default).adapter.select('SELECT distinct type FROM myimages where common = \'t\'')
-        
-    render '/admin/temps/temp'  
+    redirect_to '/admin/myimages'
    end
      
 end

@@ -20,7 +20,7 @@
 	</div>
 	
 	<% form_tag :action => :deleteSelection, :method => 'post' do %>			
-	
+	<input type="hidden" id="all_checked" value="false">
 	
 	<table class="board_table">
 	    <thead class="board_thead">
@@ -31,7 +31,7 @@
 	            <td class="board_thead" width="150px"><center>카테고리/서브카테고리</center></td>
 	            <td class="board_thead" width="65px"><center>등록일</center></td>	
 				<td class="board_thead" width="80px"><center>소유자</center></td>
-				<td class="board_thead" width="30px"><center>삭제</center></td>				
+				<td class="board_thead" width="30px"><center class="check_all" style="cursor:hand;">선택</center></td>				
 	        </tr>
 	    </thead>
 	 
@@ -71,7 +71,7 @@
 				</td>
 	            <td class="board_tbody" width="65px"><center><%= mytemplate.created_at.strftime('%Y-%m-%d') %></center></td>
 	            <td class="board_tbody" width="80px"><center><%= User.get(mytemplate.user_id).userid %><br>(<%= User.get(mytemplate.user_id).name %>)</center></td>
-				<td class="board_tbody" width="30px"><center><input type="checkbox" name="chk[<%= mytemplate.id %>]"></center></td>
+				<td class="board_tbody" width="30px"><center><input type="checkbox" class="chk_box" name="chk[<%= mytemplate.id %>]"></center></td>
 	        </tr>
 	        <% @page_num -= 1
 			end %>

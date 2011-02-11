@@ -10,7 +10,7 @@
 	</div>
 	
 	<% form_tag :action => :deleteSelection, :method => 'post' do %>			
-	
+	<input type="hidden" id="all_checked" value="false">
 	<% 	
 		
 		ext = params[:ext] 
@@ -38,7 +38,7 @@
 				<td class="board_thead" width="80px"><center>제목</center></td>
 	            <td class="board_thead" width="80px"><center>사용자 아이디 </center></td>
 	            <td class="board_thead" width="65px"><center>사용자 이름</center></td>
-				<td class="board_thead" width="30px"><center>삭제</center></td>
+				<td class="board_thead" width="30px"><center class="check_all" style="cursor:hand;">선택</center></td>
 	        </tr>
 	    </thead>
 	 
@@ -62,7 +62,7 @@
 				<td class="board_tbody" width="80px"><center><%= myimage.name %></center></td>
 				<td class="board_tbody" width="80px"><center><%= User.first(:id => myimage.user_id).userid %></center></td>
 	            <td class="board_tbody" width="80px"><center><%= User.first(:id => myimage.user_id).name %></center></td>
-				<td class="board_tbody" width="30px"><center><input type="checkbox" name="chk[<%= myimage.id %>]"></center></td>
+				<td class="board_tbody" width="30px"><center><input type="checkbox" class="chk_box" name="chk[<%= myimage.id %>]"></center></td>
 	        </tr>
 	        <% @page_num -= 1
 			end %>

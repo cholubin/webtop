@@ -19,6 +19,7 @@
 									<input class="field_1" maxlength="20" name="admin[admin_id]" id="admin_id" type="text">
 								</td>
 								<td class="register_td" align="left" width="370">
+									<img src="/images/register/overlap_check.jpg" style="cursor:pointer;" align="absmiddle" id="check_id">
 									<!-- <img src="/images/register/overlap_check.jpg" style="vertical-align: middle;" onClick="#{remote_function(:url  => {:action => "id_check"},:with => "'user_id='+value")}"> -->
 									<%= javascript_include_tag :defaults %>	
 									<%= javascript_include_tag "basic_tools" %>	
@@ -89,9 +90,34 @@
 	</table>
 	<br>			
 
-	
-
-
 
 	<% end %>
-			
+
+
+<script type="text/javascript">			
+$('#check_id').click(function(){
+	if ($('#admin_id').val()=='') {
+		alert('아이디를 입력하세요!');
+		$(admin_id).focus();
+		return false; 
+	}else{ 
+		if (input_check($('#admin_id').val()) == false){
+			alert('아이디는 영문만 가능합니다!');
+			$('#admin_id').val('');
+			$('#admin_id').focus();
+			return false;
+		}else{
+			$.ajax({
+				data:'admin_id='+ $('#admin_id').val(), 
+				dataType:'script', 
+				type:'post', 
+				url:'/admin/myadmins/id_check',
+				success: function(request){
+				}
+				
+			});
+		}
+	}
+})
+
+</script>

@@ -32,13 +32,13 @@
 				
 
 			<% @myadmins.each do |myadmin| %>
-	        <tr class="table_b","board_tbody" onClick="location.href='/admin/myadmins/<%= myadmin.id.to_s %>'" style="cursor:hand;">
-	            <th class="board_tbody" width="60px"><%= @page_num %></th>
-	            <td class="board_tbody" width="100px"><center><%= myadmin.admin_id %></center></td>
-				<td class="board_tbody" width="80px"><center><%= myadmin.name %></center></td>
-				<td class="board_tbody" width="80px"><center><%= myadmin.password %></center></td>
-	            <td class="board_tbody" width="80px"><center><%= myadmin.email %></center></td>
-	            <td class="board_tbody" width="80px"><center><%= myadmin.created_at.strftime('%Y-%m-%d') %></center></td>	
+	        <tr class="table_b","board_tbody" style="cursor:hand;">
+	            <th class="board_tbody" width="60px" onClick="location.href='/admin/myadmins/<%= myadmin.id.to_s %>'"><%= @page_num %></th>
+	            <td class="board_tbody" width="100px" onClick="location.href='/admin/myadmins/<%= myadmin.id.to_s %>'"><center><%= myadmin.admin_id %></center></td>
+				<td class="board_tbody" width="80px" onClick="location.href='/admin/myadmins/<%= myadmin.id.to_s %>'"><center><%= myadmin.name %></center></td>
+				<td class="board_tbody" width="80px" onClick="location.href='/admin/myadmins/<%= myadmin.id.to_s %>'"><center><%= myadmin.password %></center></td>
+	            <td class="board_tbody" width="80px" onClick="location.href='/admin/myadmins/<%= myadmin.id.to_s %>'"><center><%= myadmin.email %></center></td>
+	            <td class="board_tbody" width="80px" onClick="location.href='/admin/myadmins/<%= myadmin.id.to_s %>'"><center><%= myadmin.created_at.strftime('%Y-%m-%d') %></center></td>	
 				<td class="board_tbody" width="30px"><center><input type="checkbox" class="chk_box" name="chk[<%= myadmin.id %>]"></center></td>
 	        </tr>
 	        <% @page_num -= 1

@@ -10,7 +10,7 @@
 	</div>
 	
 	<% form_tag :action => :deleteSelection, :method => 'post' do %>			
-	
+	<input type="hidden" id="all_checked" value="false">
 	<table class="board_table">
 	    <thead class="board_thead">
 	        <tr>
@@ -19,7 +19,7 @@
 				<td class="board_thead" width="80px"><center>작성자</center></td>
 	            <td class="board_thead" width="80px"><center>등록일</center></td>
 	            <td class="board_thead" width="65px"><center>조회</center></td>
-				<td class="board_thead" width="30px"><center>삭제</center></td>
+				<td class="board_thead" width="30px"><center class="check_all" style="cursor:hand;">선택</center></td>
 	        </tr>
 	    </thead>
 	 
@@ -39,7 +39,7 @@
 				<td class="board_tbody" width="80px"><center><%= User.first(:id => freeboard.user_id).name %></center></td>
 	            <td class="board_tbody" width="80px"><center><%= freeboard.created_at.strftime('%Y-%m-%d') %></center></td>
 	            <td class="board_tbody" width="65px"><center><%= freeboard.hit_cnt %></center></td>
-				<td class="board_tbody" width="30px"><center><input type="checkbox" name="chk[<%= freeboard.id %>]"></center></td>
+				<td class="board_tbody" width="30px"><center><input type="checkbox" class="chk_box" name="chk[<%= freeboard.id %>]"></center></td>
 	        </tr>
 	        <% @page_num -= 1
 			end %>

@@ -1,4 +1,7 @@
 <%= stylesheet_link_tag '/css/paginate.css' %>
+<script type="text/javascript" src="/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/jquery.admin.common.js"></script>
+
 <div id="feature_wrapper">
 		<p1>일반 사용자 공유를 목적으로 관리자가 직접 업로드한 이미지 들 입니다.</p1>
 		<% if ! flash[:notice].nil? %>
@@ -10,7 +13,7 @@
 	</div>
 	
 	<% form_tag :action => :deleteSelection, :method => 'post' do %>			
-	
+	<input type="hidden" id="all_checked" value="false">
 	<% 	
 		
 		ext = params[:ext] 
@@ -19,7 +22,7 @@
 		end
 
 	%>
-	<input id="image_up_btn" type="button" value="이미지 업로드">
+	<input id="image_up_btn" type="button" value="이미지 업로드" style="cursor:hand" onClick="location.href='/admin/myimages/new'">
 	<div align="right" style="padding:0 175 5 0">
 		확장자별: <select name="_ext" onChange="location.href='/admin/myimages?gb=admin&ext='+document.all._ext.value;">
 			<option value="all" <%= "selected" if ext == "all" %>>전체</option>
@@ -38,7 +41,7 @@
 				<td class="board_thead" width="80px"><center>제목</center></td>
 	            <td class="board_thead" width="80px"><center>사용자 아이디 </center></td>
 	            <td class="board_thead" width="65px"><center>사용자 이름</center></td>
-				<td class="board_thead" width="30px"><center>삭제</center></td>
+				<td class="board_thead" width="30px"><center class="check_all" style="cursor:hand;">선택</center></td>
 	        </tr>
 	    </thead>
 	 
@@ -58,7 +61,7 @@
 				<td class="board_tbody" width="80px" style="cursor:hand;" onClick="location.href='/admin/myimages/<%= myimage.id.to_s %>'"><center><%= myimage.name %></center></td>
 				<td class="board_tbody" width="80px"><center><%= Myadmin.first(:id => myimage.user_id).admin_id %></center></td>
 	            <td class="board_tbody" width="80px"><center><%= Myadmin.first(:id => myimage.user_id).name %></center></td>
-				<td class="board_tbody" width="30px"><center><input type="checkbox" name="chk[<%= myimage.id %>]"></center></td>
+				<td class="board_tbody" width="30px"><center><input type="checkbox" class="chk_box" name="chk[<%= myimage.id %>]"></center></td>
 	        </tr>
 	        <% @page_num -= 1
 			end %>
@@ -101,9 +104,9 @@
 		</table>
 		
 
-<script>	
+<!-- <script>	
 	$('#image_up_btn').click(function(){
 		window.location.href = "/admin/myimages/new";
 	});					
-</script>
+</script> -->
 

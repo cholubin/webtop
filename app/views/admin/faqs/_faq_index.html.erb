@@ -12,14 +12,14 @@
 	<% form_tag :action => :deleteSelection, :method => 'post' do %>			
 	
 	<table class="board_table">
+		<input type="hidden" id="all_checked" value="false">
 	    <thead class="board_thead">
 	        <tr>
 	            <th class="board_thead" width="60px">번호 </th>
-	            <td class="board_thead" width="70px"><center>카테고리<br>(구현보류)</center></td>
 				<td class="board_thead" width="250px"><center>질문</center></td>
 	            <td class="board_thead" width="250px"><center>답변</center></td>
 	            <td class="board_thead" width="65px"><center>조회</center></td>
-				<td class="board_thead" width="30px"><center>삭제</center></td>
+				<td class="board_thead" width="30px"><center class="check_all" style="cursor:hand;">선택</center></td>
 	        </tr>
 	    </thead>
 	 
@@ -35,11 +35,10 @@
 			<% @faqs.each do |faq| %>
 	        <tr class="table_b","board_tbody">
 	            <th class="board_tbody" width="70px"><center><%= @page_num %></center></th>
-	            <td class="board_tbody" width="50px">&nbsp;</td>
-				<td class="board_tbody" width="250px"><center><%= faq.question %></center></td>
-	            <td class="board_tbody" width="250px"><center><%= faq.answer %></center></td>
+				<td class="board_tbody" width="250px" style="cursor:hand;" OnClick="location.href='/admin/faqs/<%= faq.id %>/edit'"><center><%= faq.question %></center></td>
+	            <td class="board_tbody" width="250px" style="cursor:hand;" OnClick="location.href='/admin/faqs/<%= faq.id %>/edit'"><center><%= faq.answer %></center></td>
 	            <td class="board_tbody" width="65px"><center><%= faq.hit_cnt %></center></td>
-				<td class="board_tbody" width="30px"><center><input type="checkbox" name="chk[<%= faq.id %>]"></center></td>
+				<td class="board_tbody" width="30px"><center><input class="chk_box" type="checkbox" name="chk[<%= faq.id %>]"></center></td>
 	        </tr>
 	        <% @page_num -= 1
 			end %>
@@ -57,12 +56,12 @@
 				<td width="230">&nbsp;</td>
 				<td width="350" style="align:center">
 					<div class="pager">
-					<%=Faq.search(params[:search], params[:page]).pager.to_html "/faqs?search=#{params[:search]}" %>
+					<%=Faq.search(params[:search], params[:page]).pager.to_html "/admin/faqs?search=#{params[:search]}" %>
 					</div>
 				</td>
 				<td width="150" align="right">
-						<a href="/admin/faqs/new"><img src="/images/board/write.jpg"></a>										
-						<%= image_submit_tag('/images/board/delete.jpg', { :onclick => 'return confirm(\'정말 삭제하시겠습니까?\');' }) %>				
+						<a href="/admin/faqs/new"><img src="/images/admin/write.jpg"></a>										
+						<%= image_submit_tag('/images/admin/delete.jpg', { :onclick => 'return confirm(\'정말 삭제하시겠습니까?\');' }) %>				
 				</td>
 			</tr>
 			<% end %>

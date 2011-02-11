@@ -71,20 +71,21 @@ class Admin::FaqsController < ApplicationController
   def update
     @menu = "board"
     @board = "faq"
+    @section = "index"
         
-    @faq = Faq.get(params[:id].to_i)
-
-      if @faq.update_attributes(params[:faq])
-        redirect_to admin_faq_url
-      else
-        @section = "edit" 
-        render 'faq'        
-      end
-
+    @faq = Faq.get(params[:faq][:id].to_i)
+    
+    @faq.question = params[:faq][:question]
+    @faq.answer = params[:faq][:answer]
+    
+    @faqs = Faq.all.search(params[:search], params[:page])  
+    @total_count = Faq.search(params[:search],"").count
+    
+    if @faq.save
+      render 'faq'      
+    end
   end
 
-  # DELETE /adminfaqs/1
-  # DELETE /adminfaqs/1.xml
   def destroy
     @faq = Faq.get(params[:id].to_i)
     @faq.destroy

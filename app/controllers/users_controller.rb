@@ -123,8 +123,8 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
-    @user = User.get(params[:id])
-
+    @user = User.get(params[:user][:userid].to_i)
+    
     if signed_in? && @user.id == current_user.id
       @menu = "home"
       @board = "user"

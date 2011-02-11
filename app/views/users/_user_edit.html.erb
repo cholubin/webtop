@@ -12,6 +12,7 @@
 				<table>
 				<% form_for(@user) do |f| %>
 				<%= f.error_messages %>
+					<input type="hidden" name="user[userid]" value="<%= current_user.id.to_s %>">
 					<tr>
 						<td>
 							<!-- <템플릿 정보 반복 구간입니다.> -->

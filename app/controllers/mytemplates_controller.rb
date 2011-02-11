@@ -378,7 +378,10 @@ class MytemplatesController < ApplicationController
         new_temp_dir = new_temp_dir.force_encoding('UTF8-MAC')
       end
             
-      FileUtils.cp_r source_path, new_temp_dir  
+      FileUtils.cp_r source_path, new_temp_dir
+      puts_message  "source_path: " + source_path
+      puts_message  "new_temp_dir: " + new_temp_dir
+      
       #--- delete template's mjob file     
       tmp = new_temp_dir + "/do_job.mjob"
       FileUtils.remove_entry_secure(tmp) if File.exist?(tmp)

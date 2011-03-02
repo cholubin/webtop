@@ -107,7 +107,7 @@ class MytemplatesController < ApplicationController
     if params[:press_mark] != nil and params[:press_mark] != ""
       press_mark = params[:press_mark]
     else
-      press_mark "NO"
+      press_mark = "NO"
     end
     
     @mytemplate = Mytemplate.first(:file_filename => params[:id] + ".mlayoutP.zip", :user_id => current_user.id)   

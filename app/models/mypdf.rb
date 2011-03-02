@@ -32,7 +32,7 @@ class Mypdf
   
   
   def self.search(search, page)
-      (Mypdf.all(:name.like => "%#{search}%") | Mypdf.all(:description.like => "%#{search}%")).page :page => page, :per_page => 10
+      (Mypdf.all(:name.like => "%#{search}%") | Mypdf.all(:description.like => "%#{search}%")).page :page => page, :per_page => 12
   end
 
   def basic_path

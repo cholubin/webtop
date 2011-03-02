@@ -7,12 +7,16 @@ class TempsController < ApplicationController
      
   def index
 
-    if params[:category_name] != nil
+    if params[:category_name] != nil and params[:category_name] != ""
       @category_name = params[:category_name]
+    else
+      @category_name = nil
     end
     
-    if params[:subcategory_name] != nil
+    if params[:subcategory_name] != nil and params[:subcategory_name] != ""
       @subcategory_name = params[:subcategory_name]
+    else
+      @subcategory_name = nil
     end
     
     # 사용자별 템플릿 공개여부 결정 기능 추가 (for oneplus)
@@ -27,13 +31,18 @@ class TempsController < ApplicationController
         else
           @temps = Temp.all.isopen(current_user.userid).search(params[:search], params[:page])      
         end
+        
         @total_count = Temp.search(params[:search],"").isopen(current_user.userid).count    
+        puts_message @total_count.to_s
+        
       else
         @temps = Temp.all(:id => '9999999')
+        
         @total_count = 0
       end
 
-    else
+    else # TEMPLATE_OPEN_FUNC_TOGGLE == false
+      
       if @category_name != nil and @subcategory_name != nil
         @temps = Temp.all(:category => @category_name, :subcategory => @subcategory_name).search(params[:search], params[:page])
       elsif @category_name != nil
@@ -44,6 +53,7 @@ class TempsController < ApplicationController
         @temps = Temp.all.search(params[:search], params[:page])      
       end
       @total_count = Temp.search(params[:search],"").count      
+      
     end
     
     @categories = Category.all(:order => :priority)    

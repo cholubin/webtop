@@ -105,17 +105,8 @@ end%>
 			    	end
 
 	      			if signed_in?
-						if TEMPLATE_OPEN_FUNC_TOGGLE == true
 					%>
-							<%= @temps.isopen(current_user.userid).search(params[:search], params[:page]).pager.to_html "/temps?category_name=#{params[:category_name]}&subcategory_name=#{params[:subcategory_name]}&search=#{params[:search]}" %>
-							
-						<%
-						else
-						%>
-							<%= @temps.search(params[:search], params[:page]).pager.to_html "/temps?category_name=#{params[:category_name]}&subcategory_name=#{params[:subcategory_name]}&search=#{params[:search]}" %>
-						<%
-						end
-						%>
+							<%= @temps.pager.to_html "/temps?category_name=#{params[:category_name]}&subcategory_name=#{params[:subcategory_name]}&search=#{params[:search]}" %>
 					<%
 					end
 					%>				

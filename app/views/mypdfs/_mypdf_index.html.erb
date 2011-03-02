@@ -110,9 +110,7 @@ end%>
 				<tr height="20">
 					<td width="546" align="left">
 						<div class="pager">
-							<% if @mypdfs.count > 0 %>
 							<%= @mypdfs.pager.to_html "/mypdfs?search=#{params[:search]}" %>
-							<% end %>
 						</div>
 					</td>
 				</tr>

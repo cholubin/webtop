@@ -518,15 +518,22 @@ class MytemplatesController < ApplicationController
 
       puts_message "creating PDF file!!!"
       time_after_600_seconds = Time.now + 600.seconds     
+      
+      pid = `ps -c -eo pid,comm | grep MLayout`.to_s
+      pid = pid.gsub(/MLayout 2/,'').gsub(' ', '')
+      
       while Time.now < time_after_600_seconds
-        break if File.exists?(job_done)
+        break if File.exists?(job_done) or pid == ""
       end
       
       if !File.exists?(job_done)
-        pid = `ps -c -eo pid,comm | grep MLayout`.to_s
-        pid = pid.gsub(/MLayout 2/,'').gsub(' ', '')
-        system "kill #{pid}"     
-        puts_message "MLayout was killed!!!!! ============"
+        if pid != "" 
+          system "kill #{pid}"     
+          puts_message "MLayout was killed!!!!! ============"
+        else
+          puts_message "MLayout was lock downed ! ============"
+        end
+        
       else
         puts_message "There is job done file of PDF file making!"
       end

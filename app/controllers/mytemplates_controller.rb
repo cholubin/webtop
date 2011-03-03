@@ -113,7 +113,7 @@ class MytemplatesController < ApplicationController
     @mytemplate = Mytemplate.first(:file_filename => params[:id] + ".mlayoutP.zip", :user_id => current_user.id)   
     erase_job_done_file(@mytemplate)       
     return_value = check_job_done_and_publish(@mytemplate, press_mark) 
-    if return_value = "success"
+    if return_value == "success"
       close_document(@mytemplate)  
       erase_job_done_file(@mytemplate)
       move_to_mypdf(@mytemplate)
@@ -142,6 +142,8 @@ class MytemplatesController < ApplicationController
   def check_job_done_and_publish(mytemplate, press_mark)
     puts_message "check_job_done_and_publish start"      
     return_value = publish_mjob(mytemplate, press_mark) 
+    
+    puts_message "return_value" + return_value
     if return_value == "success"
       set_pdf_path(mytemplate)    
       path = mytemplate.path

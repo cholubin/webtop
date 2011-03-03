@@ -116,7 +116,9 @@ class MytemplatesController < ApplicationController
     close_document(@mytemplate)  
     erase_job_done_file(@mytemplate)
     move_to_mypdf(@mytemplate)
-    redirect_to :action => 'index'
+    
+    # redirect_to :action => 'index'
+    render :text => "success"
   end
 
   def erase_job_done_file(mytemplate)         

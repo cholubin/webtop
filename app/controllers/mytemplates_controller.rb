@@ -517,8 +517,8 @@ class MytemplatesController < ApplicationController
 
 
       puts_message "creating PDF file!!!"
-      time_after_180_seconds = Time.now + 180.seconds     
-      while Time.now < time_after_180_seconds
+      time_after_600_seconds = Time.now + 600.seconds     
+      while Time.now < time_after_600_seconds
         break if File.exists?(job_done)
       end
       

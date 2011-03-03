@@ -112,13 +112,18 @@ class MytemplatesController < ApplicationController
     
     @mytemplate = Mytemplate.first(:file_filename => params[:id] + ".mlayoutP.zip", :user_id => current_user.id)   
     erase_job_done_file(@mytemplate)       
-    check_job_done_and_publish(@mytemplate, press_mark) 
-    close_document(@mytemplate)  
-    erase_job_done_file(@mytemplate)
-    move_to_mypdf(@mytemplate)
+    return_value = check_job_done_and_publish(@mytemplate, press_mark) 
+    if return_value = "success"
+      close_document(@mytemplate)  
+      erase_job_done_file(@mytemplate)
+      move_to_mypdf(@mytemplate)
+      
+      render :text => "success"
+    else
+      render :text => "fail"
+    end
     
-    # redirect_to :action => 'index'
-    render :text => "success"
+    
   end
 
   def erase_job_done_file(mytemplate)         
@@ -136,12 +141,21 @@ class MytemplatesController < ApplicationController
 
   def check_job_done_and_publish(mytemplate, press_mark)
     puts_message "check_job_done_and_publish start"      
-    publish_mjob(mytemplate, press_mark) 
-    set_pdf_path(mytemplate)    
-    path = mytemplate.path
+    return_value = publish_mjob(mytemplate, press_mark) 
+    if return_value == "success"
+      set_pdf_path(mytemplate)    
+      path = mytemplate.path
+      
+      puts_message "check_job_done_and_publish end"      
+      return "success"
+    else
+      return "fail"
+    end
     # closing a doc right after generating pdf throws mlayout error
     # close_document(mytemplate)
-    puts_message "check_job_done_and_publish end"      
+    
+    
+    
   end
     
   def move_to_mypdf(mytemplate)
@@ -536,11 +550,13 @@ class MytemplatesController < ApplicationController
           puts_message "MLayout was lock downed ! ============"
         end
         
+        return "fail"
       else
         puts_message "There is job done file of PDF file making!"
+        set_pdf_path(mytemplate)
+        return "success"
       end
-            
-      set_pdf_path(mytemplate)
+      
       puts_message "publish_mjob end"               
     end    
 

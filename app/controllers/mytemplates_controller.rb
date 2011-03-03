@@ -538,6 +538,7 @@ class MytemplatesController < ApplicationController
       while Time.now < time_after_600_seconds
         pid = `ps -c -eo pid,comm | grep MLayout`.to_s
         pid = pid.gsub(/MLayout 2/,'').gsub(' ', '')
+        puts pid.to_s
         
         break if File.exists?(job_done) or pid == ""
       end

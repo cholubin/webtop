@@ -535,10 +535,10 @@ class MytemplatesController < ApplicationController
       puts_message "creating PDF file!!!"
       time_after_600_seconds = Time.now + 600.seconds     
       
-      pid = `ps -c -eo pid,comm | grep MLayout`.to_s
-      pid = pid.gsub(/MLayout 2/,'').gsub(' ', '')
-      
       while Time.now < time_after_600_seconds
+        pid = `ps -c -eo pid,comm | grep MLayout`.to_s
+        pid = pid.gsub(/MLayout 2/,'').gsub(' ', '')
+        
         break if File.exists?(job_done) or pid == ""
       end
       
